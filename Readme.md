@@ -92,7 +92,7 @@ defineOptions({ name: "ue-button" })
 
 ###### 5.1 按需加载导出
 
-要将 button 组件按需导出，需要在 components/index.js 文件中引入 components/button/index.js文件，在 components/button/index.js 文件中引入 components/button/src/index.vue 文件，并提供按需加载的方式，最后使用 export default 导出。
+要将 button 组件按需导出，需要在 components/index.js 文件中引入 components/button/index.js文件，在 components/button/index.js 文件中引入 components/button/src/index.vue 文件，并提供按需加载的方式，最后使用 export default 导出。缺点是需要用到该组件的时候，每次都需要 import 一下，有不少重复语句。
 
 ```javascript
 // components/button/index.js
@@ -129,6 +129,52 @@ export const componentInstall = (com) => {
 ```
 
 ###### 5.2 全局注册导出
+
+全局注册导出组件同样是所有组件汇聚到一个文件，使用循环的方式批量注册组件。
+
+```javascript
+// packages/components.js
+import { UeButton } from "./components/button/index.js"
+
+export default [
+    UeButton
+]
+```
+
+```javascript
+// packages/index.js
+// 组件库的入口文件
+// 按需加载
+export * from "./components/index.js";
+
+// 全局注册
+import components from "./components.js"
+// 全局安装
+const install = function (app) {
+    if (install.installed) return;
+    // 安装组件
+    components.forEach((comp) => {
+        app.use(comp);
+    });
+}
+
+export default install
+```
+
+##### 6. 演示库测试Button组件
+
+###### 6.1 全局注册
+
+全局注入是最常见的一种方法，一次注入，任意位置使用。但是会增加项目的整体体积。
+
+```javascript
+// example/src/main.js
+
+```
+
+```javascript
+// example/src/App.vue
+```
 
 
 
