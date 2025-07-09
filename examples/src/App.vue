@@ -1,7 +1,8 @@
-<script setup></script>
+<script setup>
+import { UeButton } from "../../packages"
+</script>
 
 <template>
-  123
   <ue-button></ue-button>
 </template>
 

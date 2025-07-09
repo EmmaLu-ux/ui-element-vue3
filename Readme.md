@@ -169,12 +169,43 @@ export default install
 
 ```javascript
 // example/src/main.js
+import { createApp } from 'vue'
+import App from './App.vue'
+import UElement from "../../packages/index"
 
+const app = createApp(App)
+app.use(UElement)
+app.mount('#app')
 ```
 
-```javascript
-// example/src/App.vue
+```vue
+<!-- example/src/App.vue -->
+<script setup></script>
+<template>
+  123
+  <ue-button></ue-button>
+</template>
+<style scoped></style>
 ```
+
+###### 6.2 按需加载
+
+按需加载可以减小项目的整体体积，提升性能。无需像全局注册那样在 main.js 文件中全局注册。
+
+```vue
+<!-- example/src/App.vue -->
+<script setup>
+import { UeButton } from "../../packages/components/button"
+</script>
+
+<template>
+  <ue-button></ue-button>
+</template>
+
+<style scoped></style>
+```
+
+
 
 
 
