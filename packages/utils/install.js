@@ -1,0 +1,18 @@
+/**
+ * 安装组件
+ * @param {Object} com - 需要添加安装功能的 Vue 组件对象，会自动获取组件内的 name 属性
+ * @returns {Object} 返回处理后的组件对象，带有 install 方法
+ * @example
+ const MyComponent = {
+    name: 'MyComponent',
+   }
+  export default componentInstall(MyComponent);
+  // 然后在主文件中可以这样使用
+  // app.use(MyComponent);
+ */
+export const componentInstall = (com) => {
+    com.install = (app) => { // app是要注册的组件
+        app.component(com.name, com);
+    }
+    return com;
+}

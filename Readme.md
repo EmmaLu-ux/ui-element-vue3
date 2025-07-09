@@ -74,7 +74,7 @@ packages:
 
 ##### 5. 构建Button组件
 
-<img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_09_14_32_03_1752042723_1752042723738_cID4A5_SCR-20250709-mxmg.png" alt="SCR-20250709-mxmg" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_09_15_48_09_1752047289_1752047289810_pfAWp2_image-20250709154808599.png" alt="image-20250709154808599" style="zoom:33%;" />
 
 ```vue
 <!-- index.vue -->
@@ -90,11 +90,55 @@ defineOptions({ name: "ue-button" })
 
 ```
 
-按需加载导出
+###### 5.1 按需加载导出
+
+要将 button 组件按需导出，需要在 components/index.js 文件中引入 components/button/index.js文件，在 components/button/index.js 文件中引入 components/button/src/index.vue 文件，并提供按需加载的方式，最后使用 export default 导出。
+
+```javascript
+// components/button/index.js
+import { componentInstall } from "@ui-element-vue3/utils";
+import Button from "./src/button.vue";
+
+// 按需加载
+export const UeButton = componentInstall(Button);
+
+// 导出组件
+export default UeButton
+```
+
+```javascript
+// utils/install.js
+/**
+ * 安装组件
+ * @param {Object} com - 需要添加安装功能的 Vue 组件对象，会自动获取组件内的 name 属性
+ * @returns {Object} 返回处理后的组件对象，带有 install 方法
+ * @example
+ const MyComponent = {
+    name: 'MyComponent',
+   }
+  export default componentInstall(MyComponent);
+  // 然后在主文件中可以这样使用
+  // app.use(MyComponent);
+ */
+export const componentInstall = (com) => {
+    com.install = (app) => { // app是要注册的组件
+        app.component(com.name, com);
+    }
+    return com;
+}
+```
+
+###### 5.2 全局注册导出
 
 
 
-全局导出
+
+
+
+
+
+
+
 
 
 
