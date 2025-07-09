@@ -1,0 +1,4 @@
+packages:
+  - docs。 #组件文档
+  - examples # 组件测试代码
+  - packages/* # 组件包
