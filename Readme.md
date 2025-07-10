@@ -205,11 +205,24 @@ import { UeButton } from "../../packages/components/button"
 <style scoped></style>
 ```
 
+#### UI组件开发
 
+##### 1. UI组件库元素规范
 
+UI组件库元素规范模仿市面上不错的现有组件库，如：Element Plus、Ant Design、Mantine等
 
+##### 2. CSS规范
 
+BEM 命名规则：Block（块）、Element（元素）、Modifier（修改器）。命名格式：
 
+```
+block-name__<element-name>--<modifier-name>_<modifier-value>
+```
+
+- `a-button--size_small`： 样式作用于a-button 组件，而不是其内部其他元素，a-button 的 size 设置为 small 
+- `a-tabs--size_small`： a-tabs 组件内还有一层元素，该元素的 size 设置为 small 
+
+##### 3. 命明空间
 
 
 

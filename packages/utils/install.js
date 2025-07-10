@@ -11,7 +11,8 @@
   // app.use(MyComponent);
  */
 export const componentInstall = (com) => {
-    com.install = (app) => { // app是要注册的组件
+    console.log('componentInstall', com, app);
+    com.install = (app) => { // app是组件本身
         app.component(com.name, com);
     }
     return com;
