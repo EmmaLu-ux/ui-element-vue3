@@ -226,21 +226,31 @@ block-name__<element-name>--<modifier-name>_<modifier-value>
 
 
 
+##### 4. 主题颜色
 
 
 
+##### 5. button组件样式
+
+按钮类型：default、primary、light、outline、subtle/text、dashed、link、Gradient*
+
+| 按钮类型  | 按钮默认样式                                                 | 鼠标悬浮样式                                                 |
+| --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| deafult   | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_39_16_1752129556_1752129556240_vU0vHI_image-20250710143915628.png" alt="image-20250710143915628" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_51_47_1752130307_1752130307210_wyV15B_image-20250710145146873.png" alt="image-20250710145146873" style="zoom:40%;" /> |
+| primary   | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_40_05_1752129605_1752129605513_BNuHIA_image-20250710144005241.png" alt="image-20250710144005241" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_51_09_1752130269_1752130269973_xIN8I6_image-20250710145109818.png" alt="image-20250710145109818" style="zoom:40%;" /> |
+| light     | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_49_41_1752130181_1752130181832_xXNSsq_image-20250710144941621.png" alt="image-20250710144941621" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_50_03_1752130203_1752130203748_ZL0mD6_image-20250710145003603.png" alt="image-20250710145003603" style="zoom:40%;" /> |
+| outline   | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_48_28_1752130108_1752130108748_Rypkkb_image-20250710144828534.png" alt="image-20250710144828534" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_48_55_1752130135_1752130135513_nFYtDN_image-20250710144855297.png" alt="image-20250710144855297" style="zoom:40%;" /> |
+| subtle    | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_46_14_1752129974_1752129974002_fzr7RS_image-20250710144613749.png" alt="image-20250710144613749" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_46_41_1752130001_1752130001919_TQoC0E_image-20250710144641654.png" alt="image-20250710144641654" style="zoom:40%;" /> |
+| dashed    | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_15_11_08_1752131468_1752131468242_mtzo3e_image-20250710151107943.png" alt="image-20250710151107943" style="zoom:40%;" /> |                                                              |
+| Link      | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_15_11_45_1752131505_1752131505643_Bpagk0_image-20250710151145325.png" alt="image-20250710151145325" style="zoom:40%;" /> |                                                              |
+| Gradient* | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_53_53_1752130433_1752130433588_tqOpbT_image-20250710145353277.png" alt="image-20250710145353277" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_54_19_1752130459_1752130459834_IUW9ah_image-20250710145419683.png" alt="image-20250710145419683" style="zoom:40%;" /> |
 
 
 
+<img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_15_21_05_1752132065_1752132065713_ZMRTo9_image-20250710152105554.png" alt="image-20250710152105554" style="zoom:40%;" />
 
 
 
+##### 6. 自动触发加载
 
-
-
-
-
-
-
-
-
+自动触发加载属于一种业务类型的操作，根据API接口请求的过程实现loading加载的自动变更，无需手动改变状态。

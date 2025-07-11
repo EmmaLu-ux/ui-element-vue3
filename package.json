@@ -11,8 +11,12 @@
   "license": "ISC",
   "packageManager": "pnpm@10.11.1",
   "dependencies": {
-    "@ui-element-vue3/utils": "workspace:*",
+    "@ui-element-vue3/components": "workspace:*",
     "@ui-element-vue3/hooks": "workspace:*",
-    "@ui-element-vue3/components": "workspace:*"
+    "@ui-element-vue3/theme": "workspace:*",
+    "@ui-element-vue3/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "sass": "^1.89.2"
   }
 }

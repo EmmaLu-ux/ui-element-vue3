@@ -1,35 +1,88 @@
 <script setup>
+import { ref, computed } from "vue"
 import { useNamespace } from "@ui-element-vue3/hooks"
 
+const emits = defineEmits(["click"])
 const ns = useNamespace("button")
-console.log(ns.e("label"))
 
 const props = defineProps({
+  type: {
+    type: String,
+    default: "",
+  },
+  round: Boolean,
+  disabled: Boolean,
+  block: Boolean,
   size: {
     type: String,
-    default: "default",
+    default: "sm", // sm, md, lg, xl
   },
-  disabled: Boolean,
+  circle: Boolean,
+  prefix: {
+    type: String,
+    default: "",
+  },
+  suxfix: {
+    type: String,
+    default: "",
+  },
   loading: Boolean,
+  beforeChange: Function,
 })
-
 defineOptions({
   name: "ue-button",
 })
+
+const _loading = ref(false)
+const isLoading = computed(() => props.loading || _loading.value)
+const handleEvent = e => {
+  const isFunction =
+    Object.prototype.toString.call(props.beforeChange) === "[object Function]"
+  console.log("isFunction", isFunction)
+  if (!isFunction) {
+    emits("click", e)
+    return
+  }
+  _loading.value = true
+  props
+    .beforeChange()
+    .then(() => {
+      _loading.value = false
+      console.log("success")
+    })
+    .catch(() => {
+      _loading.value = false
+      console.log("error")
+    })
+}
 </script>
 
 <template>
-  <div
+  <button
+    :disabled="disabled"
     :class="[
       ns.b(),
+      ns.m(type),
+      ns.is('round', round),
+      ns.is('disabled', isLoading || disabled),
+      ns.is('block', block),
       ns.m('size', size),
-      ns.is('disabled', disabled),
-      ns.is('loading', loading),
-    ]">
-    999
-    <div :class="[ns.e('label')]"></div>
-    <div :class="[ns.e('content')]"></div>
-  </div>
+      ns.is('circle', circle),
+    ]"
+    @click="handleEvent">
+    <i
+      v-if="isLoading"
+      class="iconfont icon-loading is-loading-transition"
+      :class="[ns.is('loading', loading)]"></i>
+    <i
+      v-if="!isLoading && prefix"
+      class="iconfont"
+      :class="[ns.e('icon'), prefix]"></i>
+    <span>
+      <slot></slot>
+    </span>
+    <i v-if="suxfix" class="iconfont" :class="[ns.e('icon'), suxfix]"></i>
+  </button>
 </template>
 
 <style lang="scss" scoped></style>

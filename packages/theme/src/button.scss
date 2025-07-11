@@ -1,0 +1,179 @@
+.ue-button {
+  display: inline-flex;
+  background-color: #fff;
+  height: 36px;
+  min-width: 80px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ced4da;
+  padding: 0 18px;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  word-break: keep-all;
+  user-select: none;
+  outline: none;
+  column-gap: 4px;
+  span {
+    line-height: 1;
+  }
+  .ue-button__icon {
+    font-size: 1em; // 父元素的1倍
+  }
+  &.is-round {
+    border-radius: 100px;
+  }
+  &:hover {
+    background-color: #f8f9fa;
+  }
+  &.is-disabled {
+    background-color: #eaecee;
+    color: #acb5bd;
+    border-color: #eaecee;
+    cursor: not-allowed;
+  }
+  &.is-block {
+    width: 100%;
+    display: block;
+  }
+  //   &.ue-button--size_sm {
+  //   }
+  &.ue-button--size_md {
+    height: 42px;
+    padding: 0 22px;
+    font-size: 16px;
+    &.is-circle {
+      min-width: 42px;
+      height: 42px;
+    }
+  }
+  &.ue-button--size_lg {
+    height: 50px;
+    padding: 0 26px;
+    font-size: 18px;
+    &.is-circle {
+      min-width: 50px;
+      height: 50px;
+    }
+  }
+  &.ue-button--size_xl {
+    height: 60px;
+    padding: 0 32px;
+    font-size: 20px;
+    &.is-circle {
+      min-width: 60px;
+      height: 60px;
+    }
+  }
+  &.is-circle {
+    min-width: 36px;
+    height: 36px;
+    border-radius: 100px;
+    padding: 0;
+    span {
+      display: none;
+    }
+  }
+}
+.ue-button--primary {
+  background-color: #238be6;
+  color: #fff;
+  border-color: #238be6;
+  &:hover {
+    background-color: #1c7ed8;
+    border-color: #1c7ed8;
+    color: #fff;
+  }
+  &.is-disabled {
+    background-color: #eaecee;
+    color: #acb5bd;
+    border-color: #eaecee;
+    cursor: not-allowed;
+  }
+}
+.ue-button--light {
+  background-color: #e6f4ff;
+  color: #238be6;
+  border-color: #e6f4ff;
+  &:hover {
+    background-color: #e1f2ff;
+  }
+  &.is-disabled {
+    background-color: #eaecee;
+    color: #acb5bd;
+    border-color: #eaecee;
+    cursor: not-allowed;
+  }
+}
+.ue-button--outline {
+  background-color: #fff;
+  color: #238be6;
+  border-color: #238be6;
+  &:hover {
+    background-color: #f7fbfe;
+  }
+  &.is-disabled {
+    &,
+    &:hover,
+    &:focus {
+      color: #acb5bd;
+      background-color: #eaecee;
+    }
+  }
+}
+.ue-button--dashed {
+  background-color: #fff;
+  color: #238be6;
+  border-color: #238be6;
+  border-style: dashed;
+  &:hover {
+    background-color: #f7fbfe;
+  }
+  &.is-disabled {
+    color: #acb5bd;
+  }
+}
+.ue-button--subtle {
+  background-color: transparent;
+  color: #238be6;
+  border-color: transparent;
+  &:hover {
+    background-color: #e6f4ff;
+    border-color: #e6f4ff;
+    color: #238be6;
+  }
+  &.is-disabled {
+    &,
+    &:hover,
+    &:focus {
+      background-color: transparent;
+      border-color: transparent;
+      color: #acb5bd;
+      cursor: not-allowed;
+    }
+  }
+}
+.ue-button--link {
+  height: auto;
+  min-width: auto;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: #238be6;
+  border-color: transparent;
+  &:hover {
+    color: #1c7dd8a9;
+    background-color: transparent;
+  }
+  &.is-disabled {
+    background-color: transparent;
+    color: #acb5bd;
+    border-color: #fff;
+    cursor: not-allowed;
+  }
+}
