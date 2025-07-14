@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue"
+import { ref, computed, inject } from "vue"
 import { useNamespace } from "@ui-element-vue3/hooks"
 
 const emits = defineEmits(["click"])
@@ -32,6 +32,8 @@ const props = defineProps({
 defineOptions({
   name: "ue-button",
 })
+
+const buttonGroup = inject("buttonGroupKey", undefined)
 
 const _loading = ref(false)
 const isLoading = computed(() => props.loading || _loading.value)
@@ -66,7 +68,7 @@ const handleEvent = e => {
       ns.is('round', round),
       ns.is('disabled', isLoading || disabled),
       ns.is('block', block),
-      ns.m('size', size),
+      ns.m('size', buttonGroup?.size?.value || size),
       ns.is('circle', circle),
     ]"
     @click="handleEvent">

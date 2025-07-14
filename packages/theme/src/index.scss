@@ -1,2 +1,15 @@
+@use "./common/var.scss" as *;
+@use "./common/mixins.scss" as *;
 @use "./isLoading.scss";
 @use "./button.scss";
+@use "./buttonGroup.scss";
+@use "./common/config.scss";
+
+// @include set-component-css-var("common", $common);
+:root {
+  @include set-main-color(); // 生成主题色
+  @include set-main-light-color(); // 生成层次色
+  @include set-global-var();
+  // --ue-color-white: #{$color-white};
+  // --ue-color-primary: #{$color-primary};
+}

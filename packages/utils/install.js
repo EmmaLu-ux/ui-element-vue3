@@ -11,7 +11,7 @@
   // app.use(MyComponent);
  */
 export const componentInstall = (com) => {
-    console.log('componentInstall', com, app);
+    // console.log('componentInstall', com, app);
     com.install = (app) => { // app是组件本身
         app.component(com.name, com);
     }

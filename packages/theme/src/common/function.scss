@@ -1,0 +1,18 @@
+@use "./config.scss" as *;
+
+// 生成root变量的名称
+@function createVarName($list) {
+  // @debug $list;
+  $name: "--" + $namespace;
+
+  @each $item in $list {
+    @if $item != "" {
+      $name: $name + "-" + $item;
+    }
+  }
+  @return $name;
+}
+// 获取root的变量名称
+@function getVarName($args...) {
+  @return createVarName(($args));
+}

@@ -1,0 +1,86 @@
+@use "sass:map";
+@use "sass:color";
+
+$types: primary, success, warning, error;
+// 主题色变更
+$colors: () !default;
+// 主题色
+$colors: map.deep-merge(
+  (
+    "white": #ffffff,
+    "black": #000000,
+    "primary": (
+      "base": #238be6,
+    ),
+    "warning": (
+      "base": #fcc418,
+    ),
+    "success": (
+      "base": #22c997,
+    ),
+    "error": (
+      "base": #ff6b6b,
+    ),
+  ),
+  $colors
+);
+
+$color-white: map.get($colors, "white");
+
+// 文字颜色
+$text-color: () !default;
+$text-color: map.deep-merge(
+  (
+    "primary": #000,
+  ),
+  $text-color
+);
+// 字体大小
+$font-size: () !default;
+$font-size: map.deep-merge(
+  (
+    "sm": 14px,
+    "md": 16px,
+    "lg": 18px,
+    "xl": 20px,
+  ),
+  $font-size
+);
+// 控件大小
+$component-size: () !default;
+$component-size: map.deep-merge(
+  (
+    "sm": 36px,
+    "md": 42px,
+    "lg": 50px,
+    "xl": 60px,
+  ),
+  $component-size
+);
+// 生成主题层次色
+@mixin set-light-color($type, $number, $mode, $mix-color) {
+  $colors: map.deep-merge(
+    (
+      $type: (
+        "base": "#238BE6",
+        "#{$mode}-#{$number}":
+          color.mix($mix-color, map.get($colors, $type, "base"), $number * 10%),
+      ),
+    ),
+    $colors
+  ) !global;
+}
+@each $type in $types {
+  @for $i from 1 through 9 {
+    @include set-light-color($type, $i, "light", $color-white);
+  }
+}
+
+@debug map.get($colors, "primary");
+$color-primary: map.get($colors, "primary", "base");
+
+$global: (
+  "text-color": $text-color,
+  "font-size": $font-size,
+  "component-size": $component-size,
+);

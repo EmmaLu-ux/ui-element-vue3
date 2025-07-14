@@ -254,3 +254,272 @@ block-name__<element-name>--<modifier-name>_<modifier-value>
 ##### 6. 自动触发加载
 
 自动触发加载属于一种业务类型的操作，根据API接口请求的过程实现loading加载的自动变更，无需手动改变状态。
+
+#### SASS制定组件库全局变量
+
+##### 1. 主题色、主题色层次、中性色及其他颜色定义
+
+为了主题色能够复用，需要将主题色、尺寸、大小等公共属性抽离到单独的文件，作为变量的形式引用，使 UI 组件库根据变量的变化而变化。
+
+sass:map 是 Sass 提供的一种数据结构 map，用于存储键值对。Sass 的 map 常常被称为数据地图，因为他总是以 key:value 成对的出现，Sass 的 map 与 JSON 相似。它类似于其他语言中的字典或哈希表。
+
+```scss
+// packages/theme/src/common/var.scss
+@use "sass:map";
+@use "sass:color";
+
+$types: primary, success, warning, error;
+// 主题色变更
+$colors: () !default;
+// 主题色
+$colors: map.deep-merge(
+  (
+    "white": #ffffff,
+    "black": #000000,
+    "primary": (
+      "base": #238be6,
+    ),
+    "warning": (
+      "base": #fcc418,
+    ),
+    "success": (
+      "base": #22c997,
+    ),
+    "error": (
+      "base": #ff6b6b,
+    ),
+  ),
+  $colors
+);
+
+$color-white: map.get($colors, "white");
+
+// 文字颜色
+$text-color: () !default;
+$text-color: map.deep-merge(
+  (
+    "primary": #000,
+  ),
+  $text-color
+);
+// 字体大小
+$font-size: () !default;
+$font-size: map.deep-merge(
+  (
+    "sm": 14px,
+    "md": 16px,
+    "lg": 18px,
+    "xl": 20px,
+  ),
+  $font-size
+);
+// 控件大小
+$component-size: () !default;
+$component-size: map.deep-merge(
+  (
+    "sm": 36px,
+    "md": 42px,
+    "lg": 50px,
+    "xl": 60px,
+  ),
+  $component-size
+);
+// 生成主题层次色
+@mixin set-light-color($type, $number, $mode, $mix-color) {
+  $colors: map.deep-merge(
+    (
+      $type: (
+        "base": "#238BE6",
+        "#{$mode}-#{$number}":
+          color.mix($mix-color, map.get($colors, $type, "base"), $number * 10),
+      ),
+    ),
+    $colors
+  ) !global;
+}
+@each $type in $types {
+  @for $i from 1 through 9 {
+    @include set-light-color($type, $i, "light", $color-white);
+  }
+}
+
+@debug map.get($colors, "primary");
+$color-primary: map.get($colors, "primary", "base");
+```
+
+##### 2. :root伪类选择器
+
+:root 伪类可以定义 CSS 全局变量，通过 var 使用定义的全局变量。我们可以通过手动定义变量的方式去给组件赋予样式，但效率特慢，尤其是“层次”颜色，数量会有几十种。因此推荐采用自动生成的方式来处理，如 Sass 的合并、混入、mix 等方法。
+
+```scss
+// packages/theme/src/index.scss
+@use "./common/var.scss" as *;
+@use "./isLoading.scss";
+@use "./button.scss";
+@use "./buttonGroup.scss";
+@use "./common/config.scss";
+
+:root {
+  --ue-color-white: #{$color-white};
+  --ue-color-primary: #{$color-primary};
+}
+```
+
+定义“主色”、“层次色”等变量需要规划成统一格式，如 "--ue" 中的 “ue” 是整个 UI 组件库的前缀，这是前期就定义好的，因此现在也需要定义相同的规则。
+
+```scss
+// packages/theme/src/config.scss
+// 定义的变量与hook/use-namespace的命名规则完全一致，全包UI组件库定义CSS类名规则的统一性
+$namespace: "ue" !default; // 前缀
+$connect: "-" !default; // 块、子集
+$element-connect: "__" !default; // 元素
+$modifier-connect: "--" !default; // 修改器
+$modifier-value-connect: "_" !default; // 修改器的值
+$state-prefix: "is" !default; // 状态前缀
+
+// packages/theme/src/function.scss
+@use "./config.scss" as *;
+
+// 生成主题色变量
+@function createVarName($list) {
+  $name: "--" + $namespace;
+  @each $item in $list {
+    @if $item != "" {
+      $name: $name + "-" + $item;
+    }
+  }
+  @return $name;
+}
+
+// packages/theme/src/mixins.scss
+@use "sass:map";
+@use "./function.scss" as *;
+@use "./var.scss" as *;
+// 生成主题色
+@mixin set-main-color() {
+  @each $type in $types {
+    $color: map.get($colors, $type, "base");
+    #{createVarName(('color', $type))}: #{$color};
+  }
+}
+// 生成层次色
+@mixin set-main-light-color() {
+  @each $type in $types {
+    @for $i from 1 through 9 {
+      $color: map.get($colors, $type, "light-" + $i);
+      #{createVarName(('color', $type, 'light', $i))}: #{$color}; // --ue-color-primary-light-1
+    }
+  }
+}
+
+// packages/theme/src/index.scss
+@use "./common/var.scss" as *;
+@use "./common/mixins.scss" as *;
+@use "./isLoading.scss";
+@use "./button.scss";
+@use "./buttonGroup.scss";
+@use "./common/config.scss";
+
+:root {
+  @include set-main-color(); // 生成主题色
+  @include set-main-light-color(); // 生成层次色
+}
+```
+
+:root 目前生成了大量的全局变量，此时可以直接使用变量名称。但如果直接这么使用，还是要写 “--a” 前缀，如果变量名称非常多的情况下，可能无法知道有哪些可以使用。因此，可以定义方法通过传参的方式来获取 :root 的变量名称。
+
+```scss
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##### 6. UI组件库全局规划
+
+
+
+##### 7. UI组件库规范应用
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

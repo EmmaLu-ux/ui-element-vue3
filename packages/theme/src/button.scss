@@ -1,3 +1,4 @@
+@use "./common/function.scss" as *;
 .ue-button {
   display: inline-flex;
   background-color: #fff;
@@ -81,9 +82,10 @@
   }
 }
 .ue-button--primary {
-  background-color: #238be6;
+  $var: getVarName("color", "primary");
+  background-color: var(#{$var});
   color: #fff;
-  border-color: #238be6;
+  border-color: var(#{$var});
   &:hover {
     background-color: #1c7ed8;
     border-color: #1c7ed8;
@@ -98,7 +100,7 @@
 }
 .ue-button--light {
   background-color: #e6f4ff;
-  color: #238be6;
+  color: var(--ue-color-primary);
   border-color: #e6f4ff;
   &:hover {
     background-color: #e1f2ff;
@@ -112,8 +114,8 @@
 }
 .ue-button--outline {
   background-color: #fff;
-  color: #238be6;
-  border-color: #238be6;
+  color: var(--ue-color-primary);
+  border-color: var(--ue-color-primary);
   &:hover {
     background-color: #f7fbfe;
   }
@@ -128,8 +130,8 @@
 }
 .ue-button--dashed {
   background-color: #fff;
-  color: #238be6;
-  border-color: #238be6;
+  color: var(--ue-color-primary);
+  border-color: var(--ue-color-primary);
   border-style: dashed;
   &:hover {
     background-color: #f7fbfe;
@@ -140,12 +142,12 @@
 }
 .ue-button--subtle {
   background-color: transparent;
-  color: #238be6;
+  color: var(--ue-color-primary);
   border-color: transparent;
   &:hover {
     background-color: #e6f4ff;
     border-color: #e6f4ff;
-    color: #238be6;
+    color: var(--ue-color-primary);
   }
   &.is-disabled {
     &,
@@ -164,7 +166,7 @@
   padding: 0;
   border: none;
   background-color: transparent;
-  color: #238be6;
+  color: var(--ue-color-primary);
   border-color: transparent;
   &:hover {
     color: #1c7dd8a9;

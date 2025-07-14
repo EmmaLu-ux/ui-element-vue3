@@ -9,6 +9,7 @@ const _bem = (namespace, block, element, modifierArr, modifierValue) => {
     // modifier
     modifierArr && (classname += `--${modifierArr}`)
     modifierValue && (classname += `_${modifierValue}`)
+    // if (modifierArr || modifierValue) console.log('modifierArr, modifierValue', modifierArr, modifierValue)
     return classname
 }
 

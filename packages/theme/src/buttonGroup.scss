@@ -1,0 +1,16 @@
+.ue-button-group {
+  .ue-button:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .ue-button:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .ue-button:not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
+  .ue-button + .ue-button {
+    margin-left: -1px;
+  }
+}
