@@ -1,5 +1,8 @@
 @use "./common/function.scss" as *;
+@use "./common/mixins.scss" as *;
+@use "./common/componentVar.scss" as *;
 .ue-button {
+  @include set-component-var("button", buttonVars());
   display: inline-flex; // 元素在一行内显示并具有弹性布局特性
   background-color: #fff;
   height: 36px;

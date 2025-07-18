@@ -3,11 +3,11 @@
 // 生成root变量的名称
 @function createVarName($list) {
   // @debug $list;
-  $name: "--" + $namespace;
+  $name: "--" + $namespace; // --ue
 
   @each $item in $list {
     @if $item != "" {
-      $name: $name + "-" + $item;
+      $name: $name + "-" + $item; // --ue-border-color-default
     }
   }
   @return $name;

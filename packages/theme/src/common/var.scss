@@ -1,3 +1,4 @@
+// 全局变量
 @use "sass:map";
 @use "sass:color";
 
@@ -31,7 +32,15 @@ $color-white: map.get($colors, "white");
 $text-color: () !default;
 $text-color: map.deep-merge(
   (
-    "primary": #000,
+    "primary": #303133,
+    // regular text
+    "light-1": #606266,
+    // secondary text
+    "light-2": #909399,
+    // placeholder text
+    "light-3": #a8abb2,
+    // disabled text
+    "light-4": #c0c4cc,
   ),
   $text-color
 );
@@ -57,14 +66,38 @@ $component-size: map.deep-merge(
   ),
   $component-size
 );
+// 边框颜色
+$border-color: () !default;
+$border-color: map.deep-merge(
+  (
+    "default": #ced4da,
+    "primary": map.get($colors, "primary", "base"),
+  ),
+  $border-color
+);
+$bg-color: () !default;
+$bg-color: map.deep-merge(
+  (
+    "white": #fff,
+  ),
+  $bg-color
+);
+$color: () !default;
+$color: map.deep-merge(
+  (
+    "white": $color-white,
+    "black": #000000,
+  ),
+  $color
+);
 // 生成主题层次色
 @mixin set-light-color($type, $number, $mode, $mix-color) {
   $colors: map.deep-merge(
     (
       $type: (
-        "base": "#238BE6",
         "#{$mode}-#{$number}":
           color.mix($mix-color, map.get($colors, $type, "base"), $number * 10%),
+        // "light-8": rgb(211, 231.8, 250)
       ),
     ),
     $colors
@@ -80,7 +113,10 @@ $component-size: map.deep-merge(
 $color-primary: map.get($colors, "primary", "base");
 
 $global: (
+  "color": $color,
+  "border-color": $border-color,
   "text-color": $text-color,
+  "bg-color": $bg-color,
   "font-size": $font-size,
   "component-size": $component-size,
 );

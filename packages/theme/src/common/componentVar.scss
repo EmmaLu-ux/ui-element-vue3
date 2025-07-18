@@ -1,0 +1,23 @@
+// 组件私有变量
+@use "./function.scss" as *;
+
+@function buttonVars() {
+  $button: (
+    // 默认
+    // --ue-border-color-default
+    "border-color":
+      (
+        "default": getVarName("border-color", "default"),
+      ),
+    "text-color": (
+      "default": getVarName("text-color", "primary"),
+    ),
+    "bg-color": (
+      "default": getVarName("color", "white"),
+    ),
+    // 'disabled-text-color': getVarName(('text-color', 'disabled')),
+    // 'hover-text-color': getVarName(('text-color', 'primary')),
+    // 'active-text-color': getVarName(('text-color', 'primary')),
+  );
+  @return $button;
+}

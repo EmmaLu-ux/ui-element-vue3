@@ -6,7 +6,7 @@
 @mixin set-main-color() {
   @each $type in $types {
     $color: map.get($colors, $type, "base");
-    #{createVarName(('color', $type))}: #{$color};
+    #{createVarName(('color', $type))}: #{$color}; // --ue-color-primary
   }
 }
 // 生成层次色
@@ -19,13 +19,25 @@
   }
 }
 
-// 生成全局的
+// 生成全局的属性
 @mixin set-global-var() {
   @each $key, $value in $global {
     @if $value {
       @each $type, $v in $value {
-        #{createVarName(($key, $type))}: #{$v};
+        #{createVarName(($key, $type))}: #{$v}; // --ue-text-color-primary
       }
+    }
+  }
+}
+
+// 设置组件的变量
+@mixin set-component-var($name, $var, $varKey: "default") {
+  // button, buttonVars(), default
+  @each $key, $val in $var {
+    $varName: getVarName($name, $key); // --ue-button-border-color
+    $val: map.get($var, $key, $varKey);
+    @if ($val) {
+      #{$varName}: var(#{$val});
     }
   }
 }
