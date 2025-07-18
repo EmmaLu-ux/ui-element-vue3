@@ -1,6 +1,7 @@
 @use "./common/function.scss" as *;
+@use "sass:color";
 .ue-button {
-  display: inline-flex;
+  display: inline-flex; // 元素在一行内显示并具有弹性布局特性
   background-color: #fff;
   height: 36px;
   min-width: 80px;
@@ -14,20 +15,33 @@
   box-sizing: border-box;
   font-size: 14px;
   color: #000;
-  font-weight: 600;
+  // font-weight: 600;
   cursor: pointer;
   word-break: keep-all;
   user-select: none;
   outline: none;
   column-gap: 4px;
+  transition: 0.3s;
   span {
     line-height: 1;
   }
-  .ue-button__icon {
-    font-size: 1em; // 父元素的1倍
-  }
+  // .ue-button__icon {
+  //   font-size: 1em; // 父元素的1倍
+  // }
   &.is-round {
     border-radius: 100px;
+  }
+  &.is-subtle {
+    background-color: transparent;
+    border-color: transparent;
+    &:hover {
+      background-color: #f0f0f0;
+      border-color: #f0f0f0;
+    }
+  }
+  &.is-dashed {
+    border-style: dashed;
+    background-color: #fff;
   }
   &:hover {
     background-color: #f8f9fa;
@@ -38,12 +52,34 @@
     border-color: #eaecee;
     cursor: not-allowed;
   }
+  &.is-link {
+    // height: auto;
+    // min-width: auto;
+    // padding: 0;
+    border: none;
+    background-color: transparent;
+    border-color: transparent;
+    &.is-disabled {
+      &,
+      &:hover {
+        background-color: transparent;
+        color: #acb5bd;
+        border-color: transparent;
+      }
+    }
+  }
   &.is-block {
     width: 100%;
-    display: block;
+    display: flex;
   }
-  //   &.ue-button--size_sm {
-  //   }
+  &.is-outline {
+    &,
+    &:hover {
+      background-color: transparent;
+    }
+  }
+  // &.ue-button--size_sm {
+  // }
   &.ue-button--size_md {
     height: 42px;
     padding: 0 22px;
@@ -89,93 +125,199 @@
   &:hover {
     background-color: #1c7ed8;
     border-color: #1c7ed8;
-    color: #fff;
   }
-  &.is-disabled {
-    background-color: #eaecee;
-    color: #acb5bd;
-    border-color: #eaecee;
-    cursor: not-allowed;
-  }
-}
-.ue-button--light {
-  background-color: #e6f4ff;
-  color: var(--ue-color-primary);
-  border-color: #e6f4ff;
-  &:hover {
-    background-color: #e1f2ff;
-  }
-  &.is-disabled {
-    background-color: #eaecee;
-    color: #acb5bd;
-    border-color: #eaecee;
-    cursor: not-allowed;
-  }
-}
-.ue-button--outline {
-  background-color: #fff;
-  color: var(--ue-color-primary);
-  border-color: var(--ue-color-primary);
-  &:hover {
-    background-color: #f7fbfe;
-  }
-  &.is-disabled {
-    &,
-    &:hover,
-    &:focus {
-      color: #acb5bd;
-      background-color: #eaecee;
+  &.is-subtle {
+    color: var(#{$var});
+    &:hover {
+      background-color: #e7f5ff;
+      border-color: #e7f5ff;
     }
   }
-}
-.ue-button--dashed {
-  background-color: #fff;
-  color: var(--ue-color-primary);
-  border-color: var(--ue-color-primary);
-  border-style: dashed;
-  &:hover {
-    background-color: #f7fbfe;
-  }
-  &.is-disabled {
-    color: #acb5bd;
-  }
-}
-.ue-button--subtle {
-  background-color: transparent;
-  color: var(--ue-color-primary);
-  border-color: transparent;
-  &:hover {
-    background-color: #e6f4ff;
-    border-color: #e6f4ff;
-    color: var(--ue-color-primary);
-  }
-  &.is-disabled {
-    &,
-    &:hover,
-    &:focus {
+  &.is-link {
+    color: var(#{$var});
+    &:hover {
+      color: var(--ue-color-primary-light-3);
       background-color: transparent;
-      border-color: transparent;
+    }
+  }
+  &.is-outline {
+    color: var(#{$var});
+    &:hover {
+      color: var(--ue-color-primary-light-3);
+      border-color: var(--ue-color-primary-light-3);
+    }
+  }
+  &.is-dashed {
+    color: var(#{$var});
+    &:hover {
+      background-color: #f7fbfe;
+    }
+    &.is-disabled {
+      background-color: #eaecee;
       color: #acb5bd;
-      cursor: not-allowed;
+      border-color: #eaecee;
+    }
+  }
+  &.is-disabled {
+    &,
+    &:hover,
+    &:focus {
+      background-color: #eaecee;
+      color: #acb5bd;
+      border-color: #eaecee;
     }
   }
 }
-.ue-button--link {
-  height: auto;
-  min-width: auto;
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  color: var(--ue-color-primary);
-  border-color: transparent;
+.ue-button--success {
+  $var: getVarName("color", "success");
+  background-color: var(#{$var});
+  color: #fff;
+  border-color: var(#{$var});
   &:hover {
-    color: #1c7dd8a9;
-    background-color: transparent;
+    background-color: #0ca578;
+    border-color: #0ca578;
+  }
+  &.is-subtle {
+    color: var(#{$var});
+    &:hover {
+      background-color: #e6fcf5;
+      border-color: #e6fcf5;
+    }
+  }
+  &.is-link {
+    color: var(#{$var});
+    &:hover {
+      color: var(--ue-color-success-light-3);
+      background-color: transparent;
+    }
+  }
+  &.is-outline {
+    color: var(#{$var});
+    &:hover {
+      color: var(--ue-color-success-light-3);
+      border-color: var(--ue-color-success-light-3);
+    }
+  }
+  &.is-dashed {
+    color: var(#{$var});
+    &:hover {
+      background-color: #f7fefc;
+    }
+    &.is-disabled {
+      background-color: #eaecee;
+      color: #acb5bd;
+      border-color: #eaecee;
+    }
   }
   &.is-disabled {
-    background-color: transparent;
-    color: #acb5bd;
-    border-color: #fff;
-    cursor: not-allowed;
+    &,
+    &:hover,
+    &:focus {
+      background-color: #eaecee;
+      color: #acb5bd;
+      border-color: #eaecee;
+    }
+  }
+}
+.ue-button--warning {
+  $var: getVarName("color", "warning");
+  background-color: var(#{$var});
+  color: #fff;
+  border-color: var(#{$var});
+  &:hover {
+    background-color: #f59f01;
+    border-color: #f59f01;
+  }
+  &.is-subtle {
+    color: var(#{$var});
+    &:hover {
+      background-color: #fff9db;
+      border-color: #fff9db;
+    }
+  }
+  &.is-link {
+    color: var(#{$var});
+    &:hover {
+      color: var(--ue-color-warning-light-3);
+      background-color: transparent;
+    }
+  }
+  &.is-outline {
+    color: var(#{$var});
+    &:hover {
+      color: var(--ue-color-warning-light-3);
+      border-color: var(--ue-color-warning-light-3);
+    }
+  }
+  &.is-dashed {
+    color: var(#{$var});
+    &:hover {
+      background-color: #fffdf3;
+    }
+    &.is-disabled {
+      background-color: #eaecee;
+      color: #acb5bd;
+      border-color: #eaecee;
+    }
+  }
+  &.is-disabled {
+    &,
+    &:hover,
+    &:focus {
+      background-color: #eaecee;
+      color: #acb5bd;
+      border-color: #eaecee;
+    }
+  }
+}
+.ue-button--error {
+  $var: getVarName("color", "error");
+  background-color: var(#{$var});
+  color: #fff;
+  border-color: var(#{$var});
+  &:hover {
+    background-color: #f03e3f;
+    border-color: #f03e3f;
+  }
+  &.is-subtle {
+    color: var(#{$var});
+    &:hover {
+      background-color: #fff5f5;
+      border-color: #fff5f5;
+    }
+  }
+  &.is-link {
+    color: var(#{$var});
+    &:hover {
+      color: var(--ue-color-error-light-3);
+      background-color: transparent;
+    }
+  }
+  &.is-outline {
+    color: var(#{$var});
+    &:hover {
+      color: var(--ue-color-error-light-3);
+      border-color: var(--ue-color-error-light-3);
+    }
+  }
+  &.is-dashed {
+    color: var(#{$var});
+    &:hover {
+      background-color: #fefcfc;
+    }
+    &.is-disabled {
+      background-color: #eaecee;
+      color: #acb5bd;
+      border-color: #eaecee;
+    }
+  }
+  &.is-disabled {
+    &,
+    &:hover,
+    &:focus {
+      background-color: #eaecee;
+      color: #acb5bd;
+      border-color: #eaecee;
+    }
   }
 }

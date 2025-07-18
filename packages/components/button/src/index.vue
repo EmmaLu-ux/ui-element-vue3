@@ -12,7 +12,11 @@ const props = defineProps({
   },
   round: Boolean,
   disabled: Boolean,
+  subtle: Boolean,
+  link: Boolean,
   block: Boolean,
+  outline: Boolean,
+  dashed: Boolean,
   size: {
     type: String,
     default: "sm", // sm, md, lg, xl
@@ -66,10 +70,14 @@ const handleEvent = e => {
       ns.b(),
       ns.m(type),
       ns.is('round', round),
-      ns.is('disabled', isLoading || disabled),
       ns.is('block', block),
       ns.m('size', buttonGroup?.size?.value || size),
       ns.is('circle', circle),
+      ns.is('subtle', subtle),
+      ns.is('link', link),
+      ns.is('outline', outline),
+      ns.is('dashed', dashed),
+      ns.is('disabled', isLoading || disabled),
     ]"
     @click="handleEvent">
     <i
