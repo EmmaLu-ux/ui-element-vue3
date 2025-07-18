@@ -54,10 +54,47 @@
   <ue-button type="success" size="lg" circle disabled>Default Button</ue-button>
   <ue-button type="warning" size="xl" circle disabled>Default Button</ue-button>
   <ue-button type="error" size="sm" circle disabled>Default Button</ue-button>
+  <hr />
+  <ue-button circle prefix="icon-loading">Default Button</ue-button>
+  <ue-button
+    type="primary"
+    size="md"
+    circle
+    prefix="icon-loading"
+    suffix="icon-loading"
+    >Default Button</ue-button
+  >
+  <ue-button
+    type="success"
+    size="lg"
+    prefix="icon-loading"
+    suffix="icon-loading"
+    >Default Button</ue-button
+  >
+  <ue-button
+    type="warning"
+    size="xl"
+    circle
+    prefix="icon-loading"
+    :before-change="beforeChange"
+    >Default Button</ue-button
+  >
+  <ue-button type="error" size="sm" circle prefix="icon-loading"
+    >Default Button</ue-button
+  >
 </template>
 
 <script setup>
 import { UeButton } from "../../../packages"
+
+const beforeChange = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      //   return resolve(true)
+      return reject()
+    }, 1000)
+  })
+}
 </script>
 
 <style lang="scss" scoped></style>

@@ -1,5 +1,4 @@
 @use "./common/function.scss" as *;
-@use "sass:color";
 .ue-button {
   display: inline-flex; // 元素在一行内显示并具有弹性布局特性
   background-color: #fff;
@@ -20,14 +19,14 @@
   word-break: keep-all;
   user-select: none;
   outline: none;
-  column-gap: 4px;
+  column-gap: 4px; // 子元素之间的空隙为4px
   transition: 0.3s;
   span {
     line-height: 1;
   }
-  // .ue-button__icon {
-  //   font-size: 1em; // 父元素的1倍
-  // }
+  .ue-button__icon {
+    font-size: 1em; // 父元素的1倍
+  }
   &.is-round {
     border-radius: 100px;
   }
