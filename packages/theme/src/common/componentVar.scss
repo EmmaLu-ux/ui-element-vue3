@@ -1,23 +1,106 @@
 // 组件私有变量
 @use "./function.scss" as *;
 
-@function buttonVars() {
+@function buttonVars($type: "") {
   $button: (
     // 默认
-    // --ue-border-color-default
     "border-color":
       (
         "default": getVarName("border-color", "default"),
+        "type": getVarName("color", $type),
       ),
     "text-color": (
-      "default": getVarName("text-color", "primary"),
+      "default": getVarName("text-color", "default"),
+      "type": getVarName("color", "white"),
     ),
     "bg-color": (
-      "default": getVarName("color", "white"),
+      "default": getVarName("bg-color", "default"),
+      "type": getVarName("color", $type),
     ),
-    // 'disabled-text-color': getVarName(('text-color', 'disabled')),
-    // 'hover-text-color': getVarName(('text-color', 'primary')),
-    // 'active-text-color': getVarName(('text-color', 'primary')),
+    "subtle-text-color": (
+      "default": getVarName("text-color", "default"),
+      "type": getVarName("color", $type),
+    ),
+    "subtle-bg-color": (
+      "default": getVarName("color", "transparent"),
+      "type": getVarName("color", "transparent"),
+    ),
+    "subtle-border-color": (
+      "default": getVarName("color", "transparent"),
+      "type": getVarName("color", "transparent"),
+    ),
+    "dashed-bg-color": (
+      "default": getVarName("color", "white"),
+      "type": getVarName("color", "white"),
+    ),
+
+    // 鼠标悬停
+    "hover-border-color":
+      (
+        "default": getVarName("border-color", "default"),
+        "type": getVarName("color", $type, "dark-1"),
+      ),
+    "hover-text-color": (
+      "default": getVarName("color", "black"),
+      "type": getVarName("color", "white"),
+    ),
+    "hover-bg-color": (
+      "default": getVarName("bg-color", "hover-default"),
+      "type": getVarName("color", $type, "dark-1"),
+    ),
+    "hover-is-link-color": (
+      "default": getVarName("color", "black"),
+      "type": getVarName("color", $type, "light-3"),
+    ),
+    "hover-is-subtle-color": (
+      // 文本颜色
+      "default": getVarName("color", "black"),
+      "type": getVarName("color", $type, "light-9")
+    ),
+    "hover-is-subtle-text-color": (
+      "default": getVarName("color", "black"),
+      "type": getVarName("color", $type),
+    ),
+    "hover-is-subtle-bg-color": (
+      "default": getVarName("bg-color", "hover-default"),
+      "type": getVarName("color", $type, "light-9"),
+    ),
+    "hover-is-outline-bg-color": (
+      "default": getVarName("bg-color", "hover-default"),
+      "type": getVarName("color", $type, "light-9"),
+    ),
+    "hover-is-outline-border-color": (
+      "default": getVarName("border-color", "default"),
+      "type": getVarName("color", $type),
+    ),
+    "hover-is-link-text-color": (
+      "default": getVarName("color", "black"),
+      "type": getVarName("color", $type, "light-3"),
+    ),
+    // disabled
+    "disabled-text-color":
+      (
+        "default": getVarName("color", "disabled"),
+        "type": getVarName("color", "disabled"),
+      ),
+    "disabled-bg-color": (
+      "default": getVarName("bg-color", "disabled"),
+      "type": getVarName("bg-color", "disabled"),
+    ),
+    "disabled-border-color": (
+      "default": getVarName("bg-color", "disabled"),
+      "type": getVarName("bg-color", "disabled"),
+    ),
+    "disbaled-is-link-bg-color": (
+      "default": getVarName("color", "transparent"),
+      "type": getVarName("color", "transparent"),
+    ),
+    "size": (
+      "default": getVarName("component-size", "default"),
+    ),
+    "font-size": (
+      "default": getVarName("font-size", "default"),
+    )
   );
   @return $button;
 }

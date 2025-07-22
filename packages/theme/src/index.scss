@@ -8,7 +8,8 @@
 // @include set-component-css-var("common", $common);
 :root {
   @include set-main-color(); // 生成主题色
-  @include set-main-light-color(); // 生成层次色
+  @include set-main-mode-color("light"); // 生成浅层次色
+  @include set-main-mode-color("dark"); // 生成深层次色
   @include set-global-var();
   // --ue-color-white: #{$color-white};
   // --ue-color-primary: #{$color-primary};

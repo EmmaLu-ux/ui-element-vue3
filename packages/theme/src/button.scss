@@ -1,22 +1,27 @@
 @use "./common/function.scss" as *;
 @use "./common/mixins.scss" as *;
 @use "./common/componentVar.scss" as *;
-.ue-button {
+@use "./common/var.scss" as *;
+@include b(button) {
   @include set-component-var("button", buttonVars());
+}
+@include b(button) {
   display: inline-flex; // 元素在一行内显示并具有弹性布局特性
-  background-color: #fff;
-  height: 36px;
+  background-color: var(#{getVarName("button", "bg-color")});
+  height: var(#{getVarName("button", "size")});
   min-width: 80px;
   border-width: 1px;
   border-style: solid;
-  border-color: #ced4da;
-  padding: 0 18px;
+  border-color: var(#{getVarName("button", "border-color")});
+  padding: 0 21px;
   border-radius: 4px;
+  line-height: 1;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  font-size: 14px;
-  color: #000;
+  font-size: 16px;
+  color: var(#{getVarName("button", "text-color")});
+  font-size: var(#{getVarName("button", "font-size")});
   // font-weight: 600;
   cursor: pointer;
   word-break: keep-all;
@@ -24,302 +29,144 @@
   outline: none;
   column-gap: 4px; // 子元素之间的空隙为4px
   transition: 0.3s;
+  vertical-align: middle;
   span {
     line-height: 1;
   }
-  .ue-button__icon {
-    font-size: 1em; // 父元素的1倍
-  }
-  &.is-round {
-    border-radius: 100px;
-  }
-  &.is-subtle {
-    background-color: transparent;
-    border-color: transparent;
-    &:hover {
-      background-color: #f0f0f0;
-      border-color: #f0f0f0;
-    }
-  }
-  &.is-dashed {
-    border-style: dashed;
-    background-color: #fff;
-  }
+  // .ue-button__icon {
+  //   font-size: 1em; // 父元素的1倍
+  // }
   &:hover {
-    background-color: #f8f9fa;
+    color: var(#{getVarName("button", "hover-text-color")});
+    background-color: var(#{getVarName("button", "hover-bg-color")});
+    border-color: var(#{getVarName("button", "hover-border-color")});
   }
-  &.is-disabled {
-    background-color: #eaecee;
-    color: #acb5bd;
-    border-color: #eaecee;
+  @include s((disabled, loading)) {
+    background-color: var(#{getVarName("button", "disabled-bg-color")});
+    color: var(#{getVarName("button", "disabled-text-color")});
+    border-color: var(#{getVarName("button", "disabled-border-color")});
     cursor: not-allowed;
   }
-  &.is-link {
-    // height: auto;
-    // min-width: auto;
-    // padding: 0;
-    border: none;
-    background-color: transparent;
-    border-color: transparent;
-    &.is-disabled {
-      &,
-      &:hover {
-        background-color: transparent;
-        color: #acb5bd;
-        border-color: transparent;
-      }
+  @include s((round)) {
+    border-radius: 100px;
+  }
+  @include s((subtle)) {
+    color: var(#{getVarName("button", "subtle-text-color")});
+    background-color: var(#{getVarName("button", "subtle-bg-color")});
+    border-color: var(#{getVarName("button", "subtle-border-color")});
+    &:hover {
+      background-color: var(
+        #{getVarName("button", "hover-is-subtle-bg-color")}
+      );
+      border-color: var(#{getVarName("button", "hover-is-subtle-bg-color")});
+      color: var(#{getVarName("button", "hover-is-subtle-text-color")});
+    }
+    @include s((disabled, loading)) {
+      background-color: var(#{getVarName("button", "disabled-bg-color")});
+      color: var(#{getVarName("button", "disabled-text-color")});
+      border-color: var(#{getVarName("button", "disabled-border-color")});
     }
   }
-  &.is-block {
+  @include s((outline)) {
+    color: var(#{getVarName("button", "subtle-text-color")});
+    background-color: var(#{getVarName("button", "subtle-bg-color")});
+    border-color: var(#{getVarName("button", "border-color")});
+    &:hover {
+      color: var(#{getVarName("button", "hover-is-subtle-text-color")});
+      background-color: var(
+        #{getVarName("button", "hover-is-outline-bg-color")}
+      );
+      border-color: vat(
+        #{getVarName("button", "hover-is-outline-border-color")}
+      );
+    }
+  }
+  @include s((dashed)) {
+    border-style: dashed;
+    background-color: var(#{getVarName("button", "dashed-bg-color")});
+    color: var(#{getVarName("button", "subtle-text-color")});
+    border-color: var(#{getVarName("button", "border-color")});
+    &:hover {
+      color: var(#{getVarName("button", "hover-is-subtle-text-color")});
+      background-color: var(
+        #{getVarName("button", "hover-is-outline-bg-color")}
+      );
+      border-color: vat(
+        #{getVarName("button", "hover-is-outline-border-color")}
+      );
+    }
+  }
+  @include s((block)) {
     width: 100%;
     display: flex;
   }
-  &.is-outline {
-    &,
-    &:hover {
-      background-color: transparent;
-    }
+  @include m(size, sm) {
+    padding: 0 18px;
+    min-width: auto;
+    font-size: 14px;
+    height: var(#{getVarName("component-size", "sm")});
+    // 为了给circle样式复用
+    #{getVarName('button', 'font-size')}: var(#{getVarName("font-size", "sm")});
+    #{getVarName('button', 'component-size')}: var(
+      #{getVarName("component-size", "sm")}
+    );
   }
-  // &.ue-button--size_sm {
+  //  @include m(size, md) {
+  //   padding: 0 22px;
+  //   min-width: auto;
+  //   font-size: 16px;
+  //   height: var(#{getVarName("component-size", "md")});
+  //   // 为了给circle样式复用
+  //   #{getVarName('button', 'font-size')}: var(#{getVarName("font-size", "md")});
+  //   #{getVarName('button', 'component-size')}: var(
+  //     #{getVarName("component-size", "md")}
+  //   );
   // }
-  &.ue-button--size_md {
-    height: 42px;
-    padding: 0 22px;
-    font-size: 16px;
-    &.is-circle {
-      min-width: 42px;
-      height: 42px;
-    }
-  }
-  &.ue-button--size_lg {
-    height: 50px;
+  @include m(size, lg) {
     padding: 0 26px;
+    min-width: auto;
     font-size: 18px;
-    &.is-circle {
-      min-width: 50px;
-      height: 50px;
-    }
+    height: var(#{getVarName("component-size", "lg")});
+    #{getVarName('button', 'font-size')}: var(#{getVarName("font-size", "lg")});
+    #{getVarName('button', 'component-size')}: var(
+      #{getVarName("component-size", "lg")}
+    );
   }
-  &.ue-button--size_xl {
-    height: 60px;
+  @include m(size, xl) {
     padding: 0 32px;
+    min-width: auto;
     font-size: 20px;
-    &.is-circle {
-      min-width: 60px;
-      height: 60px;
+    height: var(#{getVarName("component-size", "xl")});
+    #{getVarName('button', 'font-size')}: var(#{getVarName("font-size", "xl")});
+    #{getVarName('button', 'component-size')}: var(
+      #{getVarName("component-size", "xl")}
+    );
+  }
+  @include s((link)) {
+    border: none;
+    background-color: var(#{getVarName("button", "subtle-bg-color")});
+    color: var(#{getVarName("button", "subtle-text-color")});
+    &:hover {
+      background-color: var(#{getVarName("button", "subtle-bg-color")});
+      color: var(#{getVarName("button", "hover-is-link-text-color")});
+    }
+    @include s((disabled, loading)) {
+      color: var(#{getVarName("button", "disabled-text-color")});
     }
   }
-  &.is-circle {
-    min-width: 36px;
-    height: 36px;
+  @include s((circle)) {
     border-radius: 100px;
     padding: 0;
+    min-width: var(#{getVarName("button", "component-size")});
+    height: var(#{getVarName("button", "component-size")});
     span {
       display: none;
     }
   }
 }
-.ue-button--primary {
-  $var: getVarName("color", "primary");
-  background-color: var(#{$var});
-  color: #fff;
-  border-color: var(#{$var});
-  &:hover {
-    background-color: #1c7ed8;
-    border-color: #1c7ed8;
-  }
-  &.is-subtle {
-    color: var(#{$var});
-    &:hover {
-      background-color: #e7f5ff;
-      border-color: #e7f5ff;
-    }
-  }
-  &.is-link {
-    color: var(#{$var});
-    &:hover {
-      color: var(--ue-color-primary-light-3);
-      background-color: transparent;
-    }
-  }
-  &.is-outline {
-    color: var(#{$var});
-    &:hover {
-      color: var(--ue-color-primary-light-3);
-      border-color: var(--ue-color-primary-light-3);
-    }
-  }
-  &.is-dashed {
-    color: var(#{$var});
-    &:hover {
-      background-color: #f7fbfe;
-    }
-    &.is-disabled {
-      background-color: #eaecee;
-      color: #acb5bd;
-      border-color: #eaecee;
-    }
-  }
-  &.is-disabled {
-    &,
-    &:hover,
-    &:focus {
-      background-color: #eaecee;
-      color: #acb5bd;
-      border-color: #eaecee;
-    }
-  }
-}
-.ue-button--success {
-  $var: getVarName("color", "success");
-  background-color: var(#{$var});
-  color: #fff;
-  border-color: var(#{$var});
-  &:hover {
-    background-color: #0ca578;
-    border-color: #0ca578;
-  }
-  &.is-subtle {
-    color: var(#{$var});
-    &:hover {
-      background-color: #e6fcf5;
-      border-color: #e6fcf5;
-    }
-  }
-  &.is-link {
-    color: var(#{$var});
-    &:hover {
-      color: var(--ue-color-success-light-3);
-      background-color: transparent;
-    }
-  }
-  &.is-outline {
-    color: var(#{$var});
-    &:hover {
-      color: var(--ue-color-success-light-3);
-      border-color: var(--ue-color-success-light-3);
-    }
-  }
-  &.is-dashed {
-    color: var(#{$var});
-    &:hover {
-      background-color: #f7fefc;
-    }
-    &.is-disabled {
-      background-color: #eaecee;
-      color: #acb5bd;
-      border-color: #eaecee;
-    }
-  }
-  &.is-disabled {
-    &,
-    &:hover,
-    &:focus {
-      background-color: #eaecee;
-      color: #acb5bd;
-      border-color: #eaecee;
-    }
-  }
-}
-.ue-button--warning {
-  $var: getVarName("color", "warning");
-  background-color: var(#{$var});
-  color: #fff;
-  border-color: var(#{$var});
-  &:hover {
-    background-color: #f59f01;
-    border-color: #f59f01;
-  }
-  &.is-subtle {
-    color: var(#{$var});
-    &:hover {
-      background-color: #fff9db;
-      border-color: #fff9db;
-    }
-  }
-  &.is-link {
-    color: var(#{$var});
-    &:hover {
-      color: var(--ue-color-warning-light-3);
-      background-color: transparent;
-    }
-  }
-  &.is-outline {
-    color: var(#{$var});
-    &:hover {
-      color: var(--ue-color-warning-light-3);
-      border-color: var(--ue-color-warning-light-3);
-    }
-  }
-  &.is-dashed {
-    color: var(#{$var});
-    &:hover {
-      background-color: #fffdf3;
-    }
-    &.is-disabled {
-      background-color: #eaecee;
-      color: #acb5bd;
-      border-color: #eaecee;
-    }
-  }
-  &.is-disabled {
-    &,
-    &:hover,
-    &:focus {
-      background-color: #eaecee;
-      color: #acb5bd;
-      border-color: #eaecee;
-    }
-  }
-}
-.ue-button--error {
-  $var: getVarName("color", "error");
-  background-color: var(#{$var});
-  color: #fff;
-  border-color: var(#{$var});
-  &:hover {
-    background-color: #f03e3f;
-    border-color: #f03e3f;
-  }
-  &.is-subtle {
-    color: var(#{$var});
-    &:hover {
-      background-color: #fff5f5;
-      border-color: #fff5f5;
-    }
-  }
-  &.is-link {
-    color: var(#{$var});
-    &:hover {
-      color: var(--ue-color-error-light-3);
-      background-color: transparent;
-    }
-  }
-  &.is-outline {
-    color: var(#{$var});
-    &:hover {
-      color: var(--ue-color-error-light-3);
-      border-color: var(--ue-color-error-light-3);
-    }
-  }
-  &.is-dashed {
-    color: var(#{$var});
-    &:hover {
-      background-color: #fefcfc;
-    }
-    &.is-disabled {
-      background-color: #eaecee;
-      color: #acb5bd;
-      border-color: #eaecee;
-    }
-  }
-  &.is-disabled {
-    &,
-    &:hover,
-    &:focus {
-      background-color: #eaecee;
-      color: #acb5bd;
-      border-color: #eaecee;
-    }
+@each $type in $types {
+  $className: ".ue-button--" + $type;
+  #{$className} {
+    @include set-component-var("button", buttonVars($type), "type");
   }
 }

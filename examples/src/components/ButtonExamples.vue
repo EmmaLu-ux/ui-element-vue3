@@ -1,14 +1,17 @@
 <template>
+  <ue-button type="default">Default Button</ue-button>
   <ue-button type="primary">Default Button</ue-button>
   <ue-button type="success">Default Button</ue-button>
   <ue-button type="warning">Default Button</ue-button>
   <ue-button type="error">Default Button</ue-button>
   <hr />
+  <ue-button type="default" round>Default Button</ue-button>
   <ue-button type="primary" round>Default Button</ue-button>
   <ue-button type="success" round>Default Button</ue-button>
   <ue-button type="warning" round>Default Button</ue-button>
   <ue-button type="error" round>Default Button</ue-button>
   <hr />
+  <ue-button type="default" round disabled>Default Button</ue-button>
   <ue-button type="primary" disabled round>Default Button</ue-button>
   <ue-button type="success" disabled round>Default Button</ue-button>
   <ue-button type="warning" disabled round>Default Button</ue-button>
@@ -20,17 +23,18 @@
   <ue-button type="warning" subtle>Default Button</ue-button>
   <ue-button type="error" subtle>Default Button</ue-button>
   <hr />
-  <ue-button link>Default Button</ue-button>
-  <ue-button type="primary" link>Default Button</ue-button>
-  <ue-button type="success" link>Default Button</ue-button>
-  <ue-button type="warning" link>Default Button</ue-button>
-  <ue-button type="error" link>Default Button</ue-button>
+  <ue-button link disabled>Default Button</ue-button>
+  <ue-button type="primary" link disabled>Default Button</ue-button>
+  <ue-button type="success" link disabled>Default Button</ue-button>
+  <ue-button type="warning" link disabled>Default Button</ue-button>
+  <ue-button type="error" link disabled>Default Button</ue-button>
   <hr />
   <ue-button type="primary" block>Default Button</ue-button>
   <ue-button type="success" block>Default Button</ue-button>
   <ue-button type="warning" block>Default Button</ue-button>
   <ue-button type="error" block>Default Button</ue-button>
   <hr />
+  outline
   <ue-button outline>Default Button</ue-button>
   <ue-button type="primary" outline>Default Button</ue-button>
   <ue-button type="success" outline>Default Button</ue-button>
@@ -58,7 +62,7 @@
   <ue-button circle prefix="icon-loading">Default Button</ue-button>
   <ue-button
     type="primary"
-    size="md"
+    size="sm"
     circle
     prefix="icon-loading"
     suffix="icon-loading"
@@ -66,20 +70,20 @@
   >
   <ue-button
     type="success"
-    size="lg"
+    size="md"
     prefix="icon-loading"
     suffix="icon-loading"
     >Default Button</ue-button
   >
   <ue-button
     type="warning"
-    size="xl"
+    size="lg"
     circle
     prefix="icon-loading"
     :before-change="beforeChange"
     >Default Button</ue-button
   >
-  <ue-button type="error" size="sm" circle prefix="icon-loading"
+  <ue-button type="error" size="xl" circle prefix="icon-loading"
     >Default Button</ue-button
   >
 </template>

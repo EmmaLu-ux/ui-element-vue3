@@ -25,13 +25,36 @@ $colors: map.deep-merge(
   ),
   $colors
 );
-
+$color-primary: map.get($colors, "primary", "base");
 $color-white: map.get($colors, "white");
+$color-black: map.get($colors, "black");
+
+// 生成主题层次色
+@mixin set-light-color($type, $number, $mode, $mix-color) {
+  $colors: map.deep-merge(
+    (
+      $type: (
+        "#{$mode}-#{$number}":
+          color.mix($mix-color, map.get($colors, $type, "base"), $number * 10%),
+      ),
+    ),
+    $colors
+  ) !global;
+}
+@each $type in $types {
+  @for $i from 1 through 9 {
+    @include set-light-color($type, $i, "light", $color-white);
+    @include set-light-color($type, $i, "dark", $color-black);
+  }
+}
+// @debug map.get($colors, "primary");
 
 // 文字颜色
 $text-color: () !default;
 $text-color: map.deep-merge(
   (
+    "default": $color-black,
+    "white": $color-white,
     "primary": #303133,
     // regular text
     "light-1": #606266,
@@ -49,7 +72,7 @@ $font-size: () !default;
 $font-size: map.deep-merge(
   (
     "sm": 14px,
-    "md": 16px,
+    "default": 16px,
     "lg": 18px,
     "xl": 20px,
   ),
@@ -60,7 +83,7 @@ $component-size: () !default;
 $component-size: map.deep-merge(
   (
     "sm": 36px,
-    "md": 42px,
+    "default": 42px,
     "lg": 50px,
     "xl": 60px,
   ),
@@ -70,15 +93,17 @@ $component-size: map.deep-merge(
 $border-color: () !default;
 $border-color: map.deep-merge(
   (
-    "default": #ced4da,
-    "primary": map.get($colors, "primary", "base"),
+    "default": #ced4d8,
   ),
   $border-color
 );
+
 $bg-color: () !default;
 $bg-color: map.deep-merge(
   (
-    "white": #fff,
+    "default": map.get($colors, "white"),
+    "disabled": #eaecee,
+    "hover-default": #f8f9fa,
   ),
   $bg-color
 );
@@ -86,37 +111,24 @@ $color: () !default;
 $color: map.deep-merge(
   (
     "white": $color-white,
-    "black": #000000,
+    "black": $color-black,
+    "transparent": transparent,
+    "disabled": #acb5bd,
   ),
   $color
 );
-// 生成主题层次色
-@mixin set-light-color($type, $number, $mode, $mix-color) {
-  $colors: map.deep-merge(
-    (
-      $type: (
-        "#{$mode}-#{$number}":
-          color.mix($mix-color, map.get($colors, $type, "base"), $number * 10%),
-        // "light-8": rgb(211, 231.8, 250)
-      ),
-    ),
-    $colors
-  ) !global;
-}
-@each $type in $types {
-  @for $i from 1 through 9 {
-    @include set-light-color($type, $i, "light", $color-white);
-  }
-}
-
-@debug map.get($colors, "primary");
-$color-primary: map.get($colors, "primary", "base");
 
 $global: (
+  // 颜色
   "color": $color,
+  // 边框颜色
   "border-color": $border-color,
+  // 文本颜色
   "text-color": $text-color,
+  // 背景颜色
   "bg-color": $bg-color,
+  // 字体大小
   "font-size": $font-size,
-  "component-size": $component-size,
+  // 组件尺寸
+  "component-size": $component-size
 );

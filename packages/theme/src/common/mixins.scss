@@ -1,6 +1,9 @@
 @use "sass:map";
 @use "./function.scss" as *;
 @use "./var.scss" as *;
+@use "./config.scss" as *;
+
+$b: null !default;
 
 // 生成主题色
 @mixin set-main-color() {
@@ -10,34 +13,98 @@
   }
 }
 // 生成层次色
-@mixin set-main-light-color() {
+@mixin set-main-mode-color($mode) {
   @each $type in $types {
     @for $i from 1 through 9 {
-      $color: map.get($colors, $type, "light-" + $i);
-      #{createVarName(('color', $type, 'light', $i))}: #{$color}; // --ue-color-primary-light-1
+      $color: map.get($colors, $type, $mode + "-" + $i);
+      #{createVarName(('color', $type, $mode, $i))}: #{$color}; // --ue-color-primary-light-1
     }
   }
 }
 
 // 生成全局的属性
+// @mixin set-global-var() {
+//   @each $key, $map in $global {
+//     @if $map {
+//       @each $category, $submap in $map {
+//         @each $type, $v in $submap {
+//           #{createVarName(($key, $category, $type))}: #{$v};
+//         }
+//       }
+//     } @else {
+//       @each $type, $v in $map {
+//         #{createVarName(($key, $type))}: #{$v};
+//       }
+//     }
+//   }
+// }
 @mixin set-global-var() {
-  @each $key, $value in $global {
-    @if $value {
-      @each $type, $v in $value {
-        #{createVarName(($key, $type))}: #{$v}; // --ue-text-color-primary
+  @each $key, $data in $global {
+    // @debug ($key + ",,," + $data);
+    @if $data {
+      @each $type, $v in $data {
+        #{createVarName(($key, $type))}: #{$v};
       }
     }
   }
 }
 
-// 设置组件的变量
+/**
+ * 定义组件的私有变量
+ * @param {String} $name 组件名称
+ * @param {list} $var 变量
+ * @param {String} $varKey 读取组件的私有变量
+ */
 @mixin set-component-var($name, $var, $varKey: "default") {
   // button, buttonVars(), default
   @each $key, $val in $var {
     $varName: getVarName($name, $key); // --ue-button-border-color
     $val: map.get($var, $key, $varKey);
+    // @debug $val;
     @if ($val) {
       #{$varName}: var(#{$val});
     }
+  }
+}
+
+/**
+ * 生成类名
+ * @param {String} $block
+ */
+@mixin b($block) {
+  $b: "." + $namespace + $connect + $block !global;
+  #{$b} {
+    @content;
+  }
+}
+
+/**
+ * 生成修改器类名
+ * @param {String} $attr
+ * @param {String} $value
+ */
+@mixin m($attr, $value: "") {
+  $modifier: $b + $modifier-connect + $attr + $modifier-value-connect + $value;
+  // 跳出嵌套，直达根层级
+  // @debug 10 + $modifier;
+  @at-root {
+    #{$modifier} {
+      @content;
+    }
+  }
+}
+
+/**
+ * 生成状态类名
+ * @param {list} $attrs
+ */
+@mixin s($attrs, $and: true) {
+  $state: "";
+  @each $attr in $attrs {
+    $state: if($and, "&", "") + "." + $state-prefix + $attr + "," + $state;
+  }
+  @debug 9 + $state;
+  #{$state} {
+    @content;
   }
 }

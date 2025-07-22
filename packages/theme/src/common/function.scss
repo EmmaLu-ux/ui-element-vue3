@@ -16,3 +16,4 @@
 @function getVarName($args...) {
   @return createVarName(($args));
 }
+@debug getVarName("font-size", "sm");
