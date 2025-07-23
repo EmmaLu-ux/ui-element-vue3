@@ -1,7 +1,9 @@
 @use "sass:map";
-@use "./function.scss" as *;
-@use "./var.scss" as *;
-@use "./config.scss" as *;
+@forward "var";
+@forward "function";
+@use "./function" as *;
+@use "./var" as *;
+@use "./config" as *;
 
 $b: null !default;
 

@@ -1,7 +1,5 @@
-@use "./common/function.scss" as *;
 @use "./common/mixins.scss" as *;
 @use "./common/componentVar.scss" as *;
-@use "./common/var.scss" as *;
 @include b(button) {
   @include set-component-var("button", buttonVars());
 }
