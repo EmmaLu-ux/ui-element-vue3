@@ -49,9 +49,9 @@
     border-radius: 100px;
   }
   @include s((subtle)) {
-    color: var(#{getVarName("button", "subtle-text-color")});
-    background-color: var(#{getVarName("button", "subtle-bg-color")});
-    border-color: var(#{getVarName("button", "subtle-border-color")});
+    color: var(#{getVarName("button", "is-subtle-text-color")});
+    background-color: var(#{getVarName("button", "is-subtle-bg-color")});
+    border-color: var(#{getVarName("button", "is-subtle-border-color")});
     &:hover {
       background-color: var(
         #{getVarName("button", "hover-is-subtle-bg-color")}
@@ -109,17 +109,16 @@
       #{getVarName("component-size", "sm")}
     );
   }
-  //  @include m(size, md) {
-  //   padding: 0 22px;
-  //   min-width: auto;
-  //   font-size: 16px;
-  //   height: var(#{getVarName("component-size", "md")});
-  //   // 为了给circle样式复用
-  //   #{getVarName('button', 'font-size')}: var(#{getVarName("font-size", "md")});
-  //   #{getVarName('button', 'component-size')}: var(
-  //     #{getVarName("component-size", "md")}
-  //   );
-  // }
+  @include m(size, md) {
+    padding: 0 22px;
+    min-width: auto;
+    font-size: 16px;
+    height: var(#{getVarName("component-size", "md")});
+    #{getVarName('button', 'font-size')}: var(#{getVarName("font-size", "md")});
+    #{getVarName('button', 'component-size')}: var(
+      #{getVarName("component-size", "md")}
+    );
+  }
   @include m(size, lg) {
     padding: 0 26px;
     min-width: auto;
@@ -142,10 +141,10 @@
   }
   @include s((link)) {
     border: none;
-    background-color: var(#{getVarName("button", "subtle-bg-color")});
-    color: var(#{getVarName("button", "subtle-text-color")});
+    background-color: var(#{getVarName("button", "is-link-bg-color")});
+    color: var(#{getVarName("button", "is-link-text-color")});
     &:hover {
-      background-color: var(#{getVarName("button", "subtle-bg-color")});
+      background-color: var(#{getVarName("button", "is-link-bg-color")});
       color: var(#{getVarName("button", "hover-is-link-text-color")});
     }
     @include s((disabled, loading)) {

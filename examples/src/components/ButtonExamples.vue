@@ -23,11 +23,11 @@
   <ue-button type="warning" subtle>Default Button</ue-button>
   <ue-button type="error" subtle>Default Button</ue-button>
   <hr />
-  <ue-button link disabled>Default Button</ue-button>
-  <ue-button type="primary" link disabled>Default Button</ue-button>
-  <ue-button type="success" link disabled>Default Button</ue-button>
-  <ue-button type="warning" link disabled>Default Button</ue-button>
-  <ue-button type="error" link disabled>Default Button</ue-button>
+  <ue-button link>Default Button</ue-button>
+  <ue-button type="primary" link>Default Button</ue-button>
+  <ue-button type="success" link>Default Button</ue-button>
+  <ue-button type="warning" link>Default Button</ue-button>
+  <ue-button type="error" link>Default Button</ue-button>
   <hr />
   <ue-button type="primary" block>Default Button</ue-button>
   <ue-button type="success" block>Default Button</ue-button>
@@ -54,38 +54,17 @@
   <ue-button type="error" size="sm">Default Button</ue-button>
   <hr />
   <ue-button circle disabled>Default Button</ue-button>
-  <ue-button type="primary" size="md" circle disabled>Default Button</ue-button>
+  <ue-button type="primary" size="sm" circle disabled>Default Button</ue-button>
   <ue-button type="success" size="lg" circle disabled>Default Button</ue-button>
   <ue-button type="warning" size="xl" circle disabled>Default Button</ue-button>
   <ue-button type="error" size="sm" circle disabled>Default Button</ue-button>
   <hr />
   <ue-button circle prefix="icon-loading">Default Button</ue-button>
-  <ue-button
-    type="primary"
-    size="sm"
-    circle
-    prefix="icon-loading"
-    suffix="icon-loading"
-    >Default Button</ue-button
-  >
-  <ue-button
-    type="success"
-    size="md"
-    prefix="icon-loading"
-    suffix="icon-loading"
-    >Default Button</ue-button
-  >
-  <ue-button
-    type="warning"
-    size="lg"
-    circle
-    prefix="icon-loading"
-    :before-change="beforeChange"
-    >Default Button</ue-button
-  >
-  <ue-button type="error" size="xl" circle prefix="icon-loading"
-    >Default Button</ue-button
-  >
+  <ue-button type="primary" size="sm" circle prefix="icon-loading" suffix="icon-loading">Default Button</ue-button>
+  <ue-button type="success" size="md" prefix="icon-loading" suffix="icon-loading">Default Button</ue-button>
+  <ue-button type="warning" size="lg" circle prefix="icon-loading" :before-change="beforeChange">Default
+    Button</ue-button>
+  <ue-button type="error" size="xl" circle prefix="icon-loading">Default Button</ue-button>
 </template>
 
 <script setup>

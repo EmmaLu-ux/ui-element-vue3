@@ -70,11 +70,11 @@ $b: null !default;
 }
 
 /**
- * 生成类名
+ * 生成块的类名
  * @param {String} $block
  */
 @mixin b($block) {
-  $b: "." + $namespace + $connect + $block !global;
+  $b: "." + $namespace + $connect + $block !global; // .ue-$block
   #{$b} {
     @content;
   }
@@ -86,11 +86,23 @@ $b: null !default;
  * @param {String} $value
  */
 @mixin m($attr, $value: "") {
-  $modifier: $b + $modifier-connect + $attr + $modifier-value-connect + $value;
+  $modifier: $b + $modifier-connect + $attr + $modifier-value-connect + $value; // .ue-$block--$attr_$value
   // 跳出嵌套，直达根层级
-  // @debug 10 + $modifier;
   @at-root {
     #{$modifier} {
+      @content;
+    }
+  }
+}
+
+/**
+ * 创建元素的类名
+ * @param {String} $ele
+ */
+@mixin e($ele) {
+  $name: $b + $element-connect + $ele; // .ue-$block__$ele
+  @at-root {
+    #{$name} {
       @content;
     }
   }
@@ -104,8 +116,7 @@ $b: null !default;
   $state: "";
   @each $attr in $attrs {
     $state: if($and, "&", "") + "." + $state-prefix + $attr + "," + $state;
-  }
-  @debug 9 + $state;
+  } // .is-$attr,''
   #{$state} {
     @content;
   }

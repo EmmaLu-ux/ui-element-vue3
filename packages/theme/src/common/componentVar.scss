@@ -17,21 +17,29 @@
       "default": getVarName("bg-color", "default"),
       "type": getVarName("color", $type),
     ),
-    "subtle-text-color": (
+    "is-subtle-text-color": (
       "default": getVarName("text-color", "default"),
       "type": getVarName("color", $type),
     ),
-    "subtle-bg-color": (
+    "is-subtle-bg-color": (
       "default": getVarName("color", "transparent"),
       "type": getVarName("color", "transparent"),
     ),
-    "subtle-border-color": (
+    "is-subtle-border-color": (
       "default": getVarName("color", "transparent"),
       "type": getVarName("color", "transparent"),
     ),
     "dashed-bg-color": (
       "default": getVarName("color", "white"),
       "type": getVarName("color", "white"),
+    ),
+    "is-link-text-color": (
+      "default": getVarName("text-color", "default"),
+      "type": getVarName("color", $type),
+    ),
+    "is-link-bg-color": (
+      "default": getVarName("color", "transparent"),
+      "type": getVarName("color", "transparent"),
     ),
 
     // 鼠标悬停

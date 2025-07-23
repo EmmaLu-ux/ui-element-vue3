@@ -72,7 +72,7 @@ $font-size: () !default;
 $font-size: map.deep-merge(
   (
     "sm": 14px,
-    "default": 16px,
+    "md": 16px,
     "lg": 18px,
     "xl": 20px,
   ),
@@ -83,7 +83,7 @@ $component-size: () !default;
 $component-size: map.deep-merge(
   (
     "sm": 36px,
-    "default": 42px,
+    "md": 42px,
     "lg": 50px,
     "xl": 60px,
   ),
