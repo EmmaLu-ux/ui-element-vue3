@@ -1,4 +1,6 @@
-.ue-icon {
+@use "./common/mixins.scss" as *;
+@use "./common/componentVar.scss" as *;
+@include b(icon) {
   width: 1em;
   height: 1em;
   line-height: 1em;
@@ -6,8 +8,9 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  fill: currentColor;
+  fill: currentColor; // 只在XML-CSS中存在，用于设置当前元素的填充内容
   font-size: inherit;
+  font-style: normal;
   svg {
     width: 1em;
     height: 1em;

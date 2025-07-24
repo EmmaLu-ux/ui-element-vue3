@@ -30,6 +30,9 @@
   vertical-align: middle;
   span {
     line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0 5px;
   }
   // .ue-button__icon {
   //   font-size: 1em; // 父元素的1倍
