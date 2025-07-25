@@ -31,19 +31,34 @@
     :suffix-icon="Search"
     disabled></ue-input>
   <hr />
-  <ue-input placeholder="请输入邮箱" :maxlength="3" size="lg"></ue-input>
+  <ue-input
+    placeholder="请输入密码"
+    :maxlength="12"
+    size="lg"
+    type="password"
+    show-password></ue-input>
   <hr />
   <ue-input
     placeholder="请输入邮箱"
-    :maxlength="3"
+    :maxlength="12"
     size="xl"
     :prefix-icon="Search"
-    :suffix-icon="Search"></ue-input>
+    :suffix-icon="Search"
+    v-model="inputValue"
+    @input="handleInput"></ue-input>
+  <!-- 通过@input的形式订阅input事件 -->
+  <div>双向绑定数据：{{ inputValue }}</div>
   <hr />
 </template>
 
 <script setup>
 import { Search } from "@ui-element-vue3/icons"
+import { ref } from "vue"
+
+const inputValue = ref("")
+const handleInput = (value, event) => {
+  //   console.log("recieved from child: ", value, event)
+}
 </script>
 
 <style lang="scss" scoped></style>

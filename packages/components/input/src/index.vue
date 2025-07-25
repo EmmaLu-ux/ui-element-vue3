@@ -1,12 +1,16 @@
 <script setup>
-import { computed, useSlots } from "vue"
+import { computed, useSlots, ref } from "vue"
 import { useNamespace } from "@ui-element-vue3/hooks"
+import { Eye, EyeOff } from "@ui-element-vue3/icons"
 
 defineOptions({
   name: "ue-input",
 })
 const ns = useNamespace("input")
 const slots = useSlots()
+const passwordVisible = ref(false)
+const emits = defineEmits(["input"])
+const modelValue = defineModel()
 
 const props = defineProps({
   disabled: Boolean,
@@ -55,16 +59,38 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  type: {
+    type: String,
+    default: "text",
+  },
+  showPassword: Boolean,
 })
 
 const isPrefix = computed(
   () => props.prefixIcon || props.prefixIconfont || props.prefix
 )
 const isSuffix = computed(
-  () => props.suffixIcon || props.suffixIconfont || props.suffix
+  () =>
+    props.suffixIcon ||
+    props.suffixIconfont ||
+    props.suffix ||
+    props.showPassword
 )
+// 是否有前置、后置内容
+const isAside = computed(() => {
+  return isPrepend.value || isAppend.value
+})
 const isPrepend = computed(() => slots.prepend || props.prepend) // 前置内容
 const isAppend = computed(() => slots.append || props.append) // 后置内容
+
+const passwordIcon = computed(() => (passwordVisible.value ? Eye : EyeOff))
+
+const handleInput = event => {
+  //   console.log(123, event.target.value)
+  const value = event.target.value
+  modelValue.value = value
+  emits("input", value, event) // 发布input事件
+}
 </script>
 
 <template>
@@ -89,6 +115,7 @@ const isAppend = computed(() => slots.append || props.append) // 后置内容
         ns.e('wrapper'),
         ns.is('aside-prepend', isPrepend),
         ns.is('aside-append', isAppend),
+        ns.is('aside', isAside),
       ]">
       <!-- 前缀 -->
       <div v-if="isPrefix" :class="[ns.e('fix-wrapper')]">
@@ -104,20 +131,32 @@ const isAppend = computed(() => slots.append || props.append) // 后置内容
           </ue-icon>
         </div>
       </div>
+      <!-- input部分 -->
       <input
+        :type="showPassword ? (passwordVisible ? 'text' : 'password') : type"
         :disabled="disabled"
         :class="[ns.e('inner')]"
         :placeholder="placeholder"
-        :maxlength="maxlength" />
+        :maxlength="maxlength"
+        :value="modelValue"
+        @input="handleInput" />
       <!-- 后缀 -->
       <div v-if="isSuffix" :class="[ns.e('fix-wrapper')]">
         <div :class="[ns.e('fix'), ns.e('suffix')]">
-          <span v-if="suffix">{{ suffix }}</span>
-          <ue-icon v-if="suffixIcon">
-            <component :is="suffixIcon" />
-          </ue-icon>
-          <ue-icon v-if="suffixIconfont">
-            <i class="iconfont" :class="suffixIconfont"></i>
+          <template v-if="!showPassword">
+            <span v-if="suffix">{{ suffix }}</span>
+            <ue-icon v-if="suffixIcon">
+              <component :is="suffixIcon" />
+            </ue-icon>
+            <ue-icon v-if="suffixIconfont">
+              <i class="iconfont" :class="suffixIconfont"></i>
+            </ue-icon>
+          </template>
+          <ue-icon
+            v-if="showPassword"
+            class="pointer"
+            @click="passwordVisible = !passwordVisible">
+            <component :is="passwordIcon" />
           </ue-icon>
         </div>
       </div>
