@@ -2,6 +2,7 @@
 import { computed, useSlots, ref } from "vue"
 import { useNamespace } from "@ui-element-vue3/hooks"
 import { Eye, EyeOff, ClearFill } from "@ui-element-vue3/icons"
+import { useStyle } from "@ui-element-vue3/hooks"
 
 defineOptions({
   name: "ue-input",
@@ -11,6 +12,7 @@ const slots = useSlots()
 const passwordVisible = ref(false)
 const emits = defineEmits(["input", "clear"])
 const modelValue = defineModel()
+const uStyle = useStyle()
 
 const props = defineProps({
   disabled: Boolean,
@@ -66,6 +68,10 @@ const props = defineProps({
   showPassword: Boolean,
   clearable: Boolean,
   showCount: Boolean,
+  width: {
+    type: String,
+    default: "100%",
+  },
 })
 
 const isPrefix = computed(
@@ -102,6 +108,7 @@ const isColorError = computed(
   () =>
     props.maxlength && props.showCount && valueLength.value > props.maxlength
 )
+const styleWidth = computed(() => uStyle.width(props.width))
 
 const handleInput = event => {
   //   console.log(123, event.target.value)
@@ -124,7 +131,8 @@ const handleClear = () => {
       ns.is('disabled', disabled),
       ns.m('size', size),
       ns.is('round', round),
-    ]">
+    ]"
+    :style="[styleWidth]">
     <!-- 前置内容 -->
     <div v-if="isPrepend" :class="[ns.e('aside-wrapper')]">
       <div :class="[ns.e('prepend'), (prepend || append) && ns.e('aside')]">

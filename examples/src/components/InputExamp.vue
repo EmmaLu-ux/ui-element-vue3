@@ -53,6 +53,7 @@
     placeholder="请输入内容"
     :maxlength="5"
     size="xl"
+    width="300"
     showCount
     :prefix-icon="Search"
     v-model="inputValue1"
