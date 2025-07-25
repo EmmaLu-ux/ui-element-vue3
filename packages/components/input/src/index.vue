@@ -64,7 +64,8 @@ const props = defineProps({
     default: "text",
   },
   showPassword: Boolean,
-  clearance: Boolean,
+  clearable: Boolean,
+  showCount: Boolean,
 })
 
 const isPrefix = computed(
@@ -76,7 +77,8 @@ const isSuffix = computed(
     props.suffixIconfont ||
     props.suffix ||
     props.showPassword ||
-    showClear.value
+    showClear.value ||
+    showLimit.value
 )
 // 是否有前置、后置内容
 const isAside = computed(() => {
@@ -87,10 +89,18 @@ const isAppend = computed(() => slots.append || props.append) // 后置内容
 const passwordIcon = computed(() => (passwordVisible.value ? Eye : EyeOff))
 const showClear = computed(
   () =>
-    props.clearance && // 配置清除动作
+    props.clearable && // 配置清除动作
     modelValue.value && // 有值
     !props.disabled && // 未禁用
     props.type === "text" // 类型为text
+)
+const showLimit = computed(
+  () => props.showCount && !props.disabled && props.maxlength
+)
+const valueLength = computed(() => modelValue.value.length)
+const isColorError = computed(
+  () =>
+    props.maxlength && props.showCount && valueLength.value > props.maxlength
 )
 
 const handleInput = event => {
@@ -149,7 +159,7 @@ const handleClear = () => {
       <input
         :type="showPassword ? (passwordVisible ? 'text' : 'password') : type"
         :disabled="disabled"
-        :class="[ns.e('inner')]"
+        :class="[ns.e('inner'), ns.is('color-error', isColorError)]"
         :placeholder="placeholder"
         :maxlength="maxlength"
         :value="modelValue"
@@ -157,7 +167,7 @@ const handleClear = () => {
       <!-- 后缀 -->
       <div v-if="isSuffix" :class="[ns.e('fix-wrapper')]">
         <div :class="[ns.e('fix'), ns.e('suffix')]">
-          <template v-if="!showPassword || !showClear">
+          <template v-if="!showPassword || !showClear || !showLimit">
             <span v-if="suffix">{{ suffix }}</span>
             <ue-icon v-if="suffixIcon">
               <component :is="suffixIcon" />
@@ -175,6 +185,9 @@ const handleClear = () => {
           <ue-icon v-if="showClear" class="pointer" @click="handleClear">
             <component :is="ClearFill" />
           </ue-icon>
+          <div v-if="showLimit" :class="[ns.e('limit')]">
+            {{ valueLength }} / {{ maxlength }}
+          </div>
         </div>
       </div>
     </div>

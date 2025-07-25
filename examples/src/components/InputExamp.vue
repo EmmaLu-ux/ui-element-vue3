@@ -42,13 +42,21 @@
     placeholder="请输入内容"
     :maxlength="12"
     size="xl"
-    clearance
+    clearable
     :prefix-icon="Search"
     v-model="inputValue"
     @input="handleInput"></ue-input>
   <!-- 通过@input的形式订阅input事件 -->
   <div>双向绑定数据：{{ inputValue }}</div>
   <hr />
+  <ue-input
+    placeholder="请输入内容"
+    :maxlength="5"
+    size="xl"
+    showCount
+    :prefix-icon="Search"
+    v-model="inputValue1"
+    @input="handleInput1"></ue-input>
 </template>
 
 <script setup>
@@ -57,6 +65,10 @@ import { ref } from "vue"
 
 const inputValue = ref("")
 const handleInput = (value, event) => {
+  //   console.log("recieved from child: ", value, event)
+}
+const inputValue1 = ref("")
+const handleInput1 = (value, event) => {
   //   console.log("recieved from child: ", value, event)
 }
 </script>

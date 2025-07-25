@@ -189,4 +189,10 @@
   @include e(suffix) {
     padding-left: var(#{getVarName("input", "padding")});
   }
+  @include e(limit) {
+    font-size: 12px;
+    margin-left: var(#{getVarName("input", "padding")});
+    line-height: 1;
+    white-space: pre;
+  }
 }
