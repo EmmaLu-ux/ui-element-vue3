@@ -58,12 +58,12 @@ $text-color: map.deep-merge(
     "primary": #303133,
     // regular text
     "light-1": #606266,
-    // secondary text
+    // secondary text / aside text
     "light-2": #909399,
     // placeholder text
     "light-3": #a8abb2,
     // disabled text
-    "light-4": #c0c4cc,
+    "light-4": #bcbdc0,
   ),
   $text-color
 );
@@ -89,11 +89,23 @@ $component-size: map.deep-merge(
   ),
   $component-size
 );
+$component-round: () !default;
+$component-round: map.deep-merge(
+  (
+    "sm": 4px,
+    "md": 6px,
+    "lg": 8px,
+    "xl": 10px,
+    "round": 100px,
+  ),
+  $component-round
+);
 // 边框颜色
 $border-color: () !default;
 $border-color: map.deep-merge(
   (
     "default": #ced4d8,
+    "disabled": #e1e5e8,
   ),
   $border-color
 );
@@ -104,6 +116,8 @@ $bg-color: map.deep-merge(
     "default": map.get($colors, "white"),
     "disabled": #eaecee,
     "hover-default": #f8f9fa,
+    "disabled-input": #f7f7f9,
+    "aside": rgba(0, 0, 0, 0.02),
   ),
   $bg-color
 );
@@ -118,6 +132,25 @@ $color: map.deep-merge(
   $color
 );
 
+$box-shadow: () !default;
+$box-shadow: map.deep-merge(
+  (
+    "default": none,
+  ),
+  $box-shadow
+);
+// 边距
+$padding: () !default;
+$padding: map.deep-merge(
+  (
+    "sm": 4px,
+    "md": 6px,
+    "lg": 8px,
+    "xl": 10px,
+  ),
+  $padding
+);
+
 $global: (
   // 颜色
   "color": $color,
@@ -130,5 +163,9 @@ $global: (
   // 字体大小
   "font-size": $font-size,
   // 组件尺寸
-  "component-size": $component-size
+  "component-size": $component-size,
+  // 组件圆角
+  "component-round": $component-round,
+  // input图标边距
+  "padding": $padding
 );

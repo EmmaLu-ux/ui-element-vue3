@@ -121,3 +121,15 @@ $b: null !default;
     @content;
   }
 }
+
+/**
+ * 生成后代选择器的类名
+ * @param {String} $block
+ */
+@mixin d($block) {
+  $name: "." + $namespace + $connect + $block;
+  // @debug 99 + $name;
+  #{$name} {
+    @content;
+  }
+}

@@ -1,0 +1,192 @@
+@use "./common/componentVar.scss" as *;
+@use "./common/mixins.scss" as *;
+
+@include b(input) {
+  @include set-component-var("input", inputVars());
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  &:hover {
+    #{getVarName("input", "border-color")}: var(
+      #{getVarName("input", "hover-border-color")}
+    );
+  }
+  &:focus-within {
+    #{getVarName("input", "border-color")}: var(
+      #{getVarName("input", "hover-border-color")}
+    );
+    #{getVarName("input", "box-shadow-color")}: 0 0 0 2px rgba(5, 145, 255, 0.1);
+  }
+  @include e(wrapper) {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    height: var(#{getVarName("input", "size")});
+    line-height: var(#{getVarName("input", "size")});
+    border: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(#{getVarName("input", "border-color")});
+    box-sizing: border-box;
+    padding: 0 12px;
+    border-radius: var(#{getVarName("input", "round")});
+    background-color: var(#{getVarName("input", "bg-color")});
+    transition: 0.3s;
+    box-shadow: var(#{getVarName("input", "box-shadow-color")});
+    @include e(inner) {
+      border: none;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      outline: none;
+      background-color: transparent;
+      color: #000;
+      font-size: var(#{getVarName("input", "font-size")});
+      &::placeholder {
+        color: var(#{getVarName("input", "placeholder-color")});
+      }
+      //   &::-webkit-input-placeholder,
+      //   &:-moz-placeholder,
+      //   &::-moz-placeholder,
+      //   &:-ms-input-placeholder,
+      //   &::-ms-input-placeholder {
+      //     color: var(#{getVarName("input", "placeholder-color")});
+      //   }
+    }
+    @include s((aside-prepend)) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    @include s((aside-append)) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+  @include e(aside-wrapper) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(#{getVarName("input", "size")});
+  }
+  @include e(aside) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(#{getVarName("input", "border-color")});
+    border-radius: var(#{getVarName("input", "round")});
+    background-color: var(#{getVarName("input", "bg-color-aside")});
+    box-sizing: border-box;
+    padding: 0 var(#{getVarName("input", "padding")});
+    transition: 0.3s;
+    font-size: var(#{getVarName("input", "font-size")});
+    user-select: none;
+    color: var(#{getVarName("input", "text-color-aside")});
+  }
+  @include e(prepend) {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-right: none;
+    @include d(button) {
+      display: inline-block;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: none;
+      min-width: auto;
+      padding: 0 var(#{getVarName("input", "padding")});
+    }
+  }
+  @include e(append) {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-left: none;
+    @include d(button) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: none;
+      min-width: auto;
+      //   padding: 0 var(#{getVarName("input", "padding")});
+    }
+  }
+  @include d(button--default) {
+    color: var(#{getVarName("input", "text-color-aside")});
+  }
+  @include s((disabled)) {
+    #{getVarName("input", "border-color")}: var(
+      #{getVarName("input", "disabled-border-color")}
+    );
+    #{getVarName('input',"bg-color")}: var(
+      #{getVarName("input", "disabled-bg-color")}
+    );
+    #{getVarName('input', "text-color")}: var(
+      #{getVarName("input", "disabled-text-color")}
+    );
+    cursor: not-allowed;
+  }
+  @include m(size, sm) {
+    #{getVarName('input', 'font-size')}: var(#{getVarName("font-size", "sm")});
+    #{getVarName('input', 'size')}: var(#{getVarName("component-size", "sm")});
+    #{getVarName('input', 'round')}: var(
+      #{getVarName("component-round", "sm")}
+    );
+    #{getVarName("input", "padding")}: var(#{getVarName("padding", "sm")});
+  }
+  @include m(size, md) {
+    #{getVarName('input', 'font-size')}: var(#{getVarName("font-size", "md")});
+    #{getVarName('input', 'size')}: var(#{getVarName("component-size", "md")});
+    #{getVarName('input', 'round')}: var(
+      #{getVarName("component-round", "md")}
+    );
+    #{getVarName("input", "padding")}: var(#{getVarName("padding", "md")});
+  }
+  @include m(size, lg) {
+    #{getVarName('input', 'font-size')}: var(#{getVarName("font-size", "lg")});
+    #{getVarName('input', 'size')}: var(#{getVarName("component-size", "lg")});
+    #{getVarName('input', 'round')}: var(
+      #{getVarName("component-round", "lg")}
+    );
+    #{getVarName("input", "padding")}: var(#{getVarName("padding", "lg")});
+  }
+  @include m(size, xl) {
+    #{getVarName('input', 'font-size')}: var(#{getVarName("font-size", "xl")});
+    #{getVarName('input', 'size')}: var(#{getVarName("component-size", "xl")});
+    #{getVarName('input', 'round')}: var(
+      #{getVarName("component-round", "xl")}
+    );
+    #{getVarName("input", "padding")}: var(#{getVarName("padding", "xl")});
+  }
+  @include s((round)) {
+    #{getVarName('input', 'round')}: var(
+      #{getVarName("component-round", "round")}
+    );
+  }
+  @include e(fix-wrapper) {
+    height: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @include e(fix) {
+    display: flex;
+    align-items: center;
+    color: var(#{getVarName("text-color", "light-3")});
+    font-size: var(#{getVarName("input", "font-size")});
+    border-radius: var(#{getVarName("input", "round")});
+    box-sizing: border-box;
+    transition: 0.3s;
+    background-color: var(#{getVarName("input", "bg-color")});
+    height: 100%;
+    span {
+      color: var(#{getVarName("input", "text-color")});
+      font-size: inherit;
+    }
+  }
+  @include e(prefix) {
+    padding-right: var(#{getVarName("input", "padding")});
+  }
+  @include e(suffix) {
+    padding-left: var(#{getVarName("input", "padding")});
+  }
+}

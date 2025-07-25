@@ -104,11 +104,63 @@
       "type": getVarName("color", "transparent"),
     ),
     "size": (
-      "default": getVarName("component-size", "default"),
+      "default": getVarName("component-size", "sm"),
     ),
     "font-size": (
-      "default": getVarName("font-size", "default"),
+      "default": getVarName("font-size", "sm"),
     )
   );
   @return $button;
+}
+
+@function inputVars() {
+  $input: (
+    "border-color": (
+      "default": getVarName("border-color", "default"),
+    ),
+    "text-color": (
+      "default": getVarName("text-color", "default"),
+    ),
+    "text-color-aside": (
+      "default": getVarName("text-color", "light-2"),
+    ),
+    "placeholder-color": (
+      "default": getVarName("text-color", "light-3"),
+    ),
+    "bg-color": (
+      "default": getVarName("bg-color", "default"),
+    ),
+    "bg-color-aside": (
+      "default": getVarName("bg-color", "aside"),
+    ),
+    "size": (
+      "default": getVarName("component-size", "sm"),
+    ),
+    "font-size": (
+      "default": getVarName("font-size", "sm"),
+    ),
+    "round": (
+      "default": getVarName("component-round", "sm"),
+    ),
+    "padding": (
+      "default": getVarName("padding", "sm"),
+    ),
+    "hover-border-color": (
+      "default": getVarName("color", "primary"),
+    ),
+    "focus-box-shadow": (
+      "default": getVarName("box-shadow", "default"),
+    ),
+    "disabled-border-color": (
+      "default": getVarName("border-color", "disabled"),
+    ),
+    "disabled-text-color": (
+      "default": getVarName("text-color", "light-4"),
+    ),
+    "disabled-bg-color": (
+      "default": getVarName("bg-color", "disabled-input"),
+    ),
+  );
+
+  @return $input;
 }
