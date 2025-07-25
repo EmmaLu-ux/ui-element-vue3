@@ -99,7 +99,6 @@
 </template>
 
 <script setup>
-import { UeButton } from "../../../packages"
 import { Eye } from "@ui-element-vue3/icons"
 
 const beforeChange = () => {

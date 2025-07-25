@@ -19,7 +19,7 @@ const props = defineProps({
   dashed: Boolean,
   size: {
     type: String,
-    default: "md", // sm, md, lg, xl
+    default: "sm", // sm, md, lg, xl
   },
   circle: Boolean,
   prefix: {
@@ -64,21 +64,30 @@ const handleEvent = e => {
 </script>
 
 <template>
-  <button :disabled="disabled" :class="[
-    ns.b(),
-    ns.m(type),
-    ns.is('round', round),
-    ns.is('block', block),
-    ns.m('size', buttonGroup?.size?.value || size),
-    ns.is('circle', circle),
-    ns.is('subtle', subtle),
-    ns.is('link', link),
-    ns.is('outline', outline),
-    ns.is('dashed', dashed),
-    ns.is('disabled', isLoading || disabled),
-  ]" @click="handleEvent">
-    <i v-if="isLoading" class="iconfont icon-loading is-loading-transition" :class="[ns.is('loading', loading)]"></i>
-    <i v-if="!isLoading && prefix" class="iconfont" :class="[ns.e('icon'), prefix]"></i>
+  <button
+    :disabled="disabled"
+    :class="[
+      ns.b(),
+      ns.m(type),
+      ns.is('round', round),
+      ns.is('block', block),
+      ns.m('size', buttonGroup?.size?.value || size),
+      ns.is('circle', circle),
+      ns.is('subtle', subtle),
+      ns.is('link', link),
+      ns.is('outline', outline),
+      ns.is('dashed', dashed),
+      ns.is('disabled', isLoading || disabled),
+    ]"
+    @click="handleEvent">
+    <i
+      v-if="isLoading"
+      class="iconfont icon-loading is-loading-transition"
+      :class="[ns.is('loading', loading)]"></i>
+    <i
+      v-if="!isLoading && prefix"
+      class="iconfont"
+      :class="[ns.e('icon'), prefix]"></i>
     <span>
       <slot></slot>
     </span>
