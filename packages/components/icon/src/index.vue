@@ -1,5 +1,5 @@
 <template>
-  <i :class="[ns.b()]" :style="[styleSize, styleColor]">
+  <i :class="[ns.b(), $attrs.class]" :style="[styleSize, styleColor]">
     <slot></slot>
   </i>
 </template>

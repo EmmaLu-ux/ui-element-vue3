@@ -39,11 +39,11 @@
     show-password></ue-input>
   <hr />
   <ue-input
-    placeholder="请输入邮箱"
+    placeholder="请输入内容"
     :maxlength="12"
     size="xl"
+    clearance
     :prefix-icon="Search"
-    :suffix-icon="Search"
     v-model="inputValue"
     @input="handleInput"></ue-input>
   <!-- 通过@input的形式订阅input事件 -->

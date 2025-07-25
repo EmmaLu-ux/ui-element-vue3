@@ -1,7 +1,7 @@
 <script setup>
 import { computed, useSlots, ref } from "vue"
 import { useNamespace } from "@ui-element-vue3/hooks"
-import { Eye, EyeOff } from "@ui-element-vue3/icons"
+import { Eye, EyeOff, ClearFill } from "@ui-element-vue3/icons"
 
 defineOptions({
   name: "ue-input",
@@ -9,7 +9,7 @@ defineOptions({
 const ns = useNamespace("input")
 const slots = useSlots()
 const passwordVisible = ref(false)
-const emits = defineEmits(["input"])
+const emits = defineEmits(["input", "clear"])
 const modelValue = defineModel()
 
 const props = defineProps({
@@ -64,6 +64,7 @@ const props = defineProps({
     default: "text",
   },
   showPassword: Boolean,
+  clearance: Boolean,
 })
 
 const isPrefix = computed(
@@ -74,7 +75,8 @@ const isSuffix = computed(
     props.suffixIcon ||
     props.suffixIconfont ||
     props.suffix ||
-    props.showPassword
+    props.showPassword ||
+    showClear.value
 )
 // 是否有前置、后置内容
 const isAside = computed(() => {
@@ -82,14 +84,26 @@ const isAside = computed(() => {
 })
 const isPrepend = computed(() => slots.prepend || props.prepend) // 前置内容
 const isAppend = computed(() => slots.append || props.append) // 后置内容
-
 const passwordIcon = computed(() => (passwordVisible.value ? Eye : EyeOff))
+const showClear = computed(
+  () =>
+    props.clearance && // 配置清除动作
+    modelValue.value && // 有值
+    !props.disabled && // 未禁用
+    props.type === "text" // 类型为text
+)
 
 const handleInput = event => {
   //   console.log(123, event.target.value)
   const value = event.target.value
   modelValue.value = value
   emits("input", value, event) // 发布input事件
+}
+const handleClear = () => {
+  modelValue.value = ""
+  emits("input", "")
+  emits("clear")
+  // focusExpose() // 自动聚焦
 }
 </script>
 
@@ -143,7 +157,7 @@ const handleInput = event => {
       <!-- 后缀 -->
       <div v-if="isSuffix" :class="[ns.e('fix-wrapper')]">
         <div :class="[ns.e('fix'), ns.e('suffix')]">
-          <template v-if="!showPassword">
+          <template v-if="!showPassword || !showClear">
             <span v-if="suffix">{{ suffix }}</span>
             <ue-icon v-if="suffixIcon">
               <component :is="suffixIcon" />
@@ -157,6 +171,9 @@ const handleInput = event => {
             class="pointer"
             @click="passwordVisible = !passwordVisible">
             <component :is="passwordIcon" />
+          </ue-icon>
+          <ue-icon v-if="showClear" class="pointer" @click="handleClear">
+            <component :is="ClearFill" />
           </ue-icon>
         </div>
       </div>
@@ -172,5 +189,3 @@ const handleInput = event => {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped></style>
