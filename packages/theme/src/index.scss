@@ -7,8 +7,9 @@
 @use "./common/config.scss";
 @use "./icon.scss";
 @use "./input.scss";
+@use "./textarea.scss";
 
-// @include set-component-css-var("common", $common);
+// @include set-component-css-var("common", $common);:
 :root {
   @include set-main-color(); // 生成主题色
   @include set-main-mode-color("light"); // 生成浅层次色

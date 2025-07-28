@@ -1,0 +1,62 @@
+@use "./common/componentVar.scss" as *;
+@use "./common/mixins.scss" as *;
+
+@include b(textarea) {
+  @include set-component-var("textarea", textareaVars());
+  display: flex;
+  position: relative;
+  @include e(inner) {
+    display: flex;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(#{getVarName("textarea", "border-color")});
+    border-radius: var(#{getVarName("textarea", "round")});
+    padding: 10px var(#{getVarName("textarea", "padding")});
+    background-color: var(#{getVarName("textarea", "bg-color")});
+    align-items: center;
+    box-sizing: border-box;
+    color: var(#{getVarName("textarea", "text-color")});
+    font-size: var(#{getVarName("textarea", "font-size")});
+    line-height: 1.5;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 60px;
+    box-shadow: var(#{getVarName("textarea", "box-shadow-color")});
+    &:hover {
+      border-color: var(#{getVarName("textarea", "hover-border-color")});
+    }
+    @include s((focus)) {
+      #{getVarName('textarea', 'box-shadow-color')}: 0 0 0 2px #0591ff1a;
+    }
+    @include s(color-danger) {
+      #{getVarName('textarea', 'text-color')}: var(
+        #{getVarName("color", "danger")}
+      );
+    }
+    // TODO: 禁用状态下，内容不可选择
+    @include s((disabled)) {
+      #{getVarName('textarea', 'bg-color')}: var(
+        #{getVarName("textarea", "disabled-bg-color")}
+      );
+      #{getVarName('textarea', "text-color")}: var(
+        #{getVarName("textarea", "disabled-text-color")}
+      );
+      cursor: not-allowed;
+    }
+  }
+  @include e(limit) {
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    font-size: 12px;
+    color: var(#{getVarName("textarea", "disabled-text-color")});
+    margin-left: var(#{getVarName("textarea", "padding")});
+    line-height: 1;
+    white-space: pre;
+    background-color: #fff;
+    padding: 2px;
+  }
+}

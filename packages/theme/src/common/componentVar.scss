@@ -178,3 +178,43 @@
 
   @return $input;
 }
+
+@function textareaVars() {
+  $textarea: (
+    "border-color": (
+      "default": getVarName("border-color", "default"),
+    ),
+    "bg-color": (
+      "default": getVarName("bg-color", "default"),
+    ),
+    "text-color": (
+      "default": getVarName("text-color", "default"),
+    ),
+    "box-shadow-color": (
+      "default": getVarName("box-shadow", "default"),
+    ),
+    "padding": (
+      "default": getVarName("padding", "sm"),
+    ),
+    "round": (
+      "default": getVarName("component-round", "sm"),
+    ),
+    "font-size": (
+      "default": getVarName("font-size", "sm"),
+    ),
+    // hover
+    "hover-border-color":
+      (
+        "default": getVarName("color", "primary"),
+      ),
+    // disabled
+    "disabled-bg-color":
+      (
+        "default": getVarName("bg-color", "disabled"),
+      ),
+    "disabled-text-color": (
+      "default": getVarName("text-color", "light-4"),
+    ),
+  );
+  @return $textarea;
+}
