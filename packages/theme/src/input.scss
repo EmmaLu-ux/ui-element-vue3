@@ -6,12 +6,10 @@
   display: inline-flex;
   align-items: center;
   width: 100%;
-  &:hover {
-    #{getVarName("input", "border-color")}: var(
-      #{getVarName("input", "hover-border-color")}
-    );
+  &:hover .ue-input__wrapper {
+    border-color: var(#{getVarName("input", "hover-border-color")});
   }
-  &:focus-within {
+  &:focus-within .ue-input__wrapper {
     #{getVarName("input", "border-color")}: var(
       #{getVarName("input", "hover-border-color")}
     );
@@ -89,12 +87,14 @@
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     border-right: none;
+    // height: 100%;
     @include d(button) {
       display: inline-block;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
       border-right: none;
       min-width: auto;
+      // height: 100%;
       padding: 0 var(#{getVarName("input", "padding")});
     }
   }
@@ -102,12 +102,14 @@
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     border-left: none;
+    height: 100%;
     @include d(button) {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
       border-left: none;
       min-width: auto;
-      //   padding: 0 var(#{getVarName("input", "padding")});
+      // height: 100%;
+      // padding: 0 var(#{getVarName("input", "padding")});
     }
   }
   @include d(button--default) {
@@ -132,6 +134,7 @@
       #{getVarName("component-round", "sm")}
     );
     #{getVarName("input", "padding")}: var(#{getVarName("padding", "sm")});
+    // #{getVarName("input", "icon-size")}: var(#{getVarName("icon-size", "sm")});
   }
   @include m(size, md) {
     #{getVarName('input', 'font-size')}: var(#{getVarName("font-size", "md")});
@@ -140,6 +143,7 @@
       #{getVarName("component-round", "md")}
     );
     #{getVarName("input", "padding")}: var(#{getVarName("padding", "md")});
+    // #{getVarName("input", "icon-size")}: var(#{getVarName("icon-size", "md")});
   }
   @include m(size, lg) {
     #{getVarName('input', 'font-size')}: var(#{getVarName("font-size", "lg")});
@@ -148,6 +152,7 @@
       #{getVarName("component-round", "lg")}
     );
     #{getVarName("input", "padding")}: var(#{getVarName("padding", "lg")});
+    // #{getVarName("input", "icon-size")}: var(#{getVarName("icon-size", "lg")});
   }
   @include m(size, xl) {
     #{getVarName('input', 'font-size')}: var(#{getVarName("font-size", "xl")});
@@ -156,6 +161,7 @@
       #{getVarName("component-round", "xl")}
     );
     #{getVarName("input", "padding")}: var(#{getVarName("padding", "xl")});
+    // #{getVarName("input", "icon-size")}: var(#{getVarName("icon-size", "xl")});
   }
   @include s((round)) {
     #{getVarName('input', 'round')}: var(
@@ -182,6 +188,10 @@
       color: var(#{getVarName("input", "text-color")});
       font-size: inherit;
     }
+    // @include d(icon) {
+    //   width: var(#{getVarName("input", "icon-size")});
+    //   height: var(#{getVarName("input", "icon-size")});
+    // }
   }
   @include e(prefix) {
     padding-right: var(#{getVarName("input", "padding")});

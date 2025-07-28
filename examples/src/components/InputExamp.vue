@@ -2,6 +2,7 @@
   <ue-input placeholder="请输入邮箱" :maxlength="3">
     <!-- 前置内容 -->
     <template #prepend>
+      <!-- NOTE: 需要手动设置按钮大小，以达到与input大小一致 -->
       <ue-button type="default" prefix="icon-search1"></ue-button>
     </template>
     <!-- 后置内容 -->
@@ -10,10 +11,44 @@
     </template>
   </ue-input>
   <hr />
+  <ue-input placeholder="请输入邮箱" :maxlength="3" size="md">
+    <!-- 前置内容 -->
+    <template #prepend>
+      <ue-button type="default" prefix="icon-search1" size="md"></ue-button>
+    </template>
+    <!-- 后置内容 -->
+    <template #append>
+      <ue-button type="primary" size="md">后置按钮</ue-button>
+    </template>
+  </ue-input>
+  <hr />
+  <ue-input placeholder="请输入邮箱" :maxlength="3" size="lg">
+    <!-- 前置内容 -->
+    <template #prepend>
+      <ue-button type="default" prefix="icon-search1" size="lg"></ue-button>
+    </template>
+    <!-- 后置内容 -->
+    <template #append>
+      <ue-button type="primary" size="lg">后置按钮</ue-button>
+    </template>
+  </ue-input>
+  <hr />
+  <ue-input placeholder="请输入邮箱" :maxlength="3" size="xl">
+    <!-- 前置内容 -->
+    <template #prepend>
+      <ue-button type="default" prefix="icon-search1" size="xl"></ue-button>
+    </template>
+    <!-- 后置内容 -->
+    <template #append>
+      <ue-button type="primary" size="xl">后置按钮</ue-button>
+    </template>
+  </ue-input>
+  <hr />
   <ue-input
     placeholder="请输入邮箱"
     prepend="https://"
-    append=".com"></ue-input>
+    append=".com"
+    size="sm"></ue-input>
   <hr />
   <ue-input
     placeholder="请输入邮箱"
@@ -41,7 +76,7 @@
   <ue-input
     placeholder="请输入内容"
     :maxlength="12"
-    size="xl"
+    size="lg"
     clearable
     :prefix-icon="Search"
     v-model="inputValue"

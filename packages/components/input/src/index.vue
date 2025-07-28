@@ -65,6 +65,7 @@ const props = defineProps({
     type: String,
     default: "text",
   },
+  // 是否展示密码可见否的图标
   showPassword: Boolean,
   clearable: Boolean,
   showCount: Boolean,
@@ -86,12 +87,6 @@ const isSuffix = computed(
     showClear.value ||
     showLimit.value
 )
-// 是否有前置、后置内容
-const isAside = computed(() => {
-  return isPrepend.value || isAppend.value
-})
-const isPrepend = computed(() => slots.prepend || props.prepend) // 前置内容
-const isAppend = computed(() => slots.append || props.append) // 后置内容
 const passwordIcon = computed(() => (passwordVisible.value ? Eye : EyeOff))
 const showClear = computed(
   () =>
@@ -103,6 +98,12 @@ const showClear = computed(
 const showLimit = computed(
   () => props.showCount && !props.disabled && props.maxlength
 )
+// 是否有前置、后置内容
+const isAside = computed(() => {
+  return isPrepend.value || isAppend.value
+})
+const isPrepend = computed(() => slots.prepend || props.prepend) // 前置内容
+const isAppend = computed(() => slots.append || props.append) // 后置内容
 const valueLength = computed(() => modelValue.value.length)
 const isColorError = computed(
   () =>

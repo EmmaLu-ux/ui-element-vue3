@@ -61,7 +61,7 @@ $text-color: map.deep-merge(
     // secondary text / aside text
     "light-2": #909399,
     // placeholder text
-    "light-3": #a8abb2,
+    "light-3": #bfbfbf,
     // disabled text
     "light-4": #bcbdc0,
   ),
@@ -113,7 +113,7 @@ $border-color: map.deep-merge(
 $bg-color: () !default;
 $bg-color: map.deep-merge(
   (
-    "default": map.get($colors, "white"),
+    "default": $color-white,
     "disabled": #eaecee,
     "hover-default": #f8f9fa,
     "disabled-input": #f7f7f9,
@@ -143,12 +143,23 @@ $box-shadow: map.deep-merge(
 $padding: () !default;
 $padding: map.deep-merge(
   (
-    "sm": 4px,
-    "md": 6px,
-    "lg": 8px,
-    "xl": 10px,
+    "sm": 8px,
+    "md": 10px,
+    "lg": 12px,
+    "xl": 14px,
   ),
   $padding
+);
+
+$icon-size: () !default;
+$icon-size: map.deep-merge(
+  (
+    "sm": 1em,
+    "md": 1.5em,
+    "lg": 2em,
+    "xl": 2.5em,
+  ),
+  $icon-size
 );
 
 $global: (
@@ -167,5 +178,7 @@ $global: (
   // 组件圆角
   "component-round": $component-round,
   // input图标边距
-  "padding": $padding
+  "padding": $padding,
+  "box-shadow": $box-shadow,
+  "icon-size": $icon-size
 );

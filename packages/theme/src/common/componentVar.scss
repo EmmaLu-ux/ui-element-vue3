@@ -119,6 +119,7 @@
       "default": getVarName("border-color", "default"),
     ),
     "text-color": (
+      // icon和text都会用到
       "default": getVarName("text-color", "default"),
     ),
     "text-color-aside": (
@@ -133,27 +134,40 @@
     "bg-color-aside": (
       "default": getVarName("bg-color", "aside"),
     ),
+    "box-shadow-color": (
+      "default": getVarName("box-shadow", "default"),
+    ),
     "size": (
       "default": getVarName("component-size", "sm"),
     ),
     "font-size": (
       "default": getVarName("font-size", "sm"),
     ),
-    "round": (
-      "default": getVarName("component-round", "sm"),
-    ),
+    // "icon-size": (
+    //   "default": getVarName("icon-size", "sm"),
+    // ),
+    "round":
+      (
+        "default": getVarName("component-round", "sm"),
+      ),
     "padding": (
       "default": getVarName("padding", "sm"),
     ),
-    "hover-border-color": (
-      "default": getVarName("color", "primary"),
-    ),
-    "focus-box-shadow": (
-      "default": getVarName("box-shadow", "default"),
-    ),
-    "disabled-border-color": (
-      "default": getVarName("border-color", "disabled"),
-    ),
+    // hover
+    "hover-border-color":
+      (
+        "default": getVarName("color", "primary"),
+      ),
+    // focus
+    "focus-box-shadow":
+      (
+        "default": getVarName("box-shadow", "default"),
+      ),
+    // disabled
+    "disabled-border-color":
+      (
+        "default": getVarName("border-color", "disabled"),
+      ),
     "disabled-text-color": (
       "default": getVarName("text-color", "light-4"),
     ),
