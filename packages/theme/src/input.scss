@@ -9,7 +9,7 @@
   &:hover .ue-input__wrapper {
     border-color: var(#{getVarName("input", "hover-border-color")});
   }
-  &:focus-within .ue-input__wrapper {
+  @include s((focus)) {
     #{getVarName("input", "border-color")}: var(
       #{getVarName("input", "hover-border-color")}
     );

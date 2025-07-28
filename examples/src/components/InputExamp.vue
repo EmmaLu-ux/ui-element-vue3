@@ -80,7 +80,18 @@
     clearable
     :prefix-icon="Search"
     v-model="inputValue"
-    @input="handleInput"></ue-input>
+    @input="handleInput"
+    @focus="handleFocus"
+    @blur="handleBlur"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
+    @compositionstart="handleCompositionStart"
+    @compositionupdate="handleCompositionUpdate"
+    @compositionend="handleCompositionEnd"
+    @change="handleChange"
+    @keydown="handleKeyDown"
+    @keyup="handleKeyUp"
+    ref="inputRef"></ue-input>
   <!-- 通过@input的形式订阅input事件 -->
   <div>双向绑定数据：{{ inputValue }}</div>
   <hr />
@@ -97,11 +108,46 @@
 
 <script setup>
 import { Search } from "@ui-element-vue3/icons"
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 
-const inputValue = ref("")
+const inputValue = ref("这是一个inputValue")
+const inputRef = ref(null)
+onMounted(() => {
+  inputRef.value.select()
+})
+
 const handleInput = (value, event) => {
-  //   console.log("recieved from child: ", value, event)
+  console.log("recieved from child: ", value, event)
+}
+const handleFocus = e => {
+  console.log("获取焦点", e)
+}
+const handleBlur = e => {
+  console.log("失去焦点", e)
+}
+const handleMouseEnter = e => {
+  console.log("鼠标移入", e)
+}
+const handleMouseLeave = e => {
+  console.log("鼠标移出", e)
+}
+const handleCompositionStart = e => {
+  console.log("compositionstart", e)
+}
+const handleCompositionUpdate = e => {
+  console.log("compositionupdate", e)
+}
+const handleCompositionEnd = e => {
+  console.log("compositionend", e)
+}
+const handleChange = e => {
+  console.log("change", e)
+}
+const handleKeyDown = e => {
+  console.log("keydown", e)
+}
+const handleKeyUp = e => {
+  console.log("keyup", e)
 }
 const inputValue1 = ref("")
 const handleInput1 = (value, event) => {
