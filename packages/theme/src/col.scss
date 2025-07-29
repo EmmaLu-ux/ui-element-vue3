@@ -14,4 +14,7 @@
     min-width: $value;
     flex: 0 0 $value;
   }
+  .#{$namespace}-col-offset-#{$i} {
+    margin-left: math.div(1, 24) * $i * 100 * 1%;
+  }
 }

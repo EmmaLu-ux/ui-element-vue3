@@ -1,6 +1,6 @@
 <template>
-  <ue-row>
-    <ue-col :span="6">
+  <ue-row :gutter="50" justify="center" :gap="10">
+    <ue-col :span="6" :offset="6">
       <div class="bg bg-odd"></div>
     </ue-col>
     <ue-col :span="6">

@@ -4,4 +4,22 @@
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
+  @include s((justify-center)) {
+    justify-content: center;
+  }
+  @include s((justify-start)) {
+    justify-content: flex-start;
+  }
+  @include s((justify-end)) {
+    justify-content: flex-end;
+  }
+  @include s((justify-space-between)) {
+    justify-content: space-between;
+  }
+  @include s((justify-space-around)) {
+    justify-content: space-around;
+  }
+  @include s((justify-evenly)) {
+    justify-content: space-evenly;
+  }
 }
