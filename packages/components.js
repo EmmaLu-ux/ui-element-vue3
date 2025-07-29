@@ -3,11 +3,15 @@ import { UeButtonGroup } from "./components/buttonGroup/index.js"
 import { UeIcon } from "./components/icon/index.js"
 import { UeInput } from "./components/input/index.js"
 import { UeTextarea } from "./components/textarea/index.js"
+import { UeRow } from "./components/row/index.js"
+import { UeCol } from "./components/col/index.js"
 
 export default [
     UeButton,
     UeButtonGroup,
     UeIcon,
     UeInput,
-    UeTextarea
+    UeTextarea,
+    UeRow,
+    UeCol
 ]

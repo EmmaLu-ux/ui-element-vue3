@@ -8,6 +8,8 @@
 @use "./icon.scss";
 @use "./input.scss";
 @use "./textarea.scss";
+@use "./row.scss";
+@use "./col.scss";
 
 // @include set-component-css-var("common", $common);:
 :root {

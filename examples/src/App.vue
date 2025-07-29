@@ -3,7 +3,8 @@
 // import ButtonGroupExp from "./components/ButtonGroupExp.vue"
 // import IconExamp from "./components/IconExamp.vue"
 // import InputExamp from "./components/InputExamp.vue"
-import TextareaExamp from "./components/TextareaExamp.vue"
+// import TextareaExamp from "./components/TextareaExamp.vue"
+import RowandColExamp from "./components/RowandColExamp.vue"
 </script>
 
 <template>
@@ -11,7 +12,8 @@ import TextareaExamp from "./components/TextareaExamp.vue"
   <!-- <ButtonExamples></ButtonExamples> -->
   <!-- <ButtonGroupExp></ButtonGroupExp> -->
   <!-- <InputExamp></InputExamp> -->
-  <TextareaExamp></TextareaExamp>
+  <!-- <TextareaExamp></TextareaExamp> -->
+  <RowandColExamp></RowandColExamp>
 </template>
 
 <style scoped></style>

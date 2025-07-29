@@ -1,0 +1,7 @@
+@use "./common/mixins.scss" as *;
+
+@include b(row) {
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}

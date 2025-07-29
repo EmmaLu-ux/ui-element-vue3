@@ -1,9 +1,10 @@
 // 默认的命名空间
 export const defaultNamespace = 'ue'
 
-const _bem = (namespace, block, element, modifierArr, modifierValue) => {
+const _bem = (namespace, block, blockSuffix, element, modifierArr, modifierValue) => {
     // block
     let classname = `${namespace}-${block}`
+    blockSuffix && (classname += `-${blockSuffix}`)
     // element
     element && (classname += `__${element}`)
     // modifier
@@ -17,7 +18,7 @@ export const useNamespace = (block) => {
     const namespace = defaultNamespace
 
     // block
-    const b = () => _bem(namespace, block)
+    const b = (blockSuffix = "") => _bem(namespace, block, blockSuffix)
     // element
     const e = (element) => element ? _bem(namespace, block, element) : ''
     //modifier
