@@ -218,3 +218,8 @@
   );
   @return $textarea;
 }
+
+@function checkboxvars() {
+  $checkbox: ();
+  @return $checkbox;
+}
