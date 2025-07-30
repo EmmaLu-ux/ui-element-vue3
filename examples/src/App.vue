@@ -4,7 +4,8 @@
 // import IconExamp from "./components/IconExamp.vue"
 // import InputExamp from "./components/InputExamp.vue"
 // import TextareaExamp from "./components/TextareaExamp.vue"
-import RowandColExamp from "./components/RowandColExamp.vue"
+// import RowandColExamp from "./components/RowandColExamp.vue"
+import LayoutExamp from "./components/LayoutExamp.vue"
 </script>
 
 <template>
@@ -13,7 +14,8 @@ import RowandColExamp from "./components/RowandColExamp.vue"
   <!-- <ButtonGroupExp></ButtonGroupExp> -->
   <!-- <InputExamp></InputExamp> -->
   <!-- <TextareaExamp></TextareaExamp> -->
-  <RowandColExamp></RowandColExamp>
+  <!-- <RowandColExamp></RowandColExamp> -->
+  <LayoutExamp></LayoutExamp>
 </template>
 
 <style scoped></style>

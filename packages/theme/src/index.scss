@@ -10,6 +10,11 @@
 @use "./textarea.scss";
 @use "./row.scss";
 @use "./col.scss";
+@use "./container.scss";
+@use "./aside.scss";
+@use "./header.scss";
+@use "./main.scss";
+@use "./footer.scss";
 
 // @include set-component-css-var("common", $common);:
 :root {
@@ -19,4 +24,10 @@
   @include set-global-var();
   // --ue-color-white: #{$color-white};
   // --ue-color-primary: #{$color-primary};
+
+  // layout组件样式
+  --ue-layout-header-padding: 24px;
+  --ue-layout-main-padding: 24px;
+  --ue-layout-footer-padding: 24px;
+  --ue-layout-aside-width: 220px;
 }

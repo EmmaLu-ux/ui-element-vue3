@@ -1,0 +1,6 @@
+import "@ui-element-vue3/theme/src/initRoot.scss"
+import "@ui-element-vue3/theme/src/container.scss"
+import "@ui-element-vue3/theme/src/aside.scss"
+import "@ui-element-vue3/theme/src/footer.scss"
+import "@ui-element-vue3/theme/src/header.scss"
+import "@ui-element-vue3/theme/src/main.scss"

@@ -1,0 +1,8 @@
+@use "./common/componentVar.scss" as *;
+@use "./common/mixins.scss" as *;
+
+@include b(aside) {
+  display: flex;
+  transition: 0.3s;
+  width: 0 var(--ue-layout-aside-width);
+}

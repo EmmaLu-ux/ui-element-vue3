@@ -1,0 +1,10 @@
+@use "./common/mixins.scss" as *;
+@use "./common/componentVar.scss" as *;
+
+@include b(container) {
+  display: flex;
+  flex: 1;
+  @include s((vertical)) {
+    flex-direction: column;
+  }
+}

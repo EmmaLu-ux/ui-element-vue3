@@ -5,6 +5,7 @@ import { UeInput } from "./components/input/index.js"
 import { UeTextarea } from "./components/textarea/index.js"
 import { UeRow } from "./components/row/index.js"
 import { UeCol } from "./components/col/index.js"
+import { UeContainer, UeHeader, UeMain, UeAside, UeFooter } from "./components/container/index.js";
 
 export default [
     UeButton,
@@ -13,5 +14,8 @@ export default [
     UeInput,
     UeTextarea,
     UeRow,
-    UeCol
+    UeCol,
+    UeContainer,
+    UeHeader,
+    UeMain, UeAside, UeFooter
 ]
