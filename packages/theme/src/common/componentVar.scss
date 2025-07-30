@@ -219,7 +219,42 @@
   @return $textarea;
 }
 
-@function checkboxvars() {
-  $checkbox: ();
+@function checkboxVars($type: "") {
+  $checkbox: (
+    // 默认状态 **********************
+    "border-color":
+      (
+        "default": getVarName("border-color", "default"),
+        "type": getVarName("color", $type),
+      ),
+    "bg-color": (
+      "default": getVarName("bg-color", "default"),
+      "type": getVarName("color", $type),
+    ),
+    "icon-color": (
+      "default": getVarName("text-color", "white"),
+      "type": getVarName("text-color", "white"),
+    ),
+    "text-color": (
+      "default": getVarName("text-color", "default"),
+      "type": getVarName("color", $type),
+    ),
+    "font-size": (
+      "default": getVarName("font-size", "sm"),
+    ),
+    "checkbox-round": (
+      "default": getVarName("checkbox-round", "sm"),
+    ),
+    "checkbox-size": (
+      "default": getVarName("checkbox-size", "sm"),
+    ),
+    // hover状态 **********************
+    "hover-border-color":
+      (
+        "default": getVarName("color", "primary"),
+        "type": getVarName("color", $type),
+      ),
+    // disabled状态 **********************
+  );
   @return $checkbox;
 }

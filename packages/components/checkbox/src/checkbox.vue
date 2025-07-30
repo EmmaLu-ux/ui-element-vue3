@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" :class="[ns.b()]">
+  <component :is="tag" :class="[ns.b(), ns.m(type), ns.is('checked', true)]">
     <span :class="[ns.e('wrapper')]">
       <input :class="[ns.e('input')]" type="checkbox" />
       <span :class="[ns.e('inner')]">
@@ -25,6 +25,10 @@ const props = defineProps({
   tag: {
     type: String,
     default: "label",
+  },
+  type: {
+    type: String,
+    default: "",
   },
 })
 </script>

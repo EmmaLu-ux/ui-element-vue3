@@ -1,5 +1,5 @@
 <template>
-  <ue-checkbox>乒乓球</ue-checkbox>
+  <ue-checkbox type="primary">乒乓球</ue-checkbox>
 </template>
 
 <script setup></script>

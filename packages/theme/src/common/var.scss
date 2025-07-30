@@ -162,6 +162,28 @@ $icon-size: map.deep-merge(
   $icon-size
 );
 
+$checkbox-round: () !default;
+$checkbox-round: map.deep-merge(
+  (
+    "sm": 0.25rem,
+    "md": 0.5rem,
+    "lg": 1rem,
+    "xl": 2rem,
+  ),
+  $checkbox-round
+);
+
+$checkbox-size: () !default;
+$checkbox-size: map.deep-merge(
+  (
+    "sm": 1.25rem,
+    "md": 1.5rem,
+    "lg": 1.875rem,
+    "xl": 2.25rem,
+  ),
+  $checkbox-size
+);
+
 $global: (
   // 颜色
   "color": $color,
@@ -180,5 +202,7 @@ $global: (
   // input图标边距
   "padding": $padding,
   "box-shadow": $box-shadow,
-  "icon-size": $icon-size
+  "icon-size": $icon-size,
+  "checkbox-round": $checkbox-round,
+  "checkbox-size": $checkbox-size
 );

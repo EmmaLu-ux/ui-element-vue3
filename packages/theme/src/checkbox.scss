@@ -1,6 +1,65 @@
+@use "sass:map";
 @use "./common/componentVar.scss" as *;
 @use "./common/mixins.scss" as *;
 
 @include b(checkbox) {
   @include set-component-var("checkbox", checkboxVars());
+  display: inline-flex;
+  align-items: center;
+  margin-right: 24px;
+  cursor: pointer;
+  //   &:hover {
+  //     border-color: var(#{getVarName("checkbox", "hover-border-color")});
+  //   }
+  @include e(wrapper) {
+    position: relative;
+  }
+  @include e(input) {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    background: none;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    z-index: 2;
+  }
+  @include e(inner) {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: var(#{getVarName("checkbox", "checkbox-size")});
+    width: var(#{getVarName("checkbox", "checkbox-size")});
+    border-radius: var(#{getVarName("checkbox", "checkbox-round")});
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(#{getVarName("checkbox", "border-color")});
+    background-color: var(#{getVarName("checkbox", "bg-color")});
+    color: var(#{getVarName("checkbox", "icon-color")});
+    box-sizing: border-box;
+    transition: 0.3s;
+  }
+  @include e(label) {
+    margin-left: 8px;
+    line-height: 1.5;
+    color: var(#{getVarName("checkbox", "text-color")});
+    font-size: var(#{getVarName("checkbox", "font-size")});
+  }
+}
+@each $t in $types {
+  $classname: ".ue-checkbox--" + $t;
+  #{$classname} {
+    // &:hover {
+    //   border-color: var(#{getVarName("checkbox", "hover-border-color")});
+    // }
+    @include s((checked)) {
+      @include set-component-var("checkbox", checkboxVars($t), "type");
+      #{getVarName("checkbox", "icon-color")}: var(
+        #{getVarName("text-color", "white")}
+      );
+    }
+  }
 }
