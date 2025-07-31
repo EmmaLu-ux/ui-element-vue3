@@ -99,9 +99,25 @@ $b: null !default;
  * 创建元素的类名
  * @param {String} $ele
  */
-@mixin e($ele) {
-  $name: $b + $element-connect + $ele; // .ue-$block__$ele
-  @at-root {
+// @mixin e($ele) {
+//   $name: $b + $element-connect + $ele; // .ue-$block__$ele
+//   @at-root {
+//     #{$name} {
+//       @content;
+//     }
+//   }
+// }
+
+// 生成elem
+@mixin e($elem, $root: true) {
+  $name: $b + $element-connect + $elem;
+  @if $root {
+    @at-root {
+      #{$name} {
+        @content;
+      }
+    }
+  } @else {
     #{$name} {
       @content;
     }

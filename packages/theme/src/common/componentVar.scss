@@ -218,3 +218,52 @@
   );
   @return $textarea;
 }
+
+@function checkboxVars() {
+  $checkbox: (
+    "border-color": (
+      "default": getVarName("border-color", "default"),
+    ),
+    "bg-color": (
+      "default": getVarName("bg-color", "default"),
+    ),
+    "text-color": (
+      "default": getVarName("text-color", "default"),
+    ),
+    "font-size": (
+      "default": getVarName("font-size", "default"),
+    ),
+    // 组件尺寸
+    "size":
+      (
+        "default": getVarName("component-size", "sm"),
+      ),
+    // 选择框尺寸
+    "checkbox-size":
+      (
+        "default": getVarName("checkbox-size", "sm"),
+      ),
+    // 选择框圆角
+    "checkbox-round":
+      (
+        "default": getVarName("checkbox-round", "sm"),
+      ),
+    // hover
+    "hover-border-color":
+      (
+        "default": getVarName("color", "primary"),
+      ),
+    // disabled
+    "disabled-border-color":
+      (
+        "default": getVarName("border-color", "disabled-checkbox"),
+      ),
+    "disabled-bg-color": (
+      "default": getVarName("bg-color", "diabled-checkbox"),
+    ),
+    "disabled-text-color": (
+      "default": getVarName("text-color", "light-4"),
+    ),
+  );
+  @return $checkbox;
+}

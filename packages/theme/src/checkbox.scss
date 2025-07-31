@@ -1,0 +1,86 @@
+@use "sass:map";
+@use "./common/componentVar.scss" as *;
+@use "./common/mixins.scss" as *;
+
+@include b(checkbox) {
+  @include set-component-var("checkbox", checkboxVars());
+  display: inline-flex;
+  align-items: center;
+  // height: 32px;
+  margin-right: 24px;
+  cursor: pointer;
+  &:hover {
+    #{getVarName("checkbox", "border-color")}: var(
+      #{getVarName("color", "primary")}
+    );
+  }
+  @include s((disabled)) {
+    cursor: not-allowed;
+    #{getVarName("checkbox", "border-color")}: var(
+      #{getVarName("checkbox", "disabled-border-color")}
+    );
+    #{getVarName("checkbox", "bg-color")}: var(
+      #{getVarName("checkbox", "disabled-bg-color")}
+    );
+    #{getVarName('checkbox', 'text-color')}: var(
+      #{getVarName("checkbox", "disabled-text-color")}
+    );
+  }
+  @include e(wrapper) {
+    position: relative;
+  }
+  @include e(input) {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    background: none;
+    height: 0;
+    width: 0;
+    opacity: 0;
+    z-index: 1;
+  }
+  @include e(inner) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(#{getVarName("checkbox", "checkbox-size")});
+    width: var(#{getVarName("checkbox", "checkbox-size")});
+    border-radius: var(#{getVarName("checkbox", "checkbox-round")});
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(#{getVarName("checkbox", "border-color")});
+    background-color: var(#{getVarName("checkbox", "bg-color")});
+    // color: #fff;
+    box-sizing: border-box;
+    transition: 0.3s;
+    @include d(icon) {
+      transform: scale(0);
+      transition: 0.3s;
+    }
+  }
+  @include e(label) {
+    margin-left: 0.75rem;
+    line-height: 1.25rem;
+    color: #000;
+    font-size: 0.875rem;
+  }
+  @each $s in $sizes {
+    @include m(size, $s) {
+      #{getVarName("checkbox", "font-size")}: var(
+        #{getVarName("font-size", $s)}
+      );
+      #{getVarName("checkbox", "size")}: var(
+        #{getVarName("component-size", $s)}
+      );
+      #{getVarName("checkbox", "checkbox-size")}: var(
+        #{getVarName("checkbox-size", $s)}
+      );
+      #{getVarName("checkbox", "checkbox-round")}: var(
+        #{getVarName("checkbox-round", $s)}
+      );
+    }
+  }
+}
