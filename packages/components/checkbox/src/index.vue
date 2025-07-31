@@ -9,14 +9,15 @@
       ns.is('disabled', isDisabled),
       ns.m('size', checkboxSize),
       ns.m(type),
-      ns.is('checked', true),
+      ns.is('checked', isChecked),
     ]">
     <span :class="[ns.e('wrapper')]">
       <input
         :class="[ns.e('input')]"
         type="checkbox"
         :disabled="isDisabled"
-        v-model="model" />
+        v-model="model"
+        :value="value" />
       <span :class="[ns.e('inner')]">
         <ue-icon>
           <Check />
@@ -51,6 +52,12 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  // 复选框的值
+  // NOTE: 如果checkboxGroup的v-model的值（数组）中包含checkbox的value的值，则复选框是选中状态，反之，则相反
+  value: {
+    type: [String, Number, Boolean],
+    default: undefined,
+  },
 })
 // 双向绑定数据变量
 // NOTE: checkboxModel.value的值与<ue-checkbox></ue-checkbox>的v-model的值同步
@@ -59,11 +66,11 @@ const checkboxModel = defineModel({
   default: "",
 })
 
-const { isDisabled, checkboxSize, model } = useCheckbox({
+const { isDisabled, checkboxSize, isChecked, model } = useCheckbox({
   props,
   checkboxModel,
 })
-console.log("model", model.value)
+// console.log("model", isChecked)
 
 // const checkboxGroupKey = inject("checkboxGroupKey", undefined)
 </script>

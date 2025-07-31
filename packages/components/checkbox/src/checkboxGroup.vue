@@ -24,5 +24,12 @@ const checkboxGroupModel = defineModel({
   type: Array,
   default: () => [],
 })
-provide(CHECKBOX_GROUP_KEY, { ...toRefs(props), checkboxGroupModel })
+const changeEvent = async value => {
+  checkboxGroupModel.value = value
+}
+provide(CHECKBOX_GROUP_KEY, {
+  ...toRefs(props),
+  checkboxGroupModel,
+  changeEvent,
+})
 </script>

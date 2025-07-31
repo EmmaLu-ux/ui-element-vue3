@@ -72,7 +72,7 @@ packages:
 
 演示库用于组件开发过程的各种调试，开发人员可以直观查看组件库的开发效果。执行`pnpm create vite@6 examples`，记得选择 Vue 开发框架、Javascript 语言这两项。
 
-##### 5. 构建Button组件
+##### 5. 构建 Button 组件
 
 <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_09_15_48_09_1752047289_1752047289810_pfAWp2_image-20250709154808599.png" alt="image-20250709154808599" style="zoom:33%;" />
 
@@ -87,20 +87,19 @@ defineOptions({ name: "ue-button" })
 </script>
 
 <style lang="scss" scoped></style>
-
 ```
 
 ###### 5.1 按需加载导出
 
-要将 button 组件按需导出，需要在 components/index.js 文件中引入 components/button/index.js文件，在 components/button/index.js 文件中引入 components/button/src/index.vue 文件，并提供按需加载的方式，最后使用 export default 导出。缺点是需要用到该组件的时候，每次都需要 import 一下，有不少重复语句。
+要将 button 组件按需导出，需要在 components/index.js 文件中引入 components/button/index.js 文件，在 components/button/index.js 文件中引入 components/button/src/index.vue 文件，并提供按需加载的方式，最后使用 export default 导出。缺点是需要用到该组件的时候，每次都需要 import 一下，有不少重复语句。
 
 ```javascript
 // components/button/index.js
-import { componentInstall } from "@ui-element-vue3/utils";
-import Button from "./src/button.vue";
+import { componentInstall } from "@ui-element-vue3/utils"
+import Button from "./src/button.vue"
 
 // 按需加载
-export const UeButton = componentInstall(Button);
+export const UeButton = componentInstall(Button)
 
 // 导出组件
 export default UeButton
@@ -120,11 +119,12 @@ export default UeButton
   // 然后在主文件中可以这样使用
   // app.use(MyComponent);
  */
-export const componentInstall = (com) => {
-    com.install = (app) => { // app是要注册的组件
-        app.component(com.name, com);
-    }
-    return com;
+export const componentInstall = com => {
+  com.install = app => {
+    // app是要注册的组件
+    app.component(com.name, com)
+  }
+  return com
 }
 ```
 
@@ -136,32 +136,30 @@ export const componentInstall = (com) => {
 // packages/components.js
 import { UeButton } from "./components/button/index.js"
 
-export default [
-    UeButton
-]
+export default [UeButton]
 ```
 
 ```javascript
 // packages/index.js
 // 组件库的入口文件
 // 按需加载
-export * from "./components/index.js";
+export * from "./components/index.js"
 
 // 全局注册
 import components from "./components.js"
 // 全局安装
 const install = function (app) {
-    if (install.installed) return;
-    // 安装组件
-    components.forEach((comp) => {
-        app.use(comp);
-    });
+  if (install.installed) return
+  // 安装组件
+  components.forEach(comp => {
+    app.use(comp)
+  })
 }
 
 export default install
 ```
 
-##### 6. 演示库测试Button组件
+##### 6. 演示库测试 Button 组件
 
 ###### 6.1 全局注册
 
@@ -169,13 +167,13 @@ export default install
 
 ```javascript
 // example/src/main.js
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue"
+import App from "./App.vue"
 import UElement from "../../packages/index"
 
 const app = createApp(App)
 app.use(UElement)
-app.mount('#app')
+app.mount("#app")
 ```
 
 ```vue
@@ -205,13 +203,13 @@ import { UeButton } from "../../packages/components/button"
 <style scoped></style>
 ```
 
-#### UI组件开发
+#### UI 组件开发
 
-##### 1. UI组件库元素规范
+##### 1. UI 组件库元素规范
 
-UI组件库元素规范模仿市面上不错的现有组件库，如：Element Plus、Ant Design、Mantine等
+UI 组件库元素规范模仿市面上不错的现有组件库，如：Element Plus、Ant Design、Mantine 等
 
-##### 2. CSS规范
+##### 2. CSS 规范
 
 BEM 命名规则：Block（块）、Element（元素）、Modifier（修改器）。命名格式：
 
@@ -219,43 +217,35 @@ BEM 命名规则：Block（块）、Element（元素）、Modifier（修改器�
 block-name__<element-name>--<modifier-name>_<modifier-value>
 ```
 
-- `a-button--size_small`： 样式作用于a-button 组件，而不是其内部其他元素，a-button 的 size 设置为 small 
-- `a-tabs--size_small`： a-tabs 组件内还有一层元素，该元素的 size 设置为 small 
+- `a-button--size_small`： 样式作用于 a-button 组件，而不是其内部其他元素，a-button 的 size 设置为 small
+- `a-tabs--size_small`： a-tabs 组件内还有一层元素，该元素的 size 设置为 small
 
 ##### 3. 命明空间
 
-
-
 ##### 4. 主题颜色
 
+##### 5. button 组件样式
 
+按钮类型：default、primary、light、outline、subtle/text、dashed、link、Gradient\*
 
-##### 5. button组件样式
-
-按钮类型：default、primary、light、outline、subtle/text、dashed、link、Gradient*
-
-| 按钮类型  | 按钮默认样式                                                 | 鼠标悬浮样式                                                 |
-| --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| deafult   | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_39_16_1752129556_1752129556240_vU0vHI_image-20250710143915628.png" alt="image-20250710143915628" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_51_47_1752130307_1752130307210_wyV15B_image-20250710145146873.png" alt="image-20250710145146873" style="zoom:40%;" /> |
-| primary   | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_40_05_1752129605_1752129605513_BNuHIA_image-20250710144005241.png" alt="image-20250710144005241" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_51_09_1752130269_1752130269973_xIN8I6_image-20250710145109818.png" alt="image-20250710145109818" style="zoom:40%;" /> |
-| light     | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_49_41_1752130181_1752130181832_xXNSsq_image-20250710144941621.png" alt="image-20250710144941621" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_50_03_1752130203_1752130203748_ZL0mD6_image-20250710145003603.png" alt="image-20250710145003603" style="zoom:40%;" /> |
-| outline   | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_48_28_1752130108_1752130108748_Rypkkb_image-20250710144828534.png" alt="image-20250710144828534" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_48_55_1752130135_1752130135513_nFYtDN_image-20250710144855297.png" alt="image-20250710144855297" style="zoom:40%;" /> |
-| subtle    | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_46_14_1752129974_1752129974002_fzr7RS_image-20250710144613749.png" alt="image-20250710144613749" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_46_41_1752130001_1752130001919_TQoC0E_image-20250710144641654.png" alt="image-20250710144641654" style="zoom:40%;" /> |
-| dashed    | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_15_11_08_1752131468_1752131468242_mtzo3e_image-20250710151107943.png" alt="image-20250710151107943" style="zoom:40%;" /> |                                                              |
-| Link      | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_15_11_45_1752131505_1752131505643_Bpagk0_image-20250710151145325.png" alt="image-20250710151145325" style="zoom:40%;" /> |                                                              |
-| Gradient* | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_53_53_1752130433_1752130433588_tqOpbT_image-20250710145353277.png" alt="image-20250710145353277" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_54_19_1752130459_1752130459834_IUW9ah_image-20250710145419683.png" alt="image-20250710145419683" style="zoom:40%;" /> |
-
-
+| 按钮类型   | 按钮默认样式                                                                                                                                                                                                             | 鼠标悬浮样式                                                                                                                                                                                                             |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| deafult    | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_39_16_1752129556_1752129556240_vU0vHI_image-20250710143915628.png" alt="image-20250710143915628" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_51_47_1752130307_1752130307210_wyV15B_image-20250710145146873.png" alt="image-20250710145146873" style="zoom:40%;" /> |
+| primary    | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_40_05_1752129605_1752129605513_BNuHIA_image-20250710144005241.png" alt="image-20250710144005241" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_51_09_1752130269_1752130269973_xIN8I6_image-20250710145109818.png" alt="image-20250710145109818" style="zoom:40%;" /> |
+| light      | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_49_41_1752130181_1752130181832_xXNSsq_image-20250710144941621.png" alt="image-20250710144941621" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_50_03_1752130203_1752130203748_ZL0mD6_image-20250710145003603.png" alt="image-20250710145003603" style="zoom:40%;" /> |
+| outline    | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_48_28_1752130108_1752130108748_Rypkkb_image-20250710144828534.png" alt="image-20250710144828534" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_48_55_1752130135_1752130135513_nFYtDN_image-20250710144855297.png" alt="image-20250710144855297" style="zoom:40%;" /> |
+| subtle     | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_46_14_1752129974_1752129974002_fzr7RS_image-20250710144613749.png" alt="image-20250710144613749" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_46_41_1752130001_1752130001919_TQoC0E_image-20250710144641654.png" alt="image-20250710144641654" style="zoom:40%;" /> |
+| dashed     | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_15_11_08_1752131468_1752131468242_mtzo3e_image-20250710151107943.png" alt="image-20250710151107943" style="zoom:40%;" /> |                                                                                                                                                                                                                          |
+| Link       | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_15_11_45_1752131505_1752131505643_Bpagk0_image-20250710151145325.png" alt="image-20250710151145325" style="zoom:40%;" /> |                                                                                                                                                                                                                          |
+| Gradient\* | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_53_53_1752130433_1752130433588_tqOpbT_image-20250710145353277.png" alt="image-20250710145353277" style="zoom:40%;" /> | <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_14_54_19_1752130459_1752130459834_IUW9ah_image-20250710145419683.png" alt="image-20250710145419683" style="zoom:40%;" /> |
 
 <img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_07_10_15_21_05_1752132065_1752132065713_ZMRTo9_image-20250710152105554.png" alt="image-20250710152105554" style="zoom:40%;" />
 
-
-
 ##### 6. 自动触发加载
 
-自动触发加载属于一种业务类型的操作，根据API接口请求的过程实现loading加载的自动变更，无需手动改变状态。
+自动触发加载属于一种业务类型的操作，根据 API 接口请求的过程实现 loading 加载的自动变更，无需手动改变状态。
 
-#### SASS制定组件库全局变量
+#### SASS 制定组件库全局变量
 
 ##### 1. 主题色、主题色层次、中性色及其他颜色定义
 
@@ -330,8 +320,8 @@ $component-size: map.deep-merge(
     (
       $type: (
         "base": "#238BE6",
-        "#{$mode}-#{$number}":
-          color.mix($mix-color, map.get($colors, $type, "base"), $number * 10),
+        "#{$mode}-#{$number}": color.mix($mix-color, map.get($colors, $type, "base"), $number *
+              10),
       ),
     ),
     $colors
@@ -347,7 +337,7 @@ $component-size: map.deep-merge(
 $color-primary: map.get($colors, "primary", "base");
 ```
 
-##### 2. :root伪类选择器
+##### 2. :root 伪类选择器
 
 :root 伪类可以定义 CSS 全局变量，通过 var 使用定义的全局变量。我们可以通过手动定义变量的方式去给组件赋予样式，但效率特慢，尤其是“层次”颜色，数量会有几十种。因此推荐采用自动生成的方式来处理，如 Sass 的合并、混入、mix 等方法。
 
@@ -429,6 +419,221 @@ $state-prefix: "is" !default; // 状态前缀
 :root 目前生成了大量的全局变量，此时可以直接使用变量名称。但如果直接这么使用，还是要写 “--a” 前缀，如果变量名称非常多的情况下，可能无法知道有哪些可以使用。因此，可以定义方法通过传参的方式来获取 :root 的变量名称。
 
 ```scss
+
+```
+
+checkbox 实现逻辑
+
+隐藏原生`<input>`元素，用`<span>`替代。
+
+虽然原生`<input>`隐藏了，但当用户点击`<label>`或内部元素的时候，原生`<input>`标签会响应被点击的事件，在**被勾选**和**未被勾选**两状态之间切换。由于自定义了`<span>`为`<input>`元素的替身视觉元素，因此，`<input>`元素如果是被勾选状态，则`<span>`元素也得显示被勾选状态。要做到这点的话，需要在外层`<label>`元素上添加一个 `is-checked` 类名（ns.is('checked', isChecked)），如果 `isChecked` 为 `true`，那么就将`<span>`元素的边框、背景、图标做一个选中样式（这里注意 `isChecked` 不仅绑定在`<label>`元素上，还同时绑定在原生`<input>`元素上，所以是同步的），反之，则相反。
+
+>  根据HTML规范，当label标签包含input元素时，点击label内的任何区域（包括文本）都会触发input的点击事件，从而切换复选框状态。
+>        另外，label标签也可能通过原生属性for的值与原生属性id的值进行关联。
+
+```html
+<!-- checkbox.vue -->
+<template>
+  <component
+    :is="tag"
+    :class="[
+      ns.b(),
+      ns.is('disabled', isDisabled),
+      ns.m('size', checkboxSize),
+      ns.m(type),
+      ns.is('checked', isChecked),
+    ]">
+    <!-- 视觉元素，多选框框 -->
+    <span :class="[ns.e('wrapper')]">
+      <!-- 隐藏原生input -->
+      <input
+        :class="[ns.e('input')]"
+        type="checkbox"
+        :disabled="isDisabled"
+        v-model="model"
+        :value="value" />
+      <!-- 多选框框的替代 -->
+      <span :class="[ns.e('inner')]">
+        <ue-icon>
+          <Check />
+        </ue-icon>
+      </span>
+    </span>
+    <!-- chekbox文本 -->
+    <span :class="[ns.e('label')]">
+      <slot />
+    </span>
+  </component>
+</template>
+
+<script setup>
+import { useNamespace } from "@ui-element-vue3/hooks"
+import { Check } from "@ui-element-vue3/icons"
+import { useCheckbox } from "../composables"
+
+defineOptions({ name: "ue-checkbox" })
+const ns = useNamespace("checkbox")
+
+const props = defineProps({
+  tag: {
+    type: String,
+    default: "label",
+  },
+  disabled: Boolean,
+  size: {
+    type: String,
+    default: "sm",
+  },
+  type: {
+    type: String,
+    default: "",
+  },
+  // 复选框的值
+  // NOTE: 如果checkboxGroup的v-model的值（数组）中包含checkbox的value的值，则复选框是选中状态，反之，则相反
+  value: {
+    type: [String, Number, Boolean],
+    default: undefined,
+  },
+})
+// 双向绑定数据变量
+// NOTE: checkboxModel.value的值与<ue-checkbox></ue-checkbox>的v-model的值同步
+const checkboxModel = defineModel({
+  type: [String, Number, Boolean],
+  default: "",
+})
+
+const { isDisabled, checkboxSize, isChecked, model } = useCheckbox({
+  props,
+  checkboxModel,
+})
+// console.log("model", isChecked)
+
+// const checkboxGroupKey = inject("checkboxGroupKey", undefined)
+</script>
+
+```
+
+
+
+每个`<ue-checkbox>`组件在`setup`阶段会调用`useCheckbox()`，该函数的执行就会去调用`useCheckboxGroup()`，`useCheckboxGroup()`方法中就``inject`了`<ue-checkbox-group>`组件提供的依赖：
+
+```javascript
+provide(CHECKBOX_GROUP_KEY, {
+  ...toRefs(props),
+  checkboxGroupModel,
+  changeEvent,
+})
+```
+
+然后能获取到`checkboxGroupKey`，判断自己是否属于`<ue-checkbox-group>`。然后会调用 `useCheckboxModel`，根据是否在 `group` 内决定数据的绑定方式（绑定到 `group` 的 `model` 还是自身的 `model`）。
+
+核心代码如下：
+
+```html
+<ue-checkbox-group size="lg" v-model="valueGroup">
+  <ue-checkbox>吃饭</ue-checkbox>
+  <ue-checkbox>睡觉</ue-checkbox>
+</ue-checkbox-group>
+```
+
+```html
+<!-- checkboxGroup.vue -->
+<template>
+  <div :class="[ns.b()]">
+    <slot></slot>
+  </div>
+</template>
+
+<script setup>
+import { provide, toRefs } from "vue"
+import { useNamespace } from "@ui-element-vue3/hooks"
+import { CHECKBOX_GROUP_KEY } from "./constant"
+
+defineOptions({ name: "ue-checkbox-group" })
+const ns = useNamespace("checkbox-group")
+
+const props = defineProps({
+  size: {
+    type: String,
+    default: "sm",
+  },
+})
+// 双向绑定数据变量
+// NOTE: checkboxGroupModel.value的值与<ue-checkbox-group></ue-checkbox-group>的v-model的值同步
+const checkboxGroupModel = defineModel({
+  type: Array,
+  default: () => [],
+})
+const changeEvent = async value => {
+  checkboxGroupModel.value = value
+}
+provide(CHECKBOX_GROUP_KEY, {
+  ...toRefs(props),
+  checkboxGroupModel,
+  changeEvent,
+})
+</script>
+
+```
+
+checkbox.vue代码如前所示。
+
+```javascript
+// use-checkbox.js
+import { useCheckboxState } from "./use-checkbox-state"
+import { useCheckboxGroup } from "./use-checkbox-group"
+import { useCheckboxModel } from "./use-checkbox-model"
+
+export function useCheckbox({ props, checkboxModel }) {
+    const { isGroup, checkboxGroupKey } = useCheckboxGroup()
+
+    const { model } = useCheckboxModel({ props, checkboxModel, checkboxGroupKey, isGroup })
+    const { isDisabled, checkboxSize, isChecked } = useCheckboxState({ props, model, checkboxGroupKey, isGroup })
+
+    return {
+        isDisabled,
+        checkboxSize,
+        isChecked,
+        model,
+    }
+}
+```
+
+```javascript
+// use-checkbox-group.js
+import { inject } from "vue"
+import { CHECKBOX_GROUP_KEY } from "../src/constant"
+
+export function useCheckboxGroup() {
+    const checkboxGroupKey = inject(CHECKBOX_GROUP_KEY, undefined) // checkboxGroupKey是provide函数的参数：props和checkboxGroupModel数据
+
+    const isGroup = checkboxGroupKey !== undefined
+
+    return {
+        isGroup,
+        checkboxGroupKey
+    }
+}
+```
+
+```javascript
+// use-checkbox-model.js
+import { computed } from 'vue'
+export function useCheckboxModel({ props, checkboxModel, checkboxGroupKey, isGroup }) {
+    const model = computed({
+        get() {
+            return isGroup ? checkboxGroupKey.checkboxGroupModel.value : checkboxModel.value
+        },
+        set(val) {
+            if (isGroup && Array.isArray(val)) checkboxGroupKey?.changeEvent?.(val) // 如果checkboxGroupKey存在，且changeEvent存在且是函数，则用val参数调用它
+            else checkboxModel.value = val
+        }
+    })
+    // console.log('model', model.value)
+    return {
+        model
+    }
+}
 ```
 
 
@@ -437,89 +642,17 @@ $state-prefix: "is" !default; // 状态前缀
 
 
 
+Sass 是 CSS 预处理器，它用一种新的语言为 CSS 增加了一些编程的特性，将 CSS 作为目标生成文件。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Sass 是 CSS 预处理器，它用一种新的语言为CSS增加了一些编程的特性，将CSS作为目标生成文件。
-
->  CSS 的缺陷：
+> CSS 的缺陷：
 >
 > 1. CSS 作为一种标记语言，自定义变量的使用不够灵活；
 > 2. 语法不够强大；
 > 3. 没有变量和合理的样式复用机制，使得逻辑上相关的属性值必须以字面量的形式重复输出，导致难以维护。
 
+##### 6. UI 组件库全局规划
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-##### 6. UI组件库全局规划
-
-
-
-##### 7. UI组件库规范应用
-
-
-
-
-
-
-
-
-
-
-
-
+##### 7. UI 组件库规范应用
 
 #### Git 贡献提交规范
 
@@ -536,12 +669,3 @@ Sass 是 CSS 预处理器，它用一种新的语言为CSS增加了一些编程�
 - `ci` 持续集成
 - `types` 类型定义文件更改
 - `wip` 开发中
-
-
-
-
-
-
-
-
-
