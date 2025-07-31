@@ -8,11 +8,17 @@
       ns.b(),
       ns.is('disabled', isDisabled),
       ns.m('size', checkboxSize),
+      ns.m(type),
+      ns.is('checked', true),
     ]">
     <span :class="[ns.e('wrapper')]">
-      <input :class="[ns.e('input')]" type="checkbox" />
+      <input
+        :class="[ns.e('input')]"
+        type="checkbox"
+        :disabled="isDisabled"
+        v-model="model" />
       <span :class="[ns.e('inner')]">
-        <ue-icon size="11">
+        <ue-icon>
           <Check />
         </ue-icon>
       </span>
@@ -41,8 +47,23 @@ const props = defineProps({
     type: String,
     default: "sm",
   },
+  type: {
+    type: String,
+    default: "",
+  },
+})
+// 双向绑定数据变量
+// NOTE: checkboxModel.value的值与<ue-checkbox></ue-checkbox>的v-model的值同步
+const checkboxModel = defineModel({
+  type: [String, Number, Boolean],
+  default: "",
 })
 
-const checkboxModel = defineModel()
-const { isDisabled, checkboxSize } = useCheckbox({ props, checkboxModel })
+const { isDisabled, checkboxSize, model } = useCheckbox({
+  props,
+  checkboxModel,
+})
+console.log("model", model.value)
+
+// const checkboxGroupKey = inject("checkboxGroupKey", undefined)
 </script>

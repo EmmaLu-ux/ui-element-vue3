@@ -65,6 +65,8 @@ $text-color: map.deep-merge(
     "light-3": #bfbfbf,
     // disabled text
     "light-4": #bcbdc0,
+    // disabled icon color(checkbox)
+    "light-5": #adb5bd,
   ),
   $text-color
 );
@@ -165,6 +167,7 @@ $icon-size: map.deep-merge(
   $icon-size
 );
 
+/** checkbox样式变量 */
 $checkbox-size: () !default;
 $checkbox-size: map.deep-merge(
   (
@@ -187,16 +190,16 @@ $checkbox-round: map.deep-merge(
   $checkbox-round
 );
 
-// $checkbox-icon-size: () !default;
-// $checkbox-icon-size: map.deep-merge(
-//   (
-//     "sm": 1em,
-//     "md": 1.5em,
-//     "lg": 2em,
-//     "xl": 2.5em,
-//   ),
-//   $checkbox-icon-size
-// );
+$checkbox-icon-size: () !default;
+$checkbox-icon-size: map.deep-merge(
+  (
+    "sm": 1em,
+    "md": 1.5em,
+    "lg": 2em,
+    "xl": 2.5em,
+  ),
+  $checkbox-icon-size
+);
 
 $global: (
   // 颜色
@@ -219,5 +222,5 @@ $global: (
   "icon-size": $icon-size,
   "checkbox-size": $checkbox-size,
   "checkbox-round": $checkbox-round,
-  // "checkbox-icon-size": $checkbox-icon-size
+  "checkbox-icon-size": $checkbox-icon-size
 );

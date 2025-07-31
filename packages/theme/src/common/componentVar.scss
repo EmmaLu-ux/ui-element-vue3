@@ -219,25 +219,25 @@
   @return $textarea;
 }
 
-@function checkboxVars() {
+@function checkboxVars($type: "") {
   $checkbox: (
     "border-color": (
       "default": getVarName("border-color", "default"),
+      "type": getVarName("color", $type),
     ),
     "bg-color": (
       "default": getVarName("bg-color", "default"),
+      "type": getVarName("color", $type),
     ),
     "text-color": (
       "default": getVarName("text-color", "default"),
+      "type": getVarName("color", $type),
     ),
-    "font-size": (
-      "default": getVarName("font-size", "default"),
+    "icon-color": (
+      "default": getVarName("text-color", "white"),
+      "type": getVarName("text-color", "white"),
     ),
-    // 组件尺寸
-    "size":
-      (
-        "default": getVarName("component-size", "sm"),
-      ),
+
     // 选择框尺寸
     "checkbox-size":
       (
@@ -248,12 +248,18 @@
       (
         "default": getVarName("checkbox-round", "sm"),
       ),
-    // hover
+    // 图标大小
+    "checkbox-icon-size":
+      (
+        "default": getVarName("checkbox-icon-size", "sm"),
+      ),
+    // hover状态 ******************************
     "hover-border-color":
       (
         "default": getVarName("color", "primary"),
+        "type": getVarName("color", $type),
       ),
-    // disabled
+    // disabled ******************
     "disabled-border-color":
       (
         "default": getVarName("border-color", "disabled-checkbox"),
@@ -264,6 +270,21 @@
     "disabled-text-color": (
       "default": getVarName("text-color", "light-4"),
     ),
+    "disabled-icon-color": (
+      "default": getVarName("text-color", "light-5"),
+    ),
+    // 其他 ***********************
+    // label文本大小
+    "font-size":
+      (
+        "default": getVarName("font-size", "sm"),
+        // "type": getVarName("font-size", $type),
+      ),
+    // 组件尺寸
+    "size":
+      (
+        "default": getVarName("component-size", "sm"),
+      ),
   );
   @return $checkbox;
 }

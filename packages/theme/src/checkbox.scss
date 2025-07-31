@@ -25,6 +25,9 @@
     #{getVarName('checkbox', 'text-color')}: var(
       #{getVarName("checkbox", "disabled-text-color")}
     );
+    #{getVarName("checkbox", "icon-color")}: var(
+      #{getVarName("checkbox", "disabled-icon-color")}
+    );
   }
   @include e(wrapper) {
     position: relative;
@@ -53,19 +56,21 @@
     border-style: solid;
     border-color: var(#{getVarName("checkbox", "border-color")});
     background-color: var(#{getVarName("checkbox", "bg-color")});
-    // color: #fff;
+    color: var(#{getVarName("checkbox", "icon-color")});
     box-sizing: border-box;
     transition: 0.3s;
     @include d(icon) {
-      transform: scale(0);
+      color: var(#{getVarName("checkbox", "icon-color")});
+      font-size: var(#{getVarName("checkbox", "checkbox-icon-size")});
+      // transform: scale(0);
       transition: 0.3s;
     }
   }
   @include e(label) {
     margin-left: 0.75rem;
     line-height: 1.25rem;
-    color: #000;
-    font-size: 0.875rem;
+    color: var(#{getVarName("checkbox", "text-color")});
+    font-size: var(#{getVarName("checkbox", "font-size")});
   }
   @each $s in $sizes {
     @include m(size, $s) {
@@ -80,6 +85,33 @@
       );
       #{getVarName("checkbox", "checkbox-round")}: var(
         #{getVarName("checkbox-round", $s)}
+      );
+      @include d(icon) {
+        #{getVarName("checkbox", "checkbox-icon-size")}: var(
+          #{getVarName("checkbox-icon-size", $s)}
+        );
+      }
+    }
+  }
+}
+@each $type in $types {
+  $classname: ".ue-checkbox--" + $type;
+  #{$classname} {
+    @include s((checked)) {
+      @include set-component-var("checkbox", checkboxVars($type), "type");
+    }
+    @include s((disabled)) {
+      #{getVarName("checkbox", "border-color")}: var(
+        #{getVarName("checkbox", "disabled-border-color")}
+      );
+      #{getVarName("checkbox", "bg-color")}: var(
+        #{getVarName("checkbox", "disabled-bg-color")}
+      );
+      #{getVarName('checkbox', 'text-color')}: var(
+        #{getVarName("checkbox", "disabled-text-color")}
+      );
+      #{getVarName("checkbox", "icon-color")}: var(
+        #{getVarName("checkbox", "disabled-icon-color")}
       );
     }
   }

@@ -6,7 +6,8 @@ import { UeTextarea } from "./components/textarea/index.js"
 import { UeRow } from "./components/row/index.js"
 import { UeCol } from "./components/col/index.js"
 import { UeContainer, UeHeader, UeMain, UeAside, UeFooter } from "./components/container/index.js";
-import { UeCheckbox } from "./components/checkbox/index.js"
+import { UeCheckbox, UeCheckboxGroup } from "./components/checkbox/index.js"
+
 
 export default [
     UeButton,
@@ -21,5 +22,6 @@ export default [
     UeMain,
     UeAside,
     UeFooter,
-    UeCheckbox
+    UeCheckbox,
+    UeCheckboxGroup,
 ]
