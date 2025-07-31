@@ -20,9 +20,9 @@ export const useNamespace = (block) => {
     // block
     const b = (blockSuffix = "") => _bem(namespace, block, blockSuffix)
     // element
-    const e = (element) => element ? _bem(namespace, block, element) : ''
+    const e = (element) => element ? _bem(namespace, block, "", element) : ''
     //modifier
-    const m = (modifierArr, modifierValue) => modifierArr ? _bem(namespace, block, '', modifierArr, modifierValue) : ''
+    const m = (modifierArr, modifierValue) => modifierArr ? _bem(namespace, block, "", modifierArr, modifierValue) : ''
     const is = (name, state) => name && state ? `is-${name}` : ''
 
     return {
