@@ -251,6 +251,8 @@ block-name__<element-name>--<modifier-name>_<modifier-value>
 
 具体描述：隐藏原生`<input>`元素，用`<span>`替代。虽然原生`<input>`隐藏了，但当用户点击`<label>`或其内部元素的时候，原生`<input>`标签会响应被点击的事件，在**被勾选**和**未被勾选**两状态之间切换。由于自定义了`<span>`为`<input>`元素的替身视觉元素，因此，`<input>`元素如果是被勾选状态，则`<span>`元素也得显示被勾选状态。要做到这点的话，需要在最外层`<label>`元素上添加一个 `is-checked` 类名（`ns.is('checked', isChecked)`），如果 `isChecked` 为 `true`，那么就将`<span>`元素的边框、背景、图标、文本做一个选中样式。反之，则相反。那`isChecked`变量又跟`model`绑定，**当用户点击复选框时，原生 `input` 的勾选状态变化会触发 Vue 更新 `model` 值**。所以能做到勾选/未勾选效果。
 
+**`@change`或`v-on:change`**：是原生 HTML `input` 元素的标准事件之一。当复选框的状态发生改变时（比如用户点击选中/取消选中），input 元素会触发一个原生的 `change` 事件。这不需要特别定义，它是 HTML 规范中就内置的事件。
+
 > [!CAUTION]
 >
 > 为什么一点击 checkbox，他的状态会同步切换呢？其中用到了**`defineModel`**，具体解释在下文。
@@ -278,7 +280,9 @@ block-name__<element-name>--<modifier-name>_<modifier-value>
         type="checkbox"
         :disabled="isDisabled"
         v-model="model"
-        :value="value" />
+        :value="value" 
+        @change="changeEvent"
+        />
       <!-- 多选框框的替代 -->
       <span :class="[ns.e('inner')]">
         <ue-icon>
@@ -329,12 +333,11 @@ const checkboxModel = defineModel({
   default: "",
 })
 
-const { isDisabled, checkboxSize, isChecked, model } = useCheckbox({
+const { isDisabled, checkboxSize, isChecked, model, changeEvent } = useCheckbox({
   props,
   checkboxModel,
 })
 </script>
-
 ```
 
 ###### 数据同步的原理
@@ -474,8 +477,6 @@ export function useCheckboxModel({ props, checkboxModel, checkboxGroupKey, isGro
     }
 }
 ```
-
-
 
 
 

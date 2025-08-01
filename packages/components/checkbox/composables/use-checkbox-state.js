@@ -10,6 +10,7 @@ export function useCheckboxState({ props, model, checkboxGroupKey, isGroup }) {
         if (types().isArray(value)) return value.includes(props.value)
         return false
     })
+    const isLoading = ref(false)
     /**
    * size
    */
@@ -17,6 +18,7 @@ export function useCheckboxState({ props, model, checkboxGroupKey, isGroup }) {
     return {
         isDisabled,
         checkboxSize,
-        isChecked
+        isChecked,
+        isLoading
     }
 }

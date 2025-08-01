@@ -1,12 +1,14 @@
 <template>
   <component
     :is="tag"
+    @click="clickEvent"
     :class="[
       ns.b(),
-      ns.is('disabled', isDisabled),
+      ns.is('disabled', isDisabled || isLoading),
       ns.m('size', checkboxSize),
       ns.m(type),
       ns.is('checked', isChecked),
+      ns.is('loading', isLoading),
     ]">
     <!-- 视觉元素，多选框框 -->
     <span :class="[ns.e('wrapper')]">
@@ -16,11 +18,16 @@
         type="checkbox"
         :disabled="isDisabled"
         v-model="model"
-        :value="value" />
+        :value="value"
+        @change="changeEvent"
+        @click.stop />
       <!-- 多选框框的替代 -->
       <span :class="[ns.e('inner')]">
         <ue-icon>
-          <Check />
+          <Loading
+            v-if="isLoading"
+            :class="[`${ns.is('loading-transition', isLoading)}`]" />
+          <Check v-else />
         </ue-icon>
       </span>
     </span>
@@ -33,7 +40,7 @@
 
 <script setup>
 import { useNamespace } from "@ui-element-vue3/hooks"
-import { Check } from "@ui-element-vue3/icons"
+import { Check, Loading } from "@ui-element-vue3/icons"
 import { useCheckbox } from "../composables"
 
 defineOptions({ name: "ue-checkbox" })
@@ -59,6 +66,7 @@ const props = defineProps({
     type: [String, Number, Boolean],
     default: undefined,
   },
+  beforeChange: Function,
 })
 // 双向绑定数据变量
 // NOTE: checkboxModel.value的值与<ue-checkbox></ue-checkbox>的v-model的值同步
@@ -67,7 +75,15 @@ const checkboxModel = defineModel({
   default: "",
 })
 
-const { isDisabled, checkboxSize, isChecked, model } = useCheckbox({
+const {
+  isDisabled,
+  checkboxSize,
+  isChecked,
+  model,
+  changeEvent,
+  isLoading,
+  clickEvent,
+} = useCheckbox({
   props,
   checkboxModel,
 })

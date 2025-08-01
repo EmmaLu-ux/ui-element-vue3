@@ -14,7 +14,7 @@
       #{getVarName("color", "primary")}
     );
   }
-  @include s((checked)) {
+  @include s((checked, loading)) {
     #{getVarName("checkbox", "border-color")}: var(
       #{getVarName("color", "primary")}
     );
@@ -106,7 +106,7 @@
 @each $type in $types {
   $classname: ".ue-checkbox--" + $type;
   #{$classname} {
-    @include s((checked)) {
+    @include s((checked, loading)) {
       @include set-component-var("checkbox", checkboxVars($type), "type");
     }
     @include s((disabled)) {

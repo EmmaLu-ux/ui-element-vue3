@@ -11,12 +11,14 @@ import { CHECKBOX_GROUP_KEY } from "./constant"
 
 defineOptions({ name: "ue-checkbox-group" })
 const ns = useNamespace("checkbox-group")
+const emit = defineEmits(["change"])
 
 const props = defineProps({
   size: {
     type: String,
     default: "sm",
   },
+  beforeChange: Function,
 })
 // 双向绑定数据变量
 // NOTE: checkboxGroupModel.value的值与<ue-checkbox-group></ue-checkbox-group>的v-model的值同步
@@ -26,6 +28,7 @@ const checkboxGroupModel = defineModel({
 })
 const changeEvent = async value => {
   checkboxGroupModel.value = value
+  emit("change", value)
 }
 provide(CHECKBOX_GROUP_KEY, {
   ...toRefs(props),
