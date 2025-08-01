@@ -245,6 +245,258 @@ block-name__<element-name>--<modifier-name>_<modifier-value>
 
 自动触发加载属于一种业务类型的操作，根据 API 接口请求的过程实现 loading 加载的自动变更，无需手动改变状态。
 
+##### 7. checkbox 实现逻辑
+
+通过`Boolean`值去控制是否被勾选，**true：勾选，false：未勾选**。同时与相应的勾选/未勾选样式类对应，从而达到勾选/未勾选的视觉效果。
+
+具体描述：隐藏原生`<input>`元素，用`<span>`替代。虽然原生`<input>`隐藏了，但当用户点击`<label>`或其内部元素的时候，原生`<input>`标签会响应被点击的事件，在**被勾选**和**未被勾选**两状态之间切换。由于自定义了`<span>`为`<input>`元素的替身视觉元素，因此，`<input>`元素如果是被勾选状态，则`<span>`元素也得显示被勾选状态。要做到这点的话，需要在最外层`<label>`元素上添加一个 `is-checked` 类名（`ns.is('checked', isChecked)`），如果 `isChecked` 为 `true`，那么就将`<span>`元素的边框、背景、图标、文本做一个选中样式。反之，则相反。那`isChecked`变量又跟`model`绑定，**当用户点击复选框时，原生 `input` 的勾选状态变化会触发 Vue 更新 `model` 值**。所以能做到勾选/未勾选效果。
+
+> [!CAUTION]
+>
+> 为什么一点击 checkbox，他的状态会同步切换呢？其中用到了**`defineModel`**，具体解释在下文。
+
+>  根据HTML规范，当label标签包含input元素时，点击label内的任何区域（包括文本）都会触发input的点击事件，从而切换复选框状态。
+>      另外，label标签也可能通过原生属性for的值与原生属性id的值进行关联。
+
+```html
+<!-- checkbox.vue -->
+<template>
+  <component
+    :is="tag"
+    :class="[
+      ns.b(),
+      ns.is('disabled', isDisabled),
+      ns.m('size', checkboxSize),
+      ns.m(type),
+      ns.is('checked', isChecked),
+    ]">
+    <!-- 视觉元素，多选框框 -->
+    <span :class="[ns.e('wrapper')]">
+      <!-- 隐藏原生input -->
+      <input
+        :class="[ns.e('input')]"
+        type="checkbox"
+        :disabled="isDisabled"
+        v-model="model"
+        :value="value" />
+      <!-- 多选框框的替代 -->
+      <span :class="[ns.e('inner')]">
+        <ue-icon>
+          <Check />
+        </ue-icon>
+      </span>
+    </span>
+    <!-- chekbox文本 -->
+    <span :class="[ns.e('label')]">
+      <slot />
+    </span>
+  </component>
+</template>
+
+<script setup>
+import { useNamespace } from "@ui-element-vue3/hooks"
+import { Check } from "@ui-element-vue3/icons"
+import { useCheckbox } from "../composables"
+
+defineOptions({ name: "ue-checkbox" })
+const ns = useNamespace("checkbox")
+
+const props = defineProps({
+  tag: {
+    type: String,
+    default: "label",
+  },
+  disabled: Boolean,
+  size: {
+    type: String,
+    default: "sm",
+  },
+  type: {
+    type: String,
+    default: "",
+  },
+  // 复选框的值
+  // NOTE: 如果checkboxGroup的v-model的值（数组）中包含checkbox的value的值，则复选框是选中状态，反之，则相反
+  value: {
+    type: [String, Number, Boolean],
+    default: undefined,
+  },
+})
+// 双向绑定数据变量
+// NOTE: checkboxModel.value的值与<ue-checkbox></ue-checkbox>的v-model的值同步
+const checkboxModel = defineModel({
+  type: [String, Number, Boolean],
+  default: "",
+})
+
+const { isDisabled, checkboxSize, isChecked, model } = useCheckbox({
+  props,
+  checkboxModel,
+})
+</script>
+
+```
+
+###### 数据同步的原理
+
+**核心是将组件的`v-model`绑定到统一的`model`属性。**
+
+1. **checkox**
+
+   每个`<ue-checkbox>`组件在`setup`阶段会调用`useCheckbox()`，该函数接收`props`和`checkboxModel`两参数，`checkboxModel` 变量就是 <ue-checkbox>元素上的`v-model`属性的值。因为，在`useCheckbox()`函数中，会执行`useCheckboxGroup()`、`useCheckboxModel()`和`useCheckboxState()`三个函数。在`useCheckboxModel()`函数中会将`checkboxModel`参数传递过去，从而得到`checkbox`的`model`，具体逻辑可查看 use-checkbox.js代码块、 ue-check-model.js 代码块和 checkbox.vue 代码块。
+
+   ```javascript
+   // use-checkbox.js
+   import { useCheckboxState } from "./use-checkbox-state"
+   import { useCheckboxGroup } from "./use-checkbox-group"
+   import { useCheckboxModel } from "./use-checkbox-model"
+   
+   export function useCheckbox({ props, checkboxModel }) {
+       const { isGroup, checkboxGroupKey } = useCheckboxGroup()
+   
+       const { model } = useCheckboxModel({ props, checkboxModel, checkboxGroupKey, isGroup })
+       const { isDisabled, checkboxSize, isChecked } = useCheckboxState({ props, model, checkboxGroupKey, isGroup })
+   
+       return {
+           isDisabled,
+           checkboxSize,
+           isChecked,
+           model,
+       }
+   }
+   ```
+
+   ```javascript
+   // ue-check-model.js
+   import { computed } from 'vue'
+   export function useCheckboxModel({ props, checkboxModel, checkboxGroupKey, isGroup }) {
+       const model = computed({
+           get() {
+               return isGroup ? checkboxGroupKey.checkboxGroupModel.value : checkboxModel.value
+           },
+           set(val) {
+               if (isGroup && Array.isArray(val)) checkboxGroupKey?.changeEvent?.(val) // 如果checkboxGroupKey存在，且changeEvent存在且是函数，则用val参数调用它
+               else checkboxModel.value = val
+           }
+       })
+       // console.log('model', model.value)
+       return {
+           model
+       }
+   }
+   ```
+
+2. **checkboxGroup**
+
+   checkboxGroup.vue 中使用`provide`共享了数据和方法，每个`<ue-checkbox>`组件在`setup`阶段会调用`useCheckbox()`，该函数的执行就会去调用`useCheckboxGroup()`，`useCheckboxGroup()`方法中就`inject`了`<ue-checkbox-group>`组件提供的依赖`provide`提供的数据：`...toRefs(props)`、 `checkboxGroupModel`、  `changeEvent`，即`checkboxGroupKey`，还会判断数据是`checkboxGroup`的还是`checkbox`的，根据是否在 `group` 内决定数据的绑定方式（绑定到 `group` 的 `model` 还是自身的 `model`）。
+
+```javascript
+<!-- checkboxGroup.vue -->
+<template>
+  <div :class="[ns.b()]">
+    <slot></slot>
+  </div>
+</template>
+
+<script setup>
+import { provide, toRefs } from "vue"
+import { useNamespace } from "@ui-element-vue3/hooks"
+import { CHECKBOX_GROUP_KEY } from "./constant"
+
+defineOptions({ name: "ue-checkbox-group" })
+const ns = useNamespace("checkbox-group")
+
+const props = defineProps({
+  size: {
+    type: String,
+    default: "sm",
+  },
+})
+// 双向绑定数据变量
+// NOTE: checkboxGroupModel.value的值与<ue-checkbox-group></ue-checkbox-group>的v-model的值同步
+const checkboxGroupModel = defineModel({
+  type: Array,
+  default: () => [],
+})
+const changeEvent = async value => {
+  checkboxGroupModel.value = value
+}
+provide(CHECKBOX_GROUP_KEY, {
+  ...toRefs(props),
+  checkboxGroupModel,
+  changeEvent,
+})
+</script>
+
+
+```
+
+```html
+<ue-checkbox-group size="lg" v-model="valueGroup">
+  <ue-checkbox>吃饭</ue-checkbox>
+  <ue-checkbox>睡觉</ue-checkbox>
+</ue-checkbox-group>
+```
+
+```javascript
+// use-checkbox-group.js
+import { inject } from "vue"
+import { CHECKBOX_GROUP_KEY } from "../src/constant"
+
+export function useCheckboxGroup() {
+    const checkboxGroupKey = inject(CHECKBOX_GROUP_KEY, undefined) // checkboxGroupKey是provide函数的参数：props和checkboxGroupModel数据
+
+    const isGroup = checkboxGroupKey !== undefined
+
+    return {
+        isGroup,
+        checkboxGroupKey
+    }
+}
+```
+
+```javascript
+// use-checkbox-model.js
+import { computed } from 'vue'
+export function useCheckboxModel({ props, checkboxModel, checkboxGroupKey, isGroup }) {
+    const model = computed({
+        get() {
+            return isGroup ? checkboxGroupKey.checkboxGroupModel.value : checkboxModel.value
+        },
+        set(val) {
+            if (isGroup && Array.isArray(val)) checkboxGroupKey?.changeEvent?.(val) // 如果checkboxGroupKey存在，且changeEvent存在且是函数，则用val参数调用它
+            else checkboxModel.value = val
+        }
+    })
+    // console.log('model', model.value)
+    return {
+        model
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
 #### SASS 制定组件库全局变量
 
 ##### 1. 主题色、主题色层次、中性色及其他颜色定义
@@ -422,219 +674,7 @@ $state-prefix: "is" !default; // 状态前缀
 
 ```
 
-checkbox 实现逻辑
 
-隐藏原生`<input>`元素，用`<span>`替代。
-
-虽然原生`<input>`隐藏了，但当用户点击`<label>`或内部元素的时候，原生`<input>`标签会响应被点击的事件，在**被勾选**和**未被勾选**两状态之间切换。由于自定义了`<span>`为`<input>`元素的替身视觉元素，因此，`<input>`元素如果是被勾选状态，则`<span>`元素也得显示被勾选状态。要做到这点的话，需要在外层`<label>`元素上添加一个 `is-checked` 类名（ns.is('checked', isChecked)），如果 `isChecked` 为 `true`，那么就将`<span>`元素的边框、背景、图标做一个选中样式（这里注意 `isChecked` 不仅绑定在`<label>`元素上，还同时绑定在原生`<input>`元素上，所以是同步的），反之，则相反。
-
->  根据HTML规范，当label标签包含input元素时，点击label内的任何区域（包括文本）都会触发input的点击事件，从而切换复选框状态。
->        另外，label标签也可能通过原生属性for的值与原生属性id的值进行关联。
-
-```html
-<!-- checkbox.vue -->
-<template>
-  <component
-    :is="tag"
-    :class="[
-      ns.b(),
-      ns.is('disabled', isDisabled),
-      ns.m('size', checkboxSize),
-      ns.m(type),
-      ns.is('checked', isChecked),
-    ]">
-    <!-- 视觉元素，多选框框 -->
-    <span :class="[ns.e('wrapper')]">
-      <!-- 隐藏原生input -->
-      <input
-        :class="[ns.e('input')]"
-        type="checkbox"
-        :disabled="isDisabled"
-        v-model="model"
-        :value="value" />
-      <!-- 多选框框的替代 -->
-      <span :class="[ns.e('inner')]">
-        <ue-icon>
-          <Check />
-        </ue-icon>
-      </span>
-    </span>
-    <!-- chekbox文本 -->
-    <span :class="[ns.e('label')]">
-      <slot />
-    </span>
-  </component>
-</template>
-
-<script setup>
-import { useNamespace } from "@ui-element-vue3/hooks"
-import { Check } from "@ui-element-vue3/icons"
-import { useCheckbox } from "../composables"
-
-defineOptions({ name: "ue-checkbox" })
-const ns = useNamespace("checkbox")
-
-const props = defineProps({
-  tag: {
-    type: String,
-    default: "label",
-  },
-  disabled: Boolean,
-  size: {
-    type: String,
-    default: "sm",
-  },
-  type: {
-    type: String,
-    default: "",
-  },
-  // 复选框的值
-  // NOTE: 如果checkboxGroup的v-model的值（数组）中包含checkbox的value的值，则复选框是选中状态，反之，则相反
-  value: {
-    type: [String, Number, Boolean],
-    default: undefined,
-  },
-})
-// 双向绑定数据变量
-// NOTE: checkboxModel.value的值与<ue-checkbox></ue-checkbox>的v-model的值同步
-const checkboxModel = defineModel({
-  type: [String, Number, Boolean],
-  default: "",
-})
-
-const { isDisabled, checkboxSize, isChecked, model } = useCheckbox({
-  props,
-  checkboxModel,
-})
-// console.log("model", isChecked)
-
-// const checkboxGroupKey = inject("checkboxGroupKey", undefined)
-</script>
-
-```
-
-
-
-每个`<ue-checkbox>`组件在`setup`阶段会调用`useCheckbox()`，该函数的执行就会去调用`useCheckboxGroup()`，`useCheckboxGroup()`方法中就``inject`了`<ue-checkbox-group>`组件提供的依赖：
-
-```javascript
-provide(CHECKBOX_GROUP_KEY, {
-  ...toRefs(props),
-  checkboxGroupModel,
-  changeEvent,
-})
-```
-
-然后能获取到`checkboxGroupKey`，判断自己是否属于`<ue-checkbox-group>`。然后会调用 `useCheckboxModel`，根据是否在 `group` 内决定数据的绑定方式（绑定到 `group` 的 `model` 还是自身的 `model`）。
-
-核心代码如下：
-
-```html
-<ue-checkbox-group size="lg" v-model="valueGroup">
-  <ue-checkbox>吃饭</ue-checkbox>
-  <ue-checkbox>睡觉</ue-checkbox>
-</ue-checkbox-group>
-```
-
-```html
-<!-- checkboxGroup.vue -->
-<template>
-  <div :class="[ns.b()]">
-    <slot></slot>
-  </div>
-</template>
-
-<script setup>
-import { provide, toRefs } from "vue"
-import { useNamespace } from "@ui-element-vue3/hooks"
-import { CHECKBOX_GROUP_KEY } from "./constant"
-
-defineOptions({ name: "ue-checkbox-group" })
-const ns = useNamespace("checkbox-group")
-
-const props = defineProps({
-  size: {
-    type: String,
-    default: "sm",
-  },
-})
-// 双向绑定数据变量
-// NOTE: checkboxGroupModel.value的值与<ue-checkbox-group></ue-checkbox-group>的v-model的值同步
-const checkboxGroupModel = defineModel({
-  type: Array,
-  default: () => [],
-})
-const changeEvent = async value => {
-  checkboxGroupModel.value = value
-}
-provide(CHECKBOX_GROUP_KEY, {
-  ...toRefs(props),
-  checkboxGroupModel,
-  changeEvent,
-})
-</script>
-
-```
-
-checkbox.vue代码如前所示。
-
-```javascript
-// use-checkbox.js
-import { useCheckboxState } from "./use-checkbox-state"
-import { useCheckboxGroup } from "./use-checkbox-group"
-import { useCheckboxModel } from "./use-checkbox-model"
-
-export function useCheckbox({ props, checkboxModel }) {
-    const { isGroup, checkboxGroupKey } = useCheckboxGroup()
-
-    const { model } = useCheckboxModel({ props, checkboxModel, checkboxGroupKey, isGroup })
-    const { isDisabled, checkboxSize, isChecked } = useCheckboxState({ props, model, checkboxGroupKey, isGroup })
-
-    return {
-        isDisabled,
-        checkboxSize,
-        isChecked,
-        model,
-    }
-}
-```
-
-```javascript
-// use-checkbox-group.js
-import { inject } from "vue"
-import { CHECKBOX_GROUP_KEY } from "../src/constant"
-
-export function useCheckboxGroup() {
-    const checkboxGroupKey = inject(CHECKBOX_GROUP_KEY, undefined) // checkboxGroupKey是provide函数的参数：props和checkboxGroupModel数据
-
-    const isGroup = checkboxGroupKey !== undefined
-
-    return {
-        isGroup,
-        checkboxGroupKey
-    }
-}
-```
-
-```javascript
-// use-checkbox-model.js
-import { computed } from 'vue'
-export function useCheckboxModel({ props, checkboxModel, checkboxGroupKey, isGroup }) {
-    const model = computed({
-        get() {
-            return isGroup ? checkboxGroupKey.checkboxGroupModel.value : checkboxModel.value
-        },
-        set(val) {
-            if (isGroup && Array.isArray(val)) checkboxGroupKey?.changeEvent?.(val) // 如果checkboxGroupKey存在，且changeEvent存在且是函数，则用val参数调用它
-            else checkboxModel.value = val
-        }
-    })
-    // console.log('model', model.value)
-    return {
-        model
-    }
-}
-```
 
 
 

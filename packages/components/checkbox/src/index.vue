@@ -1,7 +1,4 @@
 <template>
-  <!-- NOTE: 根据HTML规范，当label标签包含input元素时，点击label内的任何区域（包括文本）都会触发input的点击事件，从而切换复选框状态。
-       另外，label标签也可能通过原生属性for的值与原生属性id的值进行关联。
-   -->
   <component
     :is="tag"
     :class="[
@@ -11,19 +8,23 @@
       ns.m(type),
       ns.is('checked', isChecked),
     ]">
+    <!-- 视觉元素，多选框框 -->
     <span :class="[ns.e('wrapper')]">
+      <!-- 隐藏原生input -->
       <input
         :class="[ns.e('input')]"
         type="checkbox"
         :disabled="isDisabled"
         v-model="model"
         :value="value" />
+      <!-- 多选框框的替代 -->
       <span :class="[ns.e('inner')]">
         <ue-icon>
           <Check />
         </ue-icon>
       </span>
     </span>
+    <!-- chekbox文本 -->
     <span :class="[ns.e('label')]">
       <slot />
     </span>
@@ -70,7 +71,4 @@ const { isDisabled, checkboxSize, isChecked, model } = useCheckbox({
   props,
   checkboxModel,
 })
-// console.log("model", isChecked)
-
-// const checkboxGroupKey = inject("checkboxGroupKey", undefined)
 </script>

@@ -19,9 +19,10 @@
   <ue-checkbox size="xl">打篮球</ue-checkbox>
   <hr /> -->
   <!-- // NOTE: checkboxGroupModel.value的值与<ue-checkbox-group></ue-checkbox-group>的v-model的值同步 -->
+  <!-- ue-checkbox-group的v-model用于收集所有选中的checkbox的值 -->
   <ue-checkbox-group size="lg" v-model="valueGroup">
-    <ue-checkbox>吃饭</ue-checkbox>
-    <ue-checkbox>睡觉</ue-checkbox>
+    <ue-checkbox value="chifan">吃饭</ue-checkbox>
+    <ue-checkbox value="shuijiao">睡觉</ue-checkbox>
   </ue-checkbox-group>
   <!-- NOTE: checkboxModel.value的值与<ue-checkbox></ue-checkbox>的v-model的值同步 -->
   <!-- <ue-checkbox v-model="value">打篮球</ue-checkbox>
@@ -32,7 +33,7 @@
 <script setup>
 import { ref } from "vue"
 
-const valueGroup = ref(["chifan", "shuijiao"])
+const valueGroup = ref(["shuijiao"])
 const value = "dalanqiu"
 
 const valueChecked = ref(false)
