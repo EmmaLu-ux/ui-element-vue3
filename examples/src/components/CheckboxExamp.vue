@@ -31,13 +31,13 @@
   <!-- <ue-checkbox v-model="value">打篮球</ue-checkbox>
   <hr /> -->
   <!-- <ue-checkbox v-model="valueChecked" @change="handleChangebox">打篮球</ue-checkbox> -->
-  <ue-checkbox :before-change="asyncChange">thrift</ue-checkbox>
-  <hr />
-  <!-- <ue-checkbox-all >
+  <!-- <ue-checkbox :before-change="asyncChange">thrift</ue-checkbox> -->
+  <!-- <hr /> -->
+  <ue-checkbox-all v-model="valueAll">
     <ue-checkbox value="hz">杭州</ue-checkbox>
     <ue-checkbox value="sh">上海</ue-checkbox>
     <ue-checkbox value="bj">北京</ue-checkbox>
-  </ue-checkbox-all> -->
+  </ue-checkbox-all>
 </template>
 
 <script setup>
@@ -45,8 +45,8 @@ import { ref } from "vue"
 
 const valueGroup = ref(["shuijiao"])
 const value = "dalanqiu"
-
 const valueChecked = ref(false)
+const valueAll = ref([])
 
 const handleChangeboxGroup = (value, e) => {
   // console.log("changeboxGroup", value, e)

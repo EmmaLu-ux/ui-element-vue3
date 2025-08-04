@@ -2,7 +2,7 @@ import { inject } from "vue"
 import { CHECKBOX_GROUP_KEY, CHECKBOX_ALL_KEY } from "../src/constant"
 
 export function useCheckboxGroup() {
-    const checkboxGroupKey = inject(CHECKBOX_GROUP_KEY, undefined) // checkboxGroupKey是provide函数的参数：props和checkboxGroupModel数据
+    const checkboxGroupKey = inject(CHECKBOX_GROUP_KEY, undefined)
     const checkboxAllKey = inject(CHECKBOX_ALL_KEY, undefined)
 
     // 是checkbox组组件状态

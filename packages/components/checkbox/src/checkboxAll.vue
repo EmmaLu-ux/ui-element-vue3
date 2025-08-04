@@ -33,8 +33,8 @@ const ns = useNamespace("checkbox-all")
 const checkAll = ref(false) // false：全选复选框没有被选中，true: 全选复选框被选中
 const allModel = defineModel({ type: Array, default: () => [] }) // 存储所有选中项
 const emit = defineEmits(["change"])
-const indeterminate = ref(false) // 部分选中状态
-const list = ref([])
+const indeterminate = ref(false) // 半选状态
+const list = ref([]) //用于存储所有可选项的值
 
 const props = defineProps({
   size: {
@@ -42,21 +42,28 @@ const props = defineProps({
     default: "sm",
   },
 })
-
-// 处理选择变更
-const chengEvent = value => {
-  allModel.value = value
-  changeAllEvent(value)
-  emit("change", value)
-}
+// NOTE: 只要是全选复选框组件，组件初始化的时候就会将子复选框的value添加到list中，临时存储，用于全选复选框的状态更新
 const setValuesEvent = val => {
+  // console.log("setValuesEvent", val)
   list.value.push(val)
-  console.log("list", list.value)
+  // console.log("list", list.value)
 }
-// 处理全选操作
+/**
+ * @param val: Boolean
+ * 如果全选复选框被选中(true)，则将allModel的值设置为list的值
+ * 如果全选复选框没有被选中，则将allModel的值设置为空数组
+ * 同时将indeterminate设置为false
+ */
 const handleAll = val => {
   allModel.value = val ? list.value : []
   indeterminate.value = false
+}
+// 处理选择变更
+const chengEvent = value => {
+  console.log("change", value)
+  allModel.value = value
+  changeAllEvent(value)
+  emit("change", value)
 }
 // 更新全选状态
 const changeAllEvent = val => {

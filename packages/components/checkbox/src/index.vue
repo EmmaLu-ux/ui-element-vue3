@@ -70,9 +70,10 @@ const props = defineProps({
     type: [String, Number, Boolean],
     default: undefined,
   },
+  // 异步操作前可以做的事情的函数
   beforeChange: Function,
   indeterminate: Boolean,
-  all: Boolean,
+  all: Boolean, //全选组件的标志
 })
 // 双向绑定数据变量
 // NOTE: checkboxModel.value的值与<ue-checkbox></ue-checkbox>的v-model的值同步

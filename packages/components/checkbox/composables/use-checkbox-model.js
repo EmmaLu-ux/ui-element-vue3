@@ -13,10 +13,10 @@ export function useCheckboxModel({ props, checkboxModel, checkboxGroupKey, isGro
             else checkboxModel.value = val
         }
     })
+
+    // 如果是子复选框（非全选框），将自己的 value 添加到父组件的 list 数组中
     // 临时存储
-    // 条件：1. 是全选组件状态；2. 多选框没有被全部选中
     isAll && !props.all && checkboxAllKey?.setValuesEvent?.(props.value)
-    // console.log('model', model.value)
     return {
         model
     }
