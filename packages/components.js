@@ -7,7 +7,7 @@ import { UeRow } from "./components/row/index.js"
 import { UeCol } from "./components/col/index.js"
 import { UeContainer, UeHeader, UeMain, UeAside, UeFooter } from "./components/container/index.js";
 import { UeCheckbox, UeCheckboxGroup, UeCheckboxAll } from "./components/checkbox/index.js"
-
+import { UeSwitch } from "./components/switch/index.js"
 
 export default [
     UeButton,
@@ -24,5 +24,6 @@ export default [
     UeFooter,
     UeCheckbox,
     UeCheckboxGroup,
-    UeCheckboxAll
+    UeCheckboxAll,
+    UeSwitch
 ]

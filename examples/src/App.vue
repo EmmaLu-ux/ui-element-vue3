@@ -6,7 +6,8 @@
 // import TextareaExamp from "./components/TextareaExamp.vue"
 // import RowandColExamp from "./components/RowandColExamp.vue"
 // import LayoutExamp from "./components/LayoutExamp.vue"
-import CheckBoxExamp from "./components/CheckBoxExamp.vue"
+// import CheckBoxExamp from "./components/CheckBoxExamp.vue"
+import SwitchExamp from "./components/SwitchExamp.vue"
 </script>
 
 <template>
@@ -17,7 +18,8 @@ import CheckBoxExamp from "./components/CheckBoxExamp.vue"
   <!-- <TextareaExamp></TextareaExamp> -->
   <!-- <RowandColExamp></RowandColExamp> -->
   <!-- <LayoutExamp></LayoutExamp> -->
-  <CheckBoxExamp></CheckBoxExamp>
+  <!-- <CheckBoxExamp></CheckBoxExamp> -->
+  <SwitchExamp></SwitchExamp>
 </template>
 
 <style scoped></style>
