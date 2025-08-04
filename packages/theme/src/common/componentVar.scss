@@ -285,6 +285,14 @@
       (
         "default": getVarName("component-size", "sm"),
       ),
+    // interminidate样式
+    "checkbox-indeterminate-size":
+      (
+        "default": getVarName("checkbox-indeterminate-size", "sm"),
+      ),
+    "checkbox-indeterminate-round": (
+      "default": getVarName("checkbox-indeterminate-round", "sm"),
+    ),
   );
   @return $checkbox;
 }

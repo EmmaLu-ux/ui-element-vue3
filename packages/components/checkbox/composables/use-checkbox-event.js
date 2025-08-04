@@ -3,9 +3,10 @@ import { types } from "@ui-element-vue3/utils";
 
 export function useCheckboxEvent({ props, model, checkboxGroupKey, isDisabled, isGroup, isLoading }) {
     const { emit } = getCurrentInstance()
+    const typeUtils = types()
 
     const beforeChange = computed(() => isGroup ? checkboxGroupKey?.beforeChange?.value : props.beforeChange)
-    const isBeforeChange = computed(() => types().isFunction(beforeChange.value))
+    const isBeforeChange = computed(() => typeUtils.isFunction(beforeChange.value))
 
     const changeEvent = (e) => {
         return emit('change', e.target.checked, e)
@@ -14,7 +15,7 @@ export function useCheckboxEvent({ props, model, checkboxGroupKey, isDisabled, i
         if (isBeforeChange.value || isDisabled.value || isLoading.value) {
             // const ev = e || window.event
             e.preventDefault()
-            if (isBeforeChange && !isDisabled.value && !isLoading.value) {
+            if (isBeforeChange.value && !isDisabled.value && !isLoading.value) {
                 isLoading.value = true
                 beforeChange.value().then(() => {
                     updateData()
@@ -24,7 +25,7 @@ export function useCheckboxEvent({ props, model, checkboxGroupKey, isDisabled, i
                 })
             }
         }
-        console.log('clickEvent')
+        // console.log('clickEvent')
     }
 
     const updateData = () => {

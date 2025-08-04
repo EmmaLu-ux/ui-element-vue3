@@ -332,7 +332,7 @@ const checkboxModel = defineModel({
   type: [String, Number, Boolean],
   default: "",
 })
-
+// v-model="model"：model为true，说明是checkbox组件，且被选中了，然后在ue-checkbox-state.js中，isChecked又是根据这个model的值来确定的，所以v-model="model"跟isChecked是同步的
 const { isDisabled, checkboxSize, isChecked, model, changeEvent } = useCheckbox({
   props,
   checkboxModel,
@@ -340,7 +340,7 @@ const { isDisabled, checkboxSize, isChecked, model, changeEvent } = useCheckbox(
 </script>
 ```
 
-###### 数据同步的原理
+###### 7.1 数据同步的原理
 
 **核心是将组件的`v-model`绑定到统一的`model`属性。**
 
@@ -477,6 +477,34 @@ export function useCheckboxModel({ props, checkboxModel, checkboxGroupKey, isGro
     }
 }
 ```
+
+###### 7.2 全选功能
+
+全选的交互逻辑：用户勾选“全选”按钮或勾选所有复选框。即，以用户勾选的个数与选项总和为判断条件，如果勾选的个数与选项总和相等，表示全选，否则表示部分勾选或未勾选。因此，首先需要获取所有选项，将其存储为临时数据，供后期用户勾选时进行比较，以显示正确的状态。
+
+要存储除“全选”复选框以外的选项数据，就需要获取<ue-checkbox-group>上的`v-model`属性的值，在 checkboxAll.vue 组件中，提供了一个依赖`provide`共享了`v-model`、`props`和其他数据。然后在哪里会获取注入这些数据呢？每个`<ue-checkbox>`组件在`setup`阶段会调用`useCheckbox()`，该函数的执行就会去调用`useCheckboxGroup()`，`useCheckboxGroup()`方法中就`inject`了`<ue-checkbox-all>`组件提供的依赖`provide`提供的数据：`...toRefs(props)`、 `allModel`、  `changeEvent`、`setValuesEvent`，即`checkboxAllKey`。只要`checkboxAllKey`不是`undefined`，就是全选组件状态。然后在 use-checkbox-model.js 中会根据是否是复选框组进行判断后给出`model`的值。
+
+
+
+
+
+
+
+composables 组合式函数
+
+composables 是 Vue3 的一个组合式 API，用来封装和复用有状态逻辑的函数。它是一种设计模式，允许开发人员将可复用的逻辑抽象成单独的函数，这些函数可在组件之间共享。
+
+
+
+定义模块 -> 应用模块
+
+- use-checkbox.js
+- use-checkbox-state.js
+- use-checkbox-group.js
+- use-checkbox-model.js
+- use-checkbox-event.js
+
+
 
 
 

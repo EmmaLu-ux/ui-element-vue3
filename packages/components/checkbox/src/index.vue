@@ -7,7 +7,7 @@
       ns.is('disabled', isDisabled || isLoading),
       ns.m('size', checkboxSize),
       ns.m(type),
-      ns.is('checked', isChecked),
+      ns.is('checked', isChecked || indeterminate),
       ns.is('loading', isLoading),
     ]">
     <!-- 视觉元素，多选框框 -->
@@ -22,8 +22,11 @@
         @change="changeEvent"
         @click.stop />
       <!-- 多选框框的替代 -->
-      <span :class="[ns.e('inner')]">
-        <ue-icon>
+      <span :class="[ns.e('inner'), ns.is('indeterminate', indeterminate)]">
+        <template v-if="indeterminate">
+          <i :class="[ns.e('indeterminate', indeterminate)]"></i>
+        </template>
+        <ue-icon v-else>
           <Loading
             v-if="isLoading"
             :class="[`${ns.is('loading-transition', isLoading)}`]" />
@@ -45,6 +48,7 @@ import { useCheckbox } from "../composables"
 
 defineOptions({ name: "ue-checkbox" })
 const ns = useNamespace("checkbox")
+const emit = defineEmits(["change"])
 
 const props = defineProps({
   tag: {
@@ -67,6 +71,8 @@ const props = defineProps({
     default: undefined,
   },
   beforeChange: Function,
+  indeterminate: Boolean,
+  all: Boolean,
 })
 // 双向绑定数据变量
 // NOTE: checkboxModel.value的值与<ue-checkbox></ue-checkbox>的v-model的值同步

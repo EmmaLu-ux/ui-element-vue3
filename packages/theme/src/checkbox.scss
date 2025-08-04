@@ -74,6 +74,20 @@
       transform: scale(0);
       transition: 0.3s;
     }
+    @include s((indeterminate)) {
+      background-color: #fff;
+    }
+  }
+  @include e(indeterminate) {
+    display: block;
+    background-color: var(#{getVarName("checkbox", "bg-color")});
+    border-radius: var(
+      #{getVarName("checkbox", "checkbox-indeterminate-round")}
+    );
+    width: var(#{getVarName("checkbox", "checkbox-indeterminate-size")});
+    height: var(#{getVarName("checkbox", "checkbox-indeterminate-size")});
+    box-sizing: border-box;
+    transition: 0.3s;
   }
   @include e(label) {
     margin-left: 0.75rem;
@@ -95,7 +109,14 @@
       #{getVarName("checkbox", "checkbox-round")}: var(
         #{getVarName("checkbox-round", $s)}
       );
+      #{getVarName('checkbox', 'checkbox-indeterminate-size')}: var(
+        #{getVarName("checkbox-indeterminate-size", $s)}
+      );
+      #{getVarName('checkbox', 'checkbox-indeterminate-round')}: var(
+        #{getVarName("checkbox-indeterminate-round", $s)}
+      );
       @include d(icon) {
+        // TODO: icon大小没有改变！
         #{getVarName("checkbox", "checkbox-icon-size")}: var(
           #{getVarName("checkbox-icon-size", $s)}
         );

@@ -26,6 +26,7 @@ const checkboxGroupModel = defineModel({
   type: Array,
   default: () => [],
 })
+// 处理选择变更
 const changeEvent = async value => {
   checkboxGroupModel.value = value
   emit("change", value)
