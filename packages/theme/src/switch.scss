@@ -27,9 +27,9 @@ $switch-font-size: () !default;
 $switch-font-size: map.deep-merge(
   (
     "sm": 0.375rem,
-    "md": 0.4375rem,
-    "lg": 0.5625rem,
-    "xl": 0.6875rem,
+    "md": 0.6375rem,
+    "lg": 0.9625rem,
+    "xl": 1.2875rem,
   ),
   $switch-font-size
 );
@@ -81,8 +81,15 @@ $switch-font-size: map.deep-merge(
     // 用于中心圆中添加图标/文本
     // font-size: ;
     // color: ;
+    > i {
+      transform: scale(0.8);
+    }
     @include s((checked)) {
       left: 50%;
+    }
+    @include s((disabled)) {
+      cursor: not-allowed;
+      background-color: var(#{getVarName("switch", "disable-button-bg-color")});
     }
   }
   @include e(inner) {
@@ -102,6 +109,9 @@ $switch-font-size: map.deep-merge(
       text-align: center;
       transition: 0.3s;
       font-size: var(#{getVarName("switch", "font-size")});
+      > span {
+        line-height: 1;
+      }
     }
   }
   @each $size in $sizes {
@@ -124,6 +134,15 @@ $switch-font-size: map.deep-merge(
   #{$classname} {
     @include s((checked)) {
       @include set-component-var("switch", switchVars($type), "type");
+    }
+    @include s((disabled)) {
+      cursor: not-allowed;
+      #{getVarName('switch', 'bg-color')}: var(
+        #{getVarName("bg-color", "default-switch")}
+      );
+      #{getVarName('switch', 'text-color')}: var(
+        #{getVarName("text-color", "light-6")}
+      );
     }
   }
 }

@@ -332,8 +332,8 @@
       (
         "default": getVarName("switch-font-size", sm),
       ),
-    // 禁用状态的背景色
-    "disabled-bg-color":
+    // 禁用状态的中心圆背景色
+    "disable-button-bg-color":
       (
         "default": getVarName("bg-color", "hover-default"),
       ),

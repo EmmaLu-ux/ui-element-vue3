@@ -1,28 +1,43 @@
 <template>
-  <div
-    :class="[
-      ns.b(),
-      ns.m(type),
-      ns.m('size', size),
-      ns.is('disabled', disabled),
-      ns.is('checked', isChecked),
-    ]">
-    <div :class="[ns.e('input')]">
-      <input type="checkbox" :disabled="disabled" />
+  <div :class="[ns.b()]">
+    <div
+      :class="[
+        ns.e('input'),
+        ns.m(type),
+        ns.m('size', size),
+        ns.is('disabled', isDisabled),
+        ns.is('checked', isChecked),
+      ]">
+      <input type="checkbox" :disabled="isDisabled" />
       <span :class="[ns.e('handle')]">
         <button
           type="button"
           :class="[
             ns.e('button'),
             ns.is('checked', isChecked),
-            ns.is('disabled', disabled),
-          ]"></button>
-        <span :class="[ns.e('inner')]">
+            ns.is('disabled', isDisabled),
+          ]">
+          <template v-if="centerIcon">
+            <ue-icon v-if="checkedIcon && isChecked">
+              <component :is="checkedIcon" />
+            </ue-icon>
+            <ue-icon v-if="uncheckedIcon && !isChecked">
+              <component :is="uncheckedIcon" />
+            </ue-icon>
+          </template>
+        </button>
+        <span :class="[ns.e('inner')]" v-if="!centerIcon">
           <span :class="[ns.e('inner-checked')]">
             <span v-if="onLabel"> {{ firstChatAt(onLabel) }}</span>
+            <ue-icon v-if="checkedIcon">
+              <component :is="checkedIcon" />
+            </ue-icon>
           </span>
           <span :class="[ns.e('inner-unchecked')]">
             <span v-if="offLabel"> {{ firstChatAt(offLabel) }}</span>
+            <ue-icon v-if="uncheckedIcon">
+              <component :is="uncheckedIcon" />
+            </ue-icon>
           </span>
         </span>
       </span>
@@ -55,10 +70,19 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  checkedIcon: {
+    type: [String, Object],
+    default: "",
+  },
+  uncheckedIcon: {
+    type: [String, Object],
+    default: "",
+  },
+  centerIcon: Boolean,
   //   checked: Boolean,
 })
 const isChecked = computed(() => true)
-// const isDisabled = computed(() => props.disabled)
+const isDisabled = computed(() => props.disabled)
 
 const firstChatAt = str => {
   const value = str.trim()
