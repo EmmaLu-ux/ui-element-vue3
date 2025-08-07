@@ -296,3 +296,52 @@
   );
   @return $checkbox;
 }
+
+@function switchVars($type: "") {
+  $switch: (
+    // 背景颜色
+    "bg-color":
+      (
+        "default": getVarName("bg-color", "default-switch"),
+        "type": getVarName("color", $type),
+      ),
+    // 文本颜色
+    "text-color":
+      (
+        "default": getVarName("text-color", "light-6"),
+        "type": getVarName("text-color", "white"),
+      ),
+    // 宽
+    "width":
+      (
+        "default": getVarName("switch-width", "sm"),
+        // "type": getVarName("switch-width", $type),
+      ),
+    // 高
+    "height":
+      (
+        "default": getVarName("switch-height", "sm"),
+      ),
+    // 圆角
+    "component-round":
+      (
+        "default": getVarName("component-round", "round"),
+      ),
+    // 文本大小
+    "font-size":
+      (
+        "default": getVarName("switch-font-size", sm),
+      ),
+    // 禁用状态的背景色
+    "disabled-bg-color":
+      (
+        "default": getVarName("bg-color", "hover-default"),
+      ),
+    // 禁用状态的文本颜色
+    "disabled-text-color":
+      (
+        "default": getVarName("text-color", "light-4"),
+      )
+  );
+  @return $switch;
+}

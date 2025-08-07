@@ -25,21 +25,6 @@ $b: null !default;
 }
 
 // 生成全局的属性
-// @mixin set-global-var() {
-//   @each $key, $map in $global {
-//     @if $map {
-//       @each $category, $submap in $map {
-//         @each $type, $v in $submap {
-//           #{createVarName(($key, $category, $type))}: #{$v};
-//         }
-//       }
-//     } @else {
-//       @each $type, $v in $map {
-//         #{createVarName(($key, $type))}: #{$v};
-//       }
-//     }
-//   }
-// }
 @mixin set-global-var() {
   @each $key, $data in $global {
     // @debug ($key + ",,," + $data);
@@ -48,6 +33,12 @@ $b: null !default;
         #{createVarName(($key, $type))}: #{$v};
       }
     }
+  }
+}
+// 生成私有属性
+@mixin set-private-var($block, $data) {
+  @each $key, $value in $data {
+    #{createVarName(($block, $key))}: #{$value};
   }
 }
 

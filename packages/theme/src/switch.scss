@@ -1,0 +1,129 @@
+@use "sass:map";
+@use "./common/componentVar.scss" as *;
+@use "./common/mixins.scss" as *;
+
+// switch ********************************************************
+$switch-width: () !default;
+$switch-width: map.deep-merge(
+  (
+    "sm": 2.375rem,
+    "md": 2.875rem,
+    "lg": 3.5rem,
+    "xl": 4.5rem,
+  ),
+  $switch-width
+);
+$switch-height: () !default;
+$switch-height: map.deep-merge(
+  (
+    "sm": 1.25rem,
+    "md": 1.5rem,
+    "lg": 1.875rem,
+    "xl": 2.25rem,
+  ),
+  $switch-height
+);
+$switch-font-size: () !default;
+$switch-font-size: map.deep-merge(
+  (
+    "sm": 0.375rem,
+    "md": 0.4375rem,
+    "lg": 0.5625rem,
+    "xl": 0.6875rem,
+  ),
+  $switch-font-size
+);
+:root {
+  @include set-private-var("switch-width", $switch-width);
+  @include set-private-var("switch-height", $switch-height);
+  @include set-private-var("switch-font-size", $switch-font-size);
+}
+@include b(switch) {
+  @include set-component-var("switch", switchVars());
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  input {
+    display: none;
+  }
+  @include e(input) {
+    height: var(#{getVarName("switch", "height")});
+    min-width: var(#{getVarName("switch", "width")});
+    border-radius: var(#{getVarName("switch", "component-round")});
+    border: none;
+    background-color: var(#{getVarName("switch", "bg-color")});
+    transition: 0.3s;
+  }
+  @include e(handle) {
+    display: block;
+    min-width: var(#{getVarName("switch", "width")});
+    height: var(#{getVarName("switch", "height")});
+    position: relative;
+    border-radius: var(#{getVarName("switch", "component-round")});
+    box-sizing: border-box;
+    // padding: 0.125rem;
+  }
+  @include e(button) {
+    display: inline-block;
+    border: none;
+    outline: none;
+    background-color: #fff;
+    width: calc(var(#{getVarName("switch", "height")}) - 0.125rem * 2);
+    height: calc(var(#{getVarName("switch", "height")}) - 0.125rem * 2);
+    border-radius: var(#{getVarName("switch", "component-round")});
+    position: absolute;
+    left: 0.125rem;
+    top: 0.125rem;
+    z-index: 10;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.05);
+    padding: 0;
+    margin: 0;
+    // 用于中心圆中添加图标/文本
+    // font-size: ;
+    // color: ;
+    @include s((checked)) {
+      left: 50%;
+    }
+  }
+  @include e(inner) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    user-select: none;
+    color: var(#{getVarName("switch", "text-color")});
+    > span {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: 0.3s;
+      font-size: var(#{getVarName("switch", "font-size")});
+    }
+  }
+  @each $size in $sizes {
+    @include m(size, $size) {
+      #{getVarName('switch', 'width')}: var(
+        #{getVarName("switch-width", $size)}
+      );
+      #{getVarName('switch', 'height')}: var(
+        #{getVarName("switch-height", $size)}
+      );
+      #{getVarName('switch', 'font-size')}: var(
+        #{getVarName("switch-font-size", $size)}
+      );
+    }
+  }
+}
+
+@each $type in $types {
+  $classname: ".ue-switch--" + $type;
+  #{$classname} {
+    @include s((checked)) {
+      @include set-component-var("switch", switchVars($type), "type");
+    }
+  }
+}
