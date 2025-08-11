@@ -11,9 +11,13 @@
       <!-- 图标元素 -->
       <ul class="examples-control">
         <li @click="copy" @mouseleave="isCopySuccess = ''">
-          <i class="iconfont" :class="iconCopy"></i>
+          <label class="icon-popup-label">复制{{ iconCopy.text }}</label>
+          <i class="iconfont" :class="iconCopy.icon"></i>
         </li>
         <li @click="toggleSource">
+          <label class="icon-popup-label"
+            >{{ source ? "收起" : "显示" }}代码</label
+          >
           <i class="iconfont icon-code-s-slash-fill"></i>
         </li>
       </ul>
@@ -49,11 +53,20 @@ const demo = computed(() => {
 })
 const iconCopy = computed(() => {
   if (isCopySuccess.value === true) {
-    return "icon-chenggong"
+    return {
+      icon: "icon-chenggong",
+      text: "成功",
+    }
   } else if (isCopySuccess.value === false) {
-    return "icon-shibai"
+    return {
+      icon: "icon-shibai",
+      text: "失败",
+    }
   } else {
-    return "icon-fuzhi"
+    return {
+      icon: "icon-fuzhi",
+      text: "代码",
+    }
   }
 })
 const copy = async event => {
@@ -159,10 +172,10 @@ onMounted(() => {
   position: absolute;
   left: 50%;
   bottom: 115%;
-  font-size: 14px;
+  font-size: 13px;
   color: #fff;
   padding: 8px 10px;
-  border-radius: 2px;
+  border-radius: 5px;
   transform: translateX(-50%) scale(0);
   transition: 0.1s;
   background-color: rgba(0, 0, 0, 0.7);
