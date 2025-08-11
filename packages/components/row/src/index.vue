@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue"
+import { computed, provide } from "vue"
 import { useNamespace } from "@ui-element-vue3/hooks"
 
 defineOptions({ name: "ue-row" })
@@ -32,6 +32,12 @@ const props = defineProps({
     default: 0,
   },
 })
+
+// 为子元素提供 gutter 值
+provide(
+  "ue-row-gutter",
+  computed(() => props.gutter)
+)
 
 const styleMargin = computed(() => {
   const gutter = props.gutter

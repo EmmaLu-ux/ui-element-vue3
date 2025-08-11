@@ -5,6 +5,21 @@ import { useNamespace } from "@ui-element-vue3/hooks"
 const emits = defineEmits(["click"])
 const ns = useNamespace("button")
 
+// 获取父级 Row 组件的 gutter 值
+const gutter = inject(
+  "ue-row-gutter",
+  computed(() => 0)
+)
+const buttonStyle = computed(() => {
+  const gutterValue = gutter.value
+  return gutterValue
+    ? {
+        marginLeft: gutterValue / 2 + "px",
+        marginRight: gutterValue / 2 + "px",
+      }
+    : {}
+})
+
 const props = defineProps({
   type: {
     type: String,
@@ -66,6 +81,7 @@ const handleEvent = e => {
 <template>
   <button
     :disabled="disabled"
+    :style="buttonStyle"
     :class="[
       ns.b(),
       ns.m(type),
