@@ -91,7 +91,7 @@ export default defineConfig({
            * ]
            * 
            */
-          console.log("tokens", tokens)
+          // console.log("tokens", tokens)
           // console.log("自定义容器", idx)
           /**
            * 打开标签（nesting: 1）
@@ -111,7 +111,7 @@ export default defineConfig({
             // "fence"（围栏）是指用三个反引号 ``` 包裹的代码块
             const contentPath =
               tokens[idx + 1].type === "fence" ? tokens[idx + 1].content : ""
-            // console.log("content", content)
+            console.log("content", contentPath)
             // 读取文件
             let source = ""
             if (contentPath) {
@@ -124,14 +124,12 @@ export default defineConfig({
               source = fs.readFileSync(file, "utf-8")
               // console.log("source", source)
             }
-            return `<Demo>
-            <template #source><pre v-pre><code class="language-html">
-            ${md.utils.escapeHtml(source)}
-            </code></pre></template>
-            <template #description>
-            ${desc ? `${md.render(desc)}` : ""}
-              </template>
-            `
+            // NOTE: 注意这里使用了模板字符串来构建返回的HTML，不要有多余的空格，否则会显示在页面上！
+            return `<Demo path=${contentPath}><template #source><pre v-pre><code class="language-html">${md.utils.escapeHtml(
+              source
+            )}</code></pre></template><template #description>${
+              desc ? `${md.render(desc)}` : ""
+            }</template>`
           } else {
             return "</Demo>"
           }

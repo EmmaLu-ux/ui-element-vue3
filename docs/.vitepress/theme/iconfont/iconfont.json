@@ -1,0 +1,86 @@
+{
+  "id": "4972522",
+  "name": "ui-element-vue3",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "组件库icon-测试",
+  "glyphs": [
+    {
+      "icon_id": "1176866",
+      "name": "check",
+      "font_class": "check",
+      "unicode": "e6c1",
+      "unicode_decimal": 59073
+    },
+    {
+      "icon_id": "2815710",
+      "name": "复制",
+      "font_class": "fuzhi",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "6978133",
+      "name": "失败",
+      "font_class": "shibai",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "10666917",
+      "name": "成功",
+      "font_class": "chenggong",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "42197649",
+      "name": "code-s-slash-fill",
+      "font_class": "code-s-slash-fill",
+      "unicode": "e773",
+      "unicode_decimal": 59251
+    },
+    {
+      "icon_id": "9358624",
+      "name": "clear",
+      "font_class": "clear",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1030077",
+      "name": "eye",
+      "font_class": "eye",
+      "unicode": "e76c",
+      "unicode_decimal": 59244
+    },
+    {
+      "icon_id": "39887300",
+      "name": "eye-off",
+      "font_class": "eye-off",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "3509759",
+      "name": "search",
+      "font_class": "search1",
+      "unicode": "e7da",
+      "unicode_decimal": 59354
+    },
+    {
+      "icon_id": "44849529",
+      "name": "加载",
+      "font_class": "loading",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "44849851",
+      "name": "分享",
+      "font_class": "Forward",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    }
+  ]
+}
