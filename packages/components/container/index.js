@@ -4,6 +4,7 @@ import Header from "./src/Header.vue"
 import Main from "./src/Main.vue"
 import Aside from "./src/Aside.vue"
 import Footer from "./src/Footer.vue"
+import "./src/style/index.js";
 
 // 按需加载
 export const UeContainer = componentInstall(Container);
