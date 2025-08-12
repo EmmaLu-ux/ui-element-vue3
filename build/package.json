@@ -14,8 +14,11 @@
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vue/compiler-sfc": "^3.5.18",
+    "fast-glob": "^3.3.3",
     "rollup": "^4.46.2",
     "rollup-plugin-esbuild": "^6.2.1",
-    "rollup-plugin-vue": "^6.0.0"
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-vue": "^6.0.0",
+    "sass": "^1.90.0"
   }
 }

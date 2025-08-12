@@ -16,9 +16,5 @@
     "@ui-element-vue3/icons": "workspace:*",
     "@ui-element-vue3/theme": "workspace:*",
     "@ui-element-vue3/utils": "workspace:*"
-  },
-  "devDependencies": {
-    "rollup-plugin-postcss": "^4.0.2",
-    "sass": "^1.89.2"
   }
 }

@@ -1,0 +1,67 @@
+import glob from 'fast-glob'
+import { rollup } from 'rollup'
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import postcss from "rollup-plugin-postcss"
+import vue from "@vitejs/plugin-vue";
+import esbuild from "rollup-plugin-esbuild";
+
+import { pkgRoot, outputPkgDir, outputEsm, outputCjs } from "./common.js"
+
+
+// 重写 @import 关键字路径
+const compileStyleEntry = () => {
+    const themeEntryPrefix = `@ui-element-vue3/packages/theme/src/`
+    return {
+        name: 'compile-style-entry',
+        resolveId(id) {
+            console.log('id', id)
+            if (!id.startsWith(themeEntryPrefix)) return
+            return {
+                id: id.replaceAll(themeEntryPrefix, `${outputPkgDir}/theme/src`),
+                external: 'absolute'
+            }
+        }
+    }
+}
+
+// ESM 和CJS 打包
+export const modulesBuildEntry = async () => {
+    const input = await glob("**/*.{js,ts,vue}", {
+        cwd: pkgRoot,
+        absolute: true, // 返回绝对路径
+        onlyFiles: true, // 只返回文件的路径，不需要目录
+    })
+
+    const writeBundles = await rollup({
+        input,
+        plugins: [
+            compileStyleEntry(),
+            vue(),
+            nodeResolve({ extensions: ['.ts'] }),
+            esbuild(),
+            postcss({
+                pextract: true, // css通过链接引入
+            })
+        ],
+        external: [
+            'vue',
+            '@vue/shared',
+            'async-validator'
+        ]
+    })
+    writeBundles.write({
+        format: 'esm',
+        dir: outputEsm, // 打包后组件输出目录
+        preserveModules: true, // 使打包后的组件库模块结构和源码的模块结构保持一致
+        entryFileNames: `[name].mjs`,
+        sourcemap: true,
+    })
+    writeBundles.write({
+        format: 'cjs',
+        dir: outputCjs,
+        preserveModules: true,
+        entryFileNames: `[name].cjs`,
+        sourcemap: true
+    })
+}
+modulesBuildEntry()

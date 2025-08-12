@@ -781,7 +781,35 @@ $state-prefix: "is" !default; // 状态前缀
 
 ---
 
-packages/dist/index.full.js：打包生成的 umd 格式组件包
+#### UMD打包
+
+在`build`目录下，执行打包命令：`node ./src/umnBuild.js`，得到：
+
+1. `packages/dist/index.full.js`：打包生成的 umd 格式组件包
+
+2. `packages/dist/index.css`：打包生成的 umd 格式组件包的样式
+
+在`text.html`文件中引入这两个文件，即可在浏览器中测试该umd组件包是否可用。
+
+---
+
+#### ESM、CJS模块化打包
+
+UMD 包属于全量模式打包，也就是将所有的组件打包为一份 JS 文件，通过在浏览器中使用 <script> 标签引入组件。经过 UMD 打包的文件大，并且无法支持按需加载。为了使打包的组件库支持按需加载模式，需要使用 ESM 和 CJS 打包模式实现按需加载，也可在打包过程中实现 Tree shaking（去除 JS 中无用的代码）优化。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
