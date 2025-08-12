@@ -12,12 +12,12 @@ import { pkgRoot, outputPkgDir, outputEsm, outputCjs } from "./common.js"
 const compileStyleEntry = () => {
     const themeEntryPrefix = `@ui-element-vue3/packages/theme/src/`
     return {
-        name: 'compile-style-entry',
+        name: 'compile-style-entry', // 当构建出错时，会显示 "compile-style-entry" 插件相关的错误
         resolveId(id) {
             console.log('id', id)
             if (!id.startsWith(themeEntryPrefix)) return
             return {
-                id: id.replaceAll(themeEntryPrefix, `${outputPkgDir}/theme/src`),
+                id: id.replaceAll(themeEntryPrefix, `${outputPkgDir}/theme/src/`),
                 external: 'absolute'
             }
         }

@@ -17,7 +17,7 @@ export const outputEsm = resolve(rootDir, outputPkgDir, "es"); // ESM目录
 export const outputCjs = resolve(rootDir, outputPkgDir, "lib"); // CJS目录
 export const outputUmd = resolve(rootDir, outputPkgDir, "dist"); // UMD目录
 
-// console.log('outputDir', outputDir); // /Users/emmalu/Documents/study/frontend/workspace/tech_projects/ui-element-vue3/packages
-// console.log('outputEsm', outputEsm); // /Users/emmalu/Documents/study/frontend/workspace/tech_projects/ui-element-vue3/packages/es
-// console.log('outputCjs', outputCjs); // /Users/emmalu/Documents/study/frontend/workspace/tech_projects/ui-element-vue3/packages/lib
-// console.log('outputUmd', outputUmd); // /Users/emmalu/Documents/study/frontend/workspace/tech_projects/ui-element-vue3/packages/dist
+// console.log('outputDir', outputDir); // /Users/emmalu/Documents/study/frontend/workspace/tech_projects/ui-element-vue3/FloriUI
+// console.log('outputEsm', outputEsm); // /Users/emmalu/Documents/study/frontend/workspace/tech_projects/ui-element-vue3/FloriUI/es
+// console.log('outputCjs', outputCjs); // /Users/emmalu/Documents/study/frontend/workspace/tech_projects/ui-element-vue3/FloriUI/lib
+// console.log('outputUmd', outputUmd); // /Users/emmalu/Documents/study/frontend/workspace/tech_projects/ui-element-vue3/FloriUI/dist
