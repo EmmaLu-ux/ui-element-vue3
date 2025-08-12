@@ -60,46 +60,47 @@
   <ue-button type="error" size="sm" circle disabled>Default Button</ue-button>
   <hr />
   <ue-button circle prefix="icon-loading">Default Button</ue-button>
-  <ue-button
-    type="primary"
-    size="sm"
-    circle
-    prefix="icon-loading"
-    suffix="icon-loading"
-    >Default Button</ue-button
-  >
-  <ue-button
-    type="success"
-    size="md"
-    prefix="icon-loading"
-    suffix="icon-loading"
-    >Default Button</ue-button
-  >
-  <ue-button
-    type="warning"
-    size="lg"
-    circle
-    prefix="icon-loading"
-    :before-change="beforeChange"
-    >Default Button</ue-button
-  >
-  <ue-button type="error" size="xl" circle prefix="icon-loading"
-    >Default Button</ue-button
-  >
+  <ue-button type="primary" size="sm" circle prefix="icon-loading" suffix="icon-loading">Default Button</ue-button>
+  <ue-button type="success" size="md" prefix="icon-loading" suffix="icon-loading">Default Button</ue-button>
+  <ue-button type="warning" size="lg" circle prefix="icon-loading" :before-change="beforeChange">Default
+    Button</ue-button>
+  <ue-button type="error" size="xl" circle prefix="icon-loading">Default Button</ue-button>
   <hr />
   <ue-button type="primary" size="lg">
-    <ue-icon size="20" color="white">
+    <ue-icon size="16" color="white">
       <Eye />
     </ue-icon>
     查看
-    <ue-icon size="20" color="white">
+    <ue-icon size="16" color="white">
       <Eye />
     </ue-icon>
+  </ue-button>
+  <hr />
+  <!-- 不同大小的图标示例 -->
+  <ue-button type="success" size="sm">
+    <ue-icon size="14" color="white">
+      <Eye />
+    </ue-icon>
+    小图标
+  </ue-button>
+  <ue-button type="warning" size="md">
+    <ue-icon size="16" color="white">
+      <Eye />
+    </ue-icon>
+    中图标
+  </ue-button>
+  <ue-button type="error" size="lg">
+    <ue-icon size="18" color="white">
+      <Eye />
+    </ue-icon>
+    大图标
   </ue-button>
 </template>
 
 <script setup>
-import { Eye } from "@ui-element-vue3/icons"
+// 按需引入
+import { UeButton, UeIcon } from "flori-ui"
+import { Eye } from "flori-ui/icons"
 
 const beforeChange = () => {
   return new Promise((resolve, reject) => {

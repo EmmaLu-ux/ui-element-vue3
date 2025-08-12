@@ -53,6 +53,7 @@ export const modulesBuildEntry = async () => {
         format: 'esm',
         dir: outputEsm, // 打包后组件输出目录
         preserveModules: true, // 使打包后的组件库模块结构和源码的模块结构保持一致
+        preserveModulesRoot: pkgRoot, // 设置模块根目录，移除packages前缀
         entryFileNames: `[name].mjs`,
         sourcemap: true,
     })
@@ -60,6 +61,7 @@ export const modulesBuildEntry = async () => {
         format: 'cjs',
         dir: outputCjs,
         preserveModules: true,
+        preserveModulesRoot: pkgRoot, // 设置模块根目录，移除packages前缀
         entryFileNames: `[name].cjs`,
         sourcemap: true
     })

@@ -1,5 +1,5 @@
 <script setup>
-// import ButtonExamples from "./components/ButtonExamples.vue"
+import ButtonExamples from "./components/ButtonExamples.vue"
 // import ButtonGroupExp from "./components/ButtonGroupExp.vue"
 // import IconExamp from "./components/IconExamp.vue"
 // import InputExamp from "./components/InputExamp.vue"
@@ -7,19 +7,19 @@
 // import RowandColExamp from "./components/RowandColExamp.vue"
 // import LayoutExamp from "./components/LayoutExamp.vue"
 // import CheckBoxExamp from "./components/CheckBoxExamp.vue"
-import SwitchExamp from "./components/SwitchExamp.vue"
+// import SwitchExamp from "./components/SwitchExamp.vue"
 </script>
 
 <template>
   <!-- <IconExamp></IconExamp> -->
-  <!-- <ButtonExamples></ButtonExamples> -->
+  <ButtonExamples></ButtonExamples>
   <!-- <ButtonGroupExp></ButtonGroupExp> -->
   <!-- <InputExamp></InputExamp> -->
   <!-- <TextareaExamp></TextareaExamp> -->
   <!-- <RowandColExamp></RowandColExamp> -->
   <!-- <LayoutExamp></LayoutExamp> -->
   <!-- <CheckBoxExamp></CheckBoxExamp> -->
-  <SwitchExamp></SwitchExamp>
+  <!-- <SwitchExamp></SwitchExamp> -->
 </template>
 
 <style scoped></style>
