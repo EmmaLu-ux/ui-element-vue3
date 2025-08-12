@@ -779,6 +779,26 @@ $state-prefix: "is" !default; // 状态前缀
 
 
 
+---
+
+packages/dist/index.full.js：打包生成的 umd 格式组件包
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

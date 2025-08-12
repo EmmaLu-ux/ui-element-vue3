@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="../packages/dist/index.css">
+    <script src="../packages/dist/index.full.js"></script>
+    <title>test umd packages</title>
+</head>
+
+<body>
+    <div id="app">
+        <ue-button type="primary">{{message}}</ue-button>
+    </div>
+    <script>
+        console.log('UeUI', UeUI); // 打印UeUI组件库
+        // UMD 打包同时包含命名与默认导出，此处使用默认导出的安装函数
+        const abc = window.UeUI && window.UeUI.default ? window.UeUI.default : window.UeUI
+        const { createApp, ref } = Vue
+        const App = {
+            setup() {
+                const message = ref('浏览器引用umd组件库包')
+                return { message }
+            }
+        }
+        const app = Vue.createApp(App)
+        app.use(abc)
+        app.mount('#app')
+    </script>
+</body>
+
+</html>

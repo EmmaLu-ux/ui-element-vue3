@@ -1,0 +1,31 @@
+# 依赖目录
+node_modules
+.pnpm-store
+package-lock.json
+pnpm-lock.yaml
+.history
+
+# 构建输出
+dist/
+*.log
+
+# 环境文件
+.env
+.env.*
+!.env.example
+
+# IDE 文件
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# 测试覆盖率
+coverage/
