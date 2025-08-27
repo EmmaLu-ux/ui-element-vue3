@@ -120,8 +120,8 @@
 
 <script setup>
 // 按需引入
-// import { UeButton, UeIcon } from "flori-ui"
-// import { Eye } from "flori-ui/icons"
+import { UeButton, UeIcon } from "flori-ui"
+// import { Eye } from "flori-ui"
 
 const beforeChange = () => {
   return new Promise((resolve, reject) => {

@@ -2,3 +2,5 @@ packages:
   - docs
   - examples
   - packages/*
+overrides:
+  flori-ui: link:../../../../../../Library/pnpm/global/5/node_modules/flori-ui

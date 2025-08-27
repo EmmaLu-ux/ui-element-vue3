@@ -1,7 +1,8 @@
-export const outputPkgDir = "flori-ui" // 打包输出的文件夹，内有多种输出模式的打包文件夹
 
 import { fileURLToPath } from "url";
 import { resolve, dirname } from "path";
+
+export const outputPkgDir = "flori-ui" // 打包输出的文件夹，内有多种输出模式的打包文件夹
 
 /**
  * import.meta.url：返回当前模块文件的完整URL

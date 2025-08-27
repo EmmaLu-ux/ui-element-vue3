@@ -895,11 +895,29 @@ export default defineConfig({
 
 
 
+#### 本地模拟npm包测试
 
+在根目录执行`pnpm build`对UI组件库进行打包，生成`flori-ui`文件夹，这就是打包后的 UI 组件库。
 
+进入`flori-ui`文件夹内，执行`pnpm link`进行全局注册。
 
+进入 vue 项目根目录，执行`pnpm link flori-ui`引入该组件库至 vue 项目内（一个软链接）。
 
+> `npm link`可以为任意位置的 npm 包与全局的`node_modules`建立链接，在系统中做快捷映射，建立链接之后即可在本地进行模块测试。
 
+`pnpm-workspace.yaml`文件：
+
+```yaml
+packages:
+  - docs
+  - examples
+  - packages/*
+overrides:
+  flori-ui: link:../../../../../../Library/pnpm/global/5/node_modules/flori-ui
+
+```
+
+其中的`overrides` 字段告诉 `pnpm` 在整个工作区中，无论哪个项目引用 `flori-ui` 包，都使用指定路径的版本，而不是从 `npm` 仓库下载。`link:` 前缀表示这是一个本地路径链接，
 
 
 

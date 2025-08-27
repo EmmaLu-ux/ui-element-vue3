@@ -15,6 +15,7 @@
     "@ui-element-vue3/hooks": "workspace:*",
     "@ui-element-vue3/icons": "workspace:*",
     "@ui-element-vue3/theme": "workspace:*",
-    "@ui-element-vue3/utils": "workspace:*"
+    "@ui-element-vue3/utils": "workspace:*",
+    "flori-ui": "link:../../../../../../Library/pnpm/global/5/node_modules/flori-ui"
   }
 }

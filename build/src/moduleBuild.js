@@ -9,15 +9,15 @@ import { pkgRoot, outputPkgDir, outputEsm, outputCjs } from "./common.js"
 
 // 重写样式文件中的模块路径引用
 const compileStyleEntry = () => {
-    const themeEntryPrefix = `@ui-element-vue3/packages/theme/src/`
+    const themeEntryPrefix = `@ui-element-vue3/theme/src/`
     return {
         name: 'compile-style-entry', // 当构建出错时，会显示 "compile-style-entry" 插件相关的错误
         // 拦截所有的模块解析请求，无论是来自 @use、@import 还是其他引用方式。它的作用是将构建过程中的路径引用重定向到正确的输出目录。
         resolveId(id) {
-            console.log('id', id)
+            // console.log('id', id)
             if (!id.startsWith(themeEntryPrefix)) return
             return {
-                id: id.replaceAll(themeEntryPrefix, `${outputPkgDir}/theme/src/`),
+                id: id.replaceAll(themeEntryPrefix, `${outputPkgDir}/theme/`).replace('.scss', '.css'),
                 external: 'absolute'
             }
         }
@@ -56,6 +56,7 @@ export const moduleBuildEntry = async () => {
         preserveModulesRoot: pkgRoot, // 设置模块根目录，移除packages前缀
         entryFileNames: `[name].mjs`,
         sourcemap: true,
+        exports: 'named' // 解决同时使用命名导出和默认导出的警告
     })
     writeBundles.write({
         format: 'cjs',
@@ -63,6 +64,7 @@ export const moduleBuildEntry = async () => {
         preserveModules: true,
         preserveModulesRoot: pkgRoot, // 设置模块根目录，移除packages前缀
         entryFileNames: `[name].cjs`,
-        sourcemap: true
+        sourcemap: true,
+        exports: 'named' // 解决同时使用命名导出和默认导出的警告
     })
 }
