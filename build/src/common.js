@@ -1,4 +1,4 @@
-export const outputPkgDir = "FloriUI" // 打包输出的文件夹，内有多种输出模式的打包文件夹
+export const outputPkgDir = "flori-ui" // 打包输出的文件夹，内有多种输出模式的打包文件夹
 
 import { fileURLToPath } from "url";
 import { resolve, dirname } from "path";
