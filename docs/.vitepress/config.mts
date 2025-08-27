@@ -54,6 +54,12 @@ export default defineConfig({
     config: md => {
       md.use(MdContainer, "demo", {
         // render函数负责将.md转换为html
+        /**
+         *
+         * @param tokens 表示Markdown文件中的各种元素
+         * @param idx 表示当前处理的元素的索引
+         * @returns
+         */
         render(tokens: string, idx: string) {
           /**
            * [
@@ -101,6 +107,7 @@ export default defineConfig({
            * 获取容器属性（tokens[idx].info.trim()，如::: warning 中的 "warning"）
            */
           // 处理打开标签
+          // 1: 打开标签，0:标签内内容，-1:关闭标签
           if (tokens[idx].nesting === 1) {
             // 捕获组中的描述内容，即::: demo xxx中的xxx
             const info = tokens[idx].info.trim().match(/^demo\s*(.*)$/)
@@ -115,6 +122,7 @@ export default defineConfig({
             // 读取文件
             let source = ""
             if (contentPath) {
+              // __dirname表示当前执行文件所在的目录
               let file = path.resolve(
                 __dirname,
                 "../examples",
@@ -122,7 +130,7 @@ export default defineConfig({
               )
               file = file.replace(/\s+/g, "")
               source = fs.readFileSync(file, "utf-8")
-              // console.log("source", source)
+              console.log("source", source)
             }
             // NOTE: 注意这里使用了模板字符串来构建返回的HTML，不要有多余的空格，否则会显示在页面上！
             return `<Demo path=${contentPath}><template #source><pre v-pre><code class="language-html">${md.utils.escapeHtml(

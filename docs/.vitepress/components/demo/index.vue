@@ -15,9 +15,9 @@
           <i class="iconfont" :class="iconCopy.icon"></i>
         </li>
         <li @click="toggleSource">
-          <label class="icon-popup-label"
-            >{{ source ? "收起" : "显示" }}代码</label
-          >
+          <label class="icon-popup-label">
+            {{ source ? "收起" : "显示" }}代码
+          </label>
           <i class="iconfont icon-code-s-slash-fill"></i>
         </li>
       </ul>
@@ -69,6 +69,7 @@ const iconCopy = computed(() => {
     }
   }
 })
+// TODO: bug：必须显示代码后才能复制代码
 const copy = async event => {
   const sourceElement = event.target
     .closest(".examples-container")

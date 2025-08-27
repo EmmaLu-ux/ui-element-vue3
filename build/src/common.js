@@ -1,11 +1,17 @@
-export const outputPkgDir = "FloriUI"
+export const outputPkgDir = "FloriUI" // 打包输出的文件夹，内有多种输出模式的打包文件夹
 
 import { fileURLToPath } from "url";
 import { resolve, dirname } from "path";
 
+/**
+ * import.meta.url：返回当前模块文件的完整URL
+ * fileURLToPath(import.meta.url)：将文件URL转换为文件路径
+ * resolve(dirName, "..", "..")：将文件路径转换为目录路径
+ */
+// console.log('import.meta.url', import.meta.url); // file:///Users/emmalu/Documents/study/frontend/workspace/tech_projects/ui-element-vue3/build/src/common.js
 export const filePath = fileURLToPath(import.meta.url);
 export const dirName = dirname(filePath);
-export const rootDir = resolve(dirName, "..", ".."); // UI组件根目录
+export const rootDir = resolve(dirName, "..", ".."); // 项目根目录
 export const pkgRoot = resolve(rootDir, 'packages');// ui组件包目录
 // console.log('filePath', filePath); // /Users/emmalu/Documents/study/frontend/workspace/tech_projects/ui-element-vue3/build/src/common.js
 // console.log('dirName', dirName); // /Users/emmalu/Documents/study/frontend/workspace/tech_projects/ui-element-vue3/build/src

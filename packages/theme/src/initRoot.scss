@@ -1,5 +1,22 @@
+@use "./common.scss";
 @use "./common/var.scss" as *;
 @use "./common/mixins.scss" as *;
+@use "./isLoading.scss";
+@use "./button.scss";
+@use "./buttonGroup.scss";
+@use "./common/config.scss";
+@use "./icon.scss";
+@use "./input.scss";
+@use "./textarea.scss";
+@use "./row.scss";
+@use "./col.scss";
+@use "./container.scss";
+@use "./aside.scss";
+@use "./header.scss";
+@use "./main.scss";
+@use "./footer.scss";
+@use "./checkbox.scss";
+@use "./switch.scss";
 
 :root {
   @include set-main-color(); // 生成主题色

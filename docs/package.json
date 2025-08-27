@@ -17,6 +17,7 @@
     "vitepress": "^1.6.4"
   },
   "dependencies": {
+    "flori-ui": "^1.0.0",
     "markdown-it-container": "^4.0.0"
   }
 }

@@ -46,5 +46,3 @@ const buildScssFull = async () => {
 export const buildStyle = async () => {
     await Promise.all([buildScssFull(), buildScssModules()]) // 所有任务都会并行执行，提高效率。如果任何一个构建任务失败，整个构建过程就会失败
 }
-
-buildStyle()

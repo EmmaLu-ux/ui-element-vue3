@@ -3,8 +3,8 @@ import DefaultTheme from "vitepress/theme"
 import "./style.css"
 import Demo from "../components/demo/index.vue"
 
-import UIElementV from "../../../packages/index"
-import "@ui-element-vue3/theme/src/index.scss"
+import UIElementV from "flori-ui"
+import "flori-ui/dist/index.min.css"
 import "./iconfont/iconfont.css"
 
 export default {

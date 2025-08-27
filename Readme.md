@@ -15,8 +15,8 @@ mkdir packages examples docs
 ```yaml
 # pnpm-workspace.yaml
 packages:
-  - docs。 #组件文档
-  - examples # 组件测试代码
+  - docs # 组件文档
+  - examples # UI组件库文档测试代码
   - packages/* # 组件包
 ```
 
@@ -818,6 +818,84 @@ UMD 包属于全量模式打包，也就是将所有的组件打包为一份 JS 
 
 
 **最后，打包UI组件库的命令为：`pnpm run start`（注意是在 `build` 文件夹下执行），或在项目根目录下执行：`pnpm build`。**
+
+---
+
+#### 安装与使用
+
+##### 安装
+
+`pnpm i flori-ui`或`npm i flori-ui`
+
+##### 使用
+
+###### 全局引入
+
+`main.js`文件：
+
+```javascript
+import { createApp } from 'vue'
+import App from './App.vue'
+
+import UeUI from "flori-ui"
+import "flori-ui/dist/index.min.css"
+
+createApp(App).use(Antd)
+    .use(UeUI)
+    .mount('#app')
+```
+
+`.vue`文件：
+
+```vue
+<template>
+	<UeButton type="primary">主按钮</UeButton>
+</template>
+```
+
+###### 按需引入
+
+`vite.config.js`文件：
+
+```javascript
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { createStyleImportPlugin } from "vite-plugin-style-import"
+
+export default defineConfig({
+  plugins: [vue(),
+  createStyleImportPlugin({
+    libs: [
+      {
+        libraryName: "flori-ui",
+        esModule: true,
+        resolveStyle: (name) => {
+          const path = name.split('-') // ue-button
+          return `flori-ui/es/components/${path[1]}/src/style/index`
+        }
+      }
+    ]
+  })
+  ],
+  ...
+})
+```
+
+`.vue`文件：
+
+```vue
+<template>
+	<UeButton type="success">成功按钮</UeButton>
+</template>
+<script setup>
+	import { UeButton } from "flori-ui"
+  import "flori-ui/theme/button.css" // 样式
+</script>
+```
+
+
+
+
 
 
 

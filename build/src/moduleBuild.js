@@ -7,12 +7,12 @@ import esbuild from "rollup-plugin-esbuild";
 
 import { pkgRoot, outputPkgDir, outputEsm, outputCjs } from "./common.js"
 
-
-// 重写 @import 关键字路径
+// 重写样式文件中的模块路径引用
 const compileStyleEntry = () => {
     const themeEntryPrefix = `@ui-element-vue3/packages/theme/src/`
     return {
         name: 'compile-style-entry', // 当构建出错时，会显示 "compile-style-entry" 插件相关的错误
+        // 拦截所有的模块解析请求，无论是来自 @use、@import 还是其他引用方式。它的作用是将构建过程中的路径引用重定向到正确的输出目录。
         resolveId(id) {
             console.log('id', id)
             if (!id.startsWith(themeEntryPrefix)) return
@@ -25,7 +25,7 @@ const compileStyleEntry = () => {
 }
 
 // ESM 和CJS 打包
-export const modulesBuildEntry = async () => {
+export const moduleBuildEntry = async () => {
     const input = await glob("**/*.{js,ts,vue}", {
         cwd: pkgRoot,
         absolute: true, // 返回绝对路径
@@ -40,7 +40,7 @@ export const modulesBuildEntry = async () => {
             nodeResolve({ extensions: ['.ts'] }),
             esbuild(),
             postcss({
-                pextract: true, // css通过链接引入
+                extract: true, // css通过链接引入
             })
         ],
         external: [
@@ -66,4 +66,3 @@ export const modulesBuildEntry = async () => {
         sourcemap: true
     })
 }
-modulesBuildEntry()

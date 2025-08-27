@@ -7,40 +7,43 @@ import postcss from 'rollup-plugin-postcss';
 import { resolve } from 'path';
 import { pkgRoot, outputUmd } from './common.js';
 
-const umdBuildEntry = async () => {
+export const umdBuildEntry = async () => {
     const writeBundles = await rollup({
         input: resolve(pkgRoot, 'index.js'), // 打包入口文件
         plugins: [
+            // 识别.vue文件
             vue({
                 // 确保编译器支持 defineModel
                 compilerOptions: {
                     isCustomElement: (tag) => tag.startsWith('ue-')
                 }
             }),
+            // 解析npm包
             nodeResolve({ extensions: ['.mjs', '.js', '.json', '.ts', '.vue'] }),
+            // 对scss文件进行编译
             postcss({
                 extract: resolve(outputUmd, 'index.css'),
                 minimize: true,
                 extensions: ['.css', '.scss']
             }),
-            esbuild()
+            esbuild() // 对ts文件进行编译
         ],
-        external: ["vue"], // 排除vue
+        external: ["vue"], // 排除不进行打包的vue
     })
-    // 将打包后的代码写入到文件系统中
+    // 输出文件格式
     writeBundles.write({
         /**
          * format可选值：
          * 'amd' - 异步模块定义，用于 RequireJS 等
-            'cjs' - CommonJS，适用于 Node
-            'es' / 'esm' - ES 模块（推荐用于现代浏览器）
-            'iife' - 自执行函数，适合 <script> 标签
-            'umd' - 通用模块定义，兼容 AMD 和 CommonJS
-            'system' - SystemJS 加载器格式
+         * 'cjs' - CommonJS，适用于 Node
+         * 'es' / 'esm' - ES 模块（推荐用于现代浏览器）
+         * 'iife' - 自执行函数，适合 <script> 标签
+         * 'umd' - 通用模块定义，兼容 AMD 和 CommonJS
+         * 'system' - SystemJS 加载器格式
          */
         format: 'umd', // 输出的模块格式。
         file: resolve(outputUmd, 'index.full.js'), // 打包生成的文件及其位置
-        name: "UeUI", // 全局变量名称（format为iife或umd时）
+        name: "UeUI", // 自定义包的全局变量名称（format为iife或umd时）
         exports: 'auto',
         // 外部依赖的全局变量名
         globals: {
@@ -48,4 +51,3 @@ const umdBuildEntry = async () => {
         }
     }) // 配置输出文件格式，属性为output
 }
-umdBuildEntry()

@@ -1,4 +1,4 @@
 import gulp from "gulp"
-import { umdBuildEntry, modulesBuildEntry, buildStyle, deletePkg } from "./src/index.js"
+import { umdBuildEntry, moduleBuildEntry, buildStyle, deletePkg, copyPackageJson } from "./src/index.js"
 
-export default gulp.series(deletePkg, umdBuildEntry, modulesBuildEntry, buildStyle)
+export default gulp.series(deletePkg, umdBuildEntry, moduleBuildEntry, buildStyle, copyPackageJson)

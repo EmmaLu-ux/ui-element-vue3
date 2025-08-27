@@ -1,0 +1,29 @@
+{
+  "name": "flori-ui",
+  "version": "1.0.0",
+  "description": "Vue.js 3 UI Element Library",
+  "main": "./lib/index.cjs",
+  "module": "./es/index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "UI组件库",
+    "Vue",
+    "Element",
+    "UI框架",
+    "组件库",
+    "前端组件库",
+    "Vue3组件库"
+  ],
+  "author": {
+    "name": "emmalu",
+    "email": "genhualu22@gmail.com",
+    "url": "https://github.com/EmmaLu-ux"
+  },
+  "license": "ISC",
+  "packageManager": "pnpm@10.11.1",
+  "peerDependencies": {
+    "vue": "^3.5.13"
+  }
+}

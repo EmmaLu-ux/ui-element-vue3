@@ -60,11 +60,32 @@
   <ue-button type="error" size="sm" circle disabled>Default Button</ue-button>
   <hr />
   <ue-button circle prefix="icon-loading">Default Button</ue-button>
-  <ue-button type="primary" size="sm" circle prefix="icon-loading" suffix="icon-loading">Default Button</ue-button>
-  <ue-button type="success" size="md" prefix="icon-loading" suffix="icon-loading">Default Button</ue-button>
-  <ue-button type="warning" size="lg" circle prefix="icon-loading" :before-change="beforeChange">Default
-    Button</ue-button>
-  <ue-button type="error" size="xl" circle prefix="icon-loading">Default Button</ue-button>
+  <ue-button
+    type="primary"
+    size="sm"
+    circle
+    prefix="icon-loading"
+    suffix="icon-loading"
+    >Default Button</ue-button
+  >
+  <ue-button
+    type="success"
+    size="md"
+    prefix="icon-loading"
+    suffix="icon-loading"
+    >Default Button</ue-button
+  >
+  <ue-button
+    type="warning"
+    size="lg"
+    circle
+    prefix="icon-loading"
+    :before-change="beforeChange"
+    >Default Button</ue-button
+  >
+  <ue-button type="error" size="xl" circle prefix="icon-loading"
+    >Default Button</ue-button
+  >
   <hr />
   <ue-button type="primary" size="lg">
     <ue-icon size="16" color="white">
@@ -100,7 +121,7 @@
 <script setup>
 // 按需引入
 import { UeButton, UeIcon } from "flori-ui"
-import { Eye } from "flori-ui/icons"
+// import { Eye } from "flori-ui/icons"
 
 const beforeChange = () => {
   return new Promise((resolve, reject) => {
