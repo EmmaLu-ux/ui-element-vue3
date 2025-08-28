@@ -781,23 +781,27 @@ $state-prefix: "is" !default; // 状态前缀
 
 ---
 
-#### UMD打包
+#### UI组件库的打包与发布
+
+##### UMD打包
+
+UMD (Universal Module Definition) 打包是一种将 Javascript 库或模块打包成可以在不同环境中使用的通用格式的方法。UMD 打包同时兼容 CommonJS、AMD 和全局变量的使用方式，因此可以在项目的<script>标签中引入通过 UMD 打包的产物，直接在浏览器中以访问全局变量的方式使用。
 
 在`build`目录下，执行打包命令：`node ./src/umnBuild.js`，得到：
 
-1. `packages/dist/index.full.js`：打包生成的 umd 格式组件包
+1. `flori-ui/dist/index.full.js`：打包生成的 umd 格式组件包
 
-2. `packages/dist/index.css`：打包生成的 umd 格式组件包的样式
+2. `flori-ui/dist/index.css`：打包生成的 umd 格式组件包的样式
 
-在`text.html`文件中引入这两个文件，即可在浏览器中测试该umd组件包是否可用。
+在`text.html`文件中引入这两个文件，即可在浏览器中测试该 umd 组件包是否可用。
 
 ---
 
-#### ESM、CJS模块化打包
+##### ESM、CJS模块化打包
 
 UMD 包属于全量模式打包，也就是将所有的组件打包为一份 JS 文件，通过在浏览器中使用 <script> 标签引入组件。经过 UMD 打包的文件大，并且无法支持按需加载。为了使打包的组件库支持按需加载模式，需要使用 ESM 和 CJS 打包模式实现按需加载，也可在打包过程中实现 Tree shaking（去除 JS 中无用的代码）优化。
 
-#### Gulp 打包 scss 文件
+##### Gulp 打包 scss 文件
 
 需要安装 `gulp` 和 `gulp-sass` 两个库（`pnpm i gulp gulp-sass --save-dev`）
 
@@ -805,23 +809,93 @@ UMD 包属于全量模式打包，也就是将所有的组件打包为一份 JS 
 
 全量打包 CSS 是指将所有组件的 css 文件合并为一个单独的文件。全量打包的优势在于减少 HTTP 请求次数，提高页面加载速度，并简化管理和部署过程。然而，全量打包 CSS 可能导致文件体积过大，反而影响网页性能。因此，全量打包时要考虑代码压缩和优化。
 
+`build/styleBuild.js`：
+
+```javascript
+// 全量打包scss
+const buildScssFull = async () => {
+    const sass = gulpSass(dartSass) // gulpSass支持编译scss
+    await new Promise((resolve) => {
+        gulp.src(`${pkgRoot}/theme/src/index.scss`) // 指定打包入口
+            .pipe(sass.sync()) // 编译
+            .pipe(autoprefixer({ cascade: false })) // 浏览器兼容，自动根据使用的css属性添加-webkit-、-ms-等等
+            .pipe(cleanCSS()) // 压缩css
+            .pipe(gulpConcat('index.min.css')) // 合并到指定文件 
+            .pipe(gulp.dest(outputUmd)) //  输出到指定目录dist // NOTE: 全量打包后文件
+            .on("end", resolve) // 监听流完成
+    })
+}
+
+export const buildStyle = async () => {
+    await Promise.all([buildScssFull(), buildScssModules()]) // 所有任务都会并行执行，提高效率。如果任何一个构建任务失败，整个构建过程就会失败
+}
+```
+
 ##### 按需加载打包 CSS
 
+按需打包和全量打包的方法类似，当然也有细微区别，具体代码如下：
 
-
-
+```javascript
+// 按需打包scss
+const buildScssModules = async () => {
+    const sass = gulpSass(dartSass)
+    await new Promise((resolve) => {
+        gulp.src(`${rootDir}/packages/theme/src/**/*.scss`)
+            .pipe(sass.sync()) // 编译
+            .pipe(autoprefixer({ cascade: false })) // 浏览器兼容，自动根据使用的css属性添加-webkit-、-ms-等等
+            .pipe(cleanCSS()) // 压缩css
+            // .pipe(gulpConcat('index.min.css')) // 合并到指定文件
+            .pipe(gulp.dest(`${outputDir}/theme`)) //  输出到指定目录theme // NOTE: 按需打包后文件
+            .on("end", resolve) // 监听流完成
+    })
+    deleteFiles() // 清理旧文件
+}
+// 删除指定文件或文件夹
+const deleteFiles = async () => {
+    await deleteAsync(
+        [`${outputDir}/theme/index.css`, `${outputDir}/theme/common`], // 删除全量打包文件和公共样式目录
+        { force: true } // 强制跨越当前目录删除文件
+    )
+}
+```
 
 > [!TIP]
 >
 > `Promise.all()`：所有任务都会并行执行，提高效率。如果任何一个构建任务失败，整个构建过程就会失败
 
-
-
 **最后，打包UI组件库的命令为：`pnpm run start`（注意是在 `build` 文件夹下执行），或在项目根目录下执行：`pnpm build`。**
+
+##### 发布UI组件库至npm官方
+
+1. 进入打包后的 `flori-ui`组件库文件夹内，执行`npm login`，登陆 npm 平台，会自动跳转至 npm 官网，正常登陆即可。
+
+   > 查看 npm 镜像源，使用不同的镜像源会导致登陆进不同的平台，如淘宝 npm 镜像、阿里云 npm 镜像等，为了发布至官方 npm 平台，需要先查看镜像地址：`npm get registry`，只要返回的不是`https://registry.npmjs.org/`，就需要设置镜像地址为：`npm config set registry=https://registry.npmjs.org/`，然后执行`npm login`进行登陆。
+
+2. 登陆成功后，执行`npm publish`发布。
+
+登陆过程日志：
+
+```shell
+npm login
+npm notice Log in on https://registry.npmjs.org/
+Login at:
+https://www.npmjs.com/login?next=/login/cli/4999aa07-7b28-4bf6-903c-5d0a918b0d0e
+Press ENTER to open in the browser...
+
+Logged in on https://registry.npmjs.org/.
+```
+
+> [!CAUTION]
+>
+> npm 有 24 小时的限制不允许重复发布同一个版本号/同一个包名。
+
+发布成功的输出：
+
+<img src="https://raw.githubusercontent.com/EmmaLu-ux/imageUpload_typora/master/uPic/2025_08_28_10_06_03_1756346763_1756346763589_R500aF_image-20250828100602861.png" alt="image-20250828100602861" style="zoom:50%;" />
 
 ---
 
-#### 安装与使用
+#### 组件库的安装与使用
 
 ##### 安装
 
@@ -830,6 +904,8 @@ UMD 包属于全量模式打包，也就是将所有的组件打包为一份 JS 
 ##### 使用
 
 ###### 全局引入
+
+只需在`main.js`文件内引入组件库`flori-ui`和其全量样式`flori-ui/dist/index.min.css`，然后就可以在`.vue`文件内直接使用组件。
 
 `main.js`文件：
 
@@ -854,6 +930,8 @@ createApp(App).use(Antd)
 ```
 
 ###### 按需引入
+
+按需引入不需要在`main.js`文件做引入，但是需要在`vite.config.js`内
 
 `vite.config.js`文件：
 
@@ -897,15 +975,17 @@ export default defineConfig({
 
 #### 本地模拟npm包测试
 
-在根目录执行`pnpm build`对UI组件库进行打包，生成`flori-ui`文件夹，这就是打包后的 UI 组件库。
+1. 在根目录执行`pnpm build`对 UI 组件库进行打包，生成`flori-ui`文件夹，这就是打包后的 UI 组件库。
 
-进入`flori-ui`文件夹内，执行`pnpm link`进行全局注册。
+2. 进入`flori-ui`文件夹内，执行`pnpm link`进行全局注册。
 
-进入 vue 项目根目录，执行`pnpm link flori-ui`引入该组件库至 vue 项目内（一个软链接）。
+3. 进入要演示的 vue 项目根目录，执行`pnpm link flori-ui`引入该组件库至 vue 项目内（一个软链接，可在`node_modules`中查看）。
 
+> [!TIP]
+>
 > `npm link`可以为任意位置的 npm 包与全局的`node_modules`建立链接，在系统中做快捷映射，建立链接之后即可在本地进行模块测试。
 
-`pnpm-workspace.yaml`文件：
+`pnpm-workspace.yaml`文件自动会生成`overrides`部分：
 
 ```yaml
 packages:
