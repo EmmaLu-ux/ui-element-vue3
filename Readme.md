@@ -931,35 +931,7 @@ createApp(App).use(Antd)
 
 ###### 按需引入
 
-按需引入不需要在`main.js`文件做引入，但是需要在`vite.config.js`内
-
-`vite.config.js`文件：
-
-```javascript
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { createStyleImportPlugin } from "vite-plugin-style-import"
-
-export default defineConfig({
-  plugins: [vue(),
-  createStyleImportPlugin({
-    libs: [
-      {
-        libraryName: "flori-ui",
-        esModule: true,
-        resolveStyle: (name) => {
-          const path = name.split('-') // ue-button
-          return `flori-ui/es/components/${path[1]}/src/style/index`
-        }
-      }
-    ]
-  })
-  ],
-  ...
-})
-```
-
-`.vue`文件：
+按需引入不需要在`main.js`文件做引入，可直接在`.vue`文件按需引入使用。引入组件的同时，也自动引入了该组件的样式。
 
 ```vue
 <template>
@@ -967,7 +939,6 @@ export default defineConfig({
 </template>
 <script setup>
 	import { UeButton } from "flori-ui"
-  import "flori-ui/theme/button.css" // 样式
 </script>
 ```
 
