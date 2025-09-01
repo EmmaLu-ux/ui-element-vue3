@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "build": "pnpm -C build start"
+    "build": "pnpm -C build start",
+    "docs:build": "pnpm -F docs build"
   },
   "keywords": [],
   "author": "",
