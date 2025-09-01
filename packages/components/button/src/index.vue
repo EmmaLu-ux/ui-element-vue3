@@ -1,3 +1,36 @@
+<template>
+  <button
+    :disabled="disabled"
+    :style="buttonStyle"
+    :class="[
+      ns.b(),
+      ns.m(type),
+      ns.is('round', round),
+      ns.is('block', block),
+      ns.m('size', buttonGroup?.size?.value || size),
+      ns.is('circle', circle),
+      ns.is('subtle', subtle),
+      ns.is('link', link),
+      ns.is('outline', outline),
+      ns.is('dashed', dashed),
+      ns.is('disabled', isLoading || disabled),
+    ]"
+    @click="handleEvent">
+    <i
+      v-if="isLoading"
+      class="iconfont icon-loading is-loading-transition"
+      :class="[ns.is('loading', loading)]"></i>
+    <i
+      v-if="!isLoading && prefix"
+      class="iconfont"
+      :class="[ns.e('icon'), prefix]"></i>
+    <span>
+      <slot></slot>
+    </span>
+    <i v-if="suffix" class="iconfont" :class="[ns.e('icon'), suffix]"></i>
+  </button>
+</template>
+
 <script setup>
 import { ref, computed, inject } from "vue"
 import { useNamespace } from "@ui-element-vue3/hooks"
@@ -77,38 +110,4 @@ const handleEvent = e => {
     })
 }
 </script>
-
-<template>
-  <button
-    :disabled="disabled"
-    :style="buttonStyle"
-    :class="[
-      ns.b(),
-      ns.m(type),
-      ns.is('round', round),
-      ns.is('block', block),
-      ns.m('size', buttonGroup?.size?.value || size),
-      ns.is('circle', circle),
-      ns.is('subtle', subtle),
-      ns.is('link', link),
-      ns.is('outline', outline),
-      ns.is('dashed', dashed),
-      ns.is('disabled', isLoading || disabled),
-    ]"
-    @click="handleEvent">
-    <i
-      v-if="isLoading"
-      class="iconfont icon-loading is-loading-transition"
-      :class="[ns.is('loading', loading)]"></i>
-    <i
-      v-if="!isLoading && prefix"
-      class="iconfont"
-      :class="[ns.e('icon'), prefix]"></i>
-    <span>
-      <slot></slot>
-    </span>
-    <i v-if="suffix" class="iconfont" :class="[ns.e('icon'), suffix]"></i>
-  </button>
-</template>
-
 <style lang="scss" scoped></style>

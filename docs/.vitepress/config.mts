@@ -55,7 +55,6 @@ export default defineConfig({
       md.use(MdContainer, "demo", {
         // render函数负责将.md转换为html
         /**
-         *
          * @param tokens 表示Markdown文件中的各种元素
          * @param idx 表示当前处理的元素的索引
          * @returns

@@ -2,5 +2,6 @@ packages:
   - docs
   - examples
   - packages/*
-overrides:
-  flori-ui: link:../../../../../../Library/pnpm/global/5/node_modules/flori-ui
+# overrides:
+#   flori-ui: link:../../../../../../Library/pnpm/global/5/node_modules/flori-ui
+#   flori-ui-vue3: link:../../../../../../Library/pnpm/global/5/node_modules/flori-ui-vue3

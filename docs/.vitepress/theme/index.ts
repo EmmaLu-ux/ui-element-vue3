@@ -3,8 +3,8 @@ import DefaultTheme from "vitepress/theme"
 import "./style.css"
 import Demo from "../components/demo/index.vue"
 
-// import UIElementV from "flori-ui"
-// import "flori-ui/dist/index.min.css"
+import UIElementV from "flori-ui-vue3"
+import "flori-ui-vue3/dist/index.min.css"
 import "./iconfont/iconfont.css"
 
 export default {
@@ -18,7 +18,7 @@ export default {
    * @param {import('vitepress').SiteData} ctx.siteData
    */
   enhanceApp({ app, router, siteData }) {
-    // app.use(UIElementV) // 使用UIElementV插件
+    app.use(UIElementV) // 使用UIElementV插件
     app.component("Demo", Demo) // 将Demo组件注册为全局组件
   },
 } satisfies Theme

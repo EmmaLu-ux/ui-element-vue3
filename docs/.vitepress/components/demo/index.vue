@@ -127,70 +127,75 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.examples-body {
-  border: 0.5px solid #dcdfe6;
-  border-radius: 5px;
-}
-.examples-inner {
-  padding: 30px 24px;
-}
-.examples-control {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  border-top: 0.5px solid #dcdfe6;
-  height: 41px;
-  padding: 12px 0;
-  text-align: center;
-  li {
-    position: relative;
-    list-style: none;
+.examples-container {
+  .description {
+    font-size: 14px;
+  }
+  .examples-body {
+    border: 0.5px solid #dcdfe6;
+    border-radius: 5px;
+  }
+  .examples-inner {
+    padding: 30px 24px;
+  }
+  .examples-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    border-top: 0.5px solid #dcdfe6;
+    height: 41px;
+    padding: 12px 0;
     text-align: center;
-    margin-top: 0;
-    &:hover {
-      .icon-popup-label {
-        transform: translateX(-50%) scale(1);
-      }
-    }
-    i {
-      opacity: 0.5;
-      cursor: pointer;
-      transition: all 0.1s ease 0s;
-      font-size: 16px;
+    li {
+      position: relative;
+      list-style: none;
+      text-align: center;
+      margin-top: 0;
       &:hover {
-        opacity: 1;
-        font-size: 17px;
+        .icon-popup-label {
+          transform: translateX(-50%) scale(1);
+        }
+      }
+      i {
+        opacity: 0.5;
+        cursor: pointer;
+        transition: all 0.1s ease 0s;
+        font-size: 16px;
+        &:hover {
+          opacity: 1;
+          font-size: 17px;
+        }
       }
     }
+    li:not(:first-child) {
+      margin-left: 16px;
+    }
   }
-  li:not(:first-child) {
-    margin-left: 16px;
-  }
-}
-.icon-popup-label {
-  display: block;
-  position: absolute;
-  left: 50%;
-  bottom: 115%;
-  font-size: 13px;
-  color: #fff;
-  padding: 8px 10px;
-  border-radius: 5px;
-  transform: translateX(-50%) scale(0);
-  transition: 0.1s;
-  background-color: rgba(0, 0, 0, 0.7);
-  white-space: nowrap;
-  line-height: 1;
-  &:before {
-    content: "";
+  .icon-popup-label {
+    display: block;
     position: absolute;
-    top: 100%;
     left: 50%;
-    transform: translateX(-50%);
-    border-top: 5px solid rgba(0, 0, 0, 0.7);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
+    bottom: 115%;
+    font-size: 13px;
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 5px;
+    transform: translateX(-50%) scale(0);
+    transition: 0.1s;
+    background-color: rgba(0, 0, 0, 0.7);
+    white-space: nowrap;
+    line-height: 1;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-top: 5px solid rgba(0, 0, 0, 0.7);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+    }
   }
 }
 </style>
