@@ -15,6 +15,7 @@
   "packageManager": "pnpm@10.11.1",
   "dependencies": {
     "flori-ui-vue3": "workspace:*",
+    "vue": "^3.5.13",
     "@ui-element-vue3/components": "workspace:*",
     "@ui-element-vue3/hooks": "workspace:*",
     "@ui-element-vue3/icons": "workspace:*",
