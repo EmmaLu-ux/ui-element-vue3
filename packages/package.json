@@ -1,6 +1,6 @@
 {
-  "name": "flori-ui",
-  "version": "1.0.0",
+  "name": "flori-ui-vue3",
+  "version": "1.0.1",
   "description": "Vue.js 3 UI Element Library",
   "main": "./lib/index.cjs",
   "module": "./es/index.mjs",

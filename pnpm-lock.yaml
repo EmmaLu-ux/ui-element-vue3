@@ -32,9 +32,6 @@ importers:
 
   docs:
     dependencies:
-      flori-ui-vue3:
-        specifier: ^1.0.0
-        version: 1.0.0(vue@3.5.17)
       markdown-it-container:
         specifier: ^4.0.0
         version: 4.0.0
@@ -51,9 +48,6 @@ importers:
 
   examples:
     dependencies:
-      flori-ui:
-        specifier: file:../flori-ui
-        version: flori-ui-vue3@file:flori-ui(vue@3.5.17)
       vue:
         specifier: ^3.5.13
         version: 3.5.17
@@ -917,16 +911,6 @@ packages:
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
     engines: {node: '>=8'}
-
-  flori-ui-vue3@1.0.0:
-    resolution: {integrity: sha512-yUv8n/XeACjoucC04tV9DUetGIchK7B9HxhmEIFW+XhsqLVkXewDkvVJmfpfrRdI8NYesUBC/hRBBfqA4szWog==}
-    peerDependencies:
-      vue: ^3.5.13
-
-  flori-ui-vue3@file:flori-ui:
-    resolution: {directory: flori-ui, type: directory}
-    peerDependencies:
-      vue: ^3.5.13
 
   focus-trap@7.6.5:
     resolution: {integrity: sha512-7Ke1jyybbbPZyZXFxEftUtxFGLMpE2n6A+z//m4CRDlj0hW+o3iYSmh8nFlYMurOiJVDmJRilUQtJr08KfIxlg==}
@@ -1976,14 +1960,6 @@ snapshots:
     dependencies:
       to-regex-range: 5.0.1
     optional: true
-
-  flori-ui-vue3@1.0.0(vue@3.5.17):
-    dependencies:
-      vue: 3.5.17
-
-  flori-ui-vue3@file:flori-ui(vue@3.5.17):
-    dependencies:
-      vue: 3.5.17
 
   focus-trap@7.6.5:
     dependencies:

@@ -120,7 +120,7 @@
 
 <script setup>
 // 按需引入
-import { UeButton, UeIcon } from "flori-ui"
+import { UeButton, UeIcon } from "flori-ui-vue3"
 // import { Eye } from "flori-ui"
 
 const beforeChange = () => {

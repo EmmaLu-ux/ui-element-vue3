@@ -8,7 +8,7 @@ import ButtonExamples from "./components/ButtonExamples.vue"
 // import LayoutExamp from "./components/LayoutExamp.vue"
 // import CheckBoxExamp from "./components/CheckBoxExamp.vue"
 // import SwitchExamp from "./components/SwitchExamp.vue"
-import { UeButton } from "flori-ui"
+import { UeButton } from "flori-ui-vue3"
 </script>
 
 <template>
