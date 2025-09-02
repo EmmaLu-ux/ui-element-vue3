@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "gulp -f gulpfile.js"
+    "build": "gulp -f gulpfile.js"
   },
   "keywords": [],
   "author": "",

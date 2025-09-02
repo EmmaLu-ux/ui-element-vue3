@@ -5,8 +5,9 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "build": "pnpm -C build start",
-    "docs:build": "pnpm -F docs docs:build"
+    "build": "pnpm -C build build",
+    "docs:build": "pnpm -F docs docs:build",
+    "vercel-build": "pnpm -w -F build build && pnpm -w -F docs docs:build"
   },
   "keywords": [],
   "author": "",
