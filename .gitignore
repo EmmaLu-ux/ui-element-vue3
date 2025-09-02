@@ -4,6 +4,7 @@ node_modules
 package-lock.json
 .history
 flori-ui
+flori-ui-vue3
 
 # 构建输出
 dist/

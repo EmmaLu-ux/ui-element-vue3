@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "build": "pnpm -C build start",
-    "docs:build": "pnpm -F docs build"
+    "docs:build": "pnpm -F docs docs:build"
   },
   "keywords": [],
   "author": "",

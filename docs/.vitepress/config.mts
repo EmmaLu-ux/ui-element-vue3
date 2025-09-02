@@ -7,6 +7,20 @@ import path from "path"
 export default defineConfig({
   title: "Ue-Element组件库",
   description: "基于Vue3.js的UI组件库",
+  vite: {
+    resolve: {
+      // 使用 node_modules 下的符号链接路径进行解析，
+      // 让 peerDependencies（如 vue）从 docs 的 node_modules 被正确找到
+      preserveSymlinks: true,
+    },
+    ssr: {
+      // 不要将本地包 external 化，避免 SSR 阶段解析差异
+      noExternal: [/^flori-ui-vue3/],
+    },
+    optimizeDeps: {
+      include: ["vue", "flori-ui-vue3"],
+    },
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
