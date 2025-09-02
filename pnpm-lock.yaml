@@ -23,6 +23,9 @@ importers:
       '@ui-element-vue3/utils':
         specifier: workspace:*
         version: link:packages/utils
+      flori-ui-vue3:
+        specifier: workspace:*
+        version: link:flori-ui-vue3
 
   build:
     devDependencies:
