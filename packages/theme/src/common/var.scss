@@ -126,7 +126,7 @@ $bg-color: map.deep-merge(
     "disabled-input": #f7f7f9,
     "aside": rgba(0, 0, 0, 0.02),
     "diabled-checkbox": #e9ecef,
-    "default-switch": #e9ecef,
+    "default-switch": rgba(0, 0, 0, 0.2),
   ),
   $bg-color
 );

@@ -308,7 +308,7 @@
     // 文本颜色
     "text-color":
       (
-        "default": getVarName("text-color", "light-6"),
+        "default": getVarName("text-color", "white"),
         "type": getVarName("text-color", "white"),
       ),
     // 宽
@@ -331,6 +331,12 @@
     "font-size":
       (
         "default": getVarName("switch-font-size", sm),
+      ),
+    // 禁用状态的椭圆背景色（随主题色 light-4）
+    "disabled-bg-color":
+      (
+        "default": getVarName("color", "primary", "light-5"),
+        "type": getVarName("color", $type, "light-5"),
       ),
     // 禁用状态的中心圆背景色
     "disable-button-bg-color":

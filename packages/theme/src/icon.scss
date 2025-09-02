@@ -8,11 +8,18 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  fill: currentColor; // 只在XML-CSS中存在，用于设置当前元素的填充内容
+  // 统一让 SVG 使用当前文本颜色渲染
   font-size: inherit;
   font-style: normal;
   svg {
     width: 1em;
     height: 1em;
+    fill: currentColor;
+    stroke: currentColor;
+  }
+  // 兼容部分图标未从 svg 继承 fill 的情况
+  path, circle, rect, polygon, polyline, line, ellipse {
+    fill: currentColor;
+    stroke: currentColor;
   }
 }
