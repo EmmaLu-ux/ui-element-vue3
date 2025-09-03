@@ -8,6 +8,7 @@ import { UeCol } from "./components/col/index.js"
 import { UeContainer, UeHeader, UeMain, UeAside, UeFooter } from "./components/container/index.js";
 import { UeCheckbox, UeCheckboxGroup, UeCheckboxAll } from "./components/checkbox/index.js"
 import { UeSwitch } from "./components/switch/index.js"
+import { UeForm, UeFormItem } from "./components/form/index.js"
 
 export default [
     UeButton,
@@ -25,5 +26,7 @@ export default [
     UeCheckbox,
     UeCheckboxGroup,
     UeCheckboxAll,
-    UeSwitch
+    UeSwitch,
+    UeForm,
+    UeFormItem
 ]

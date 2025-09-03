@@ -7,7 +7,7 @@
       ns.m(type),
       ns.is('round', round),
       ns.is('block', block),
-      ns.m('size', buttonGroup?.size?.value || size),
+      ns.m('size', controlSize),
       ns.is('circle', circle),
       ns.is('subtle', subtle),
       ns.is('link', link),
@@ -34,9 +34,11 @@
 <script setup>
 import { ref, computed, inject } from "vue"
 import { useNamespace } from "@ui-element-vue3/hooks"
+import { useFormItem } from "@ui-element-vue3/components"
 
 const emits = defineEmits(["click"])
 const ns = useNamespace("button")
+const { formContent } = useFormItem()
 
 // 获取父级 Row 组件的 gutter 值
 const gutter = inject(
@@ -89,6 +91,10 @@ const buttonGroup = inject("buttonGroupKey", undefined)
 
 const _loading = ref(false)
 const isLoading = computed(() => props.loading || _loading.value)
+const controlSize = computed(
+  () => formContent?.size?.value || buttonGroup?.size?.value || props.size
+)
+
 const handleEvent = e => {
   const isFunction =
     Object.prototype.toString.call(props.beforeChange) === "[object Function]"

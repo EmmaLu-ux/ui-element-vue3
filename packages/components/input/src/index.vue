@@ -1,186 +1,9 @@
-<script setup>
-import { computed, useSlots, ref, shallowRef } from "vue"
-import {
-  useNamespace,
-  useStyle,
-  useEvent,
-  useExpose,
-} from "@ui-element-vue3/hooks"
-import { Eye, EyeOff, ClearFill } from "@ui-element-vue3/icons"
-
-defineOptions({
-  name: "ue-input",
-})
-const ns = useNamespace("input")
-const slots = useSlots()
-const passwordVisible = ref(false)
-const modelValue = defineModel()
-const uStyle = useStyle()
-const _ref = shallowRef(null)
-
-const {
-  isFocus,
-  focusEvent,
-  blurEvent,
-  mouseEnterEvent,
-  mouseLeaveEvent,
-  isComposition,
-  compositionStartEvent,
-  compositionUpdateEvent,
-  compositionEndEvent,
-  changeEvent,
-  keydownEvent,
-  keyupEvent,
-} = useEvent()
-const { focusExpose, blurExpose, selectExpose } = useExpose(_ref)
-const emits = defineEmits([
-  "input",
-  "clear",
-  "focus",
-  "blur",
-  "mouseenter",
-  "mouseleave",
-  "compositionstart",
-  "compositionupdate",
-  "compositionend",
-  "change",
-  "keydown",
-  "keyup",
-])
-const props = defineProps({
-  disabled: Boolean,
-  placeholder: {
-    type: String,
-    default: "请输入内容",
-  },
-  maxlength: {
-    type: [Number, String],
-    default: "",
-  },
-  size: {
-    type: String,
-    default: "sm",
-  },
-  round: Boolean,
-  prefixIcon: {
-    type: [String, Object],
-    default: "",
-  },
-  suffixIcon: {
-    type: [String, Object],
-    default: "",
-  },
-  prefixIconfont: {
-    type: String,
-    default: "",
-  },
-  suffixIconfont: {
-    type: String,
-    default: "",
-  },
-  prepend: {
-    type: String,
-    default: "",
-  },
-  append: {
-    type: String,
-    default: "",
-  },
-  prefix: {
-    type: String,
-    default: "",
-  },
-  suffix: {
-    type: String,
-    default: "",
-  },
-  type: {
-    type: String,
-    default: "text",
-  },
-  // 是否展示密码可见否的图标
-  showPassword: Boolean,
-  clearable: Boolean,
-  showCount: Boolean,
-  width: {
-    type: String,
-    default: "100%",
-  },
-})
-
-const isPrefix = computed(
-  () => props.prefixIcon || props.prefixIconfont || props.prefix
-)
-const isSuffix = computed(
-  () =>
-    props.suffixIcon ||
-    props.suffixIconfont ||
-    props.suffix ||
-    props.showPassword ||
-    showClear.value ||
-    showLimit.value
-)
-const passwordIcon = computed(() => (passwordVisible.value ? Eye : EyeOff))
-const showClear = computed(
-  () =>
-    props.clearable && // 配置清除动作
-    modelValue.value && // 有值
-    !props.disabled && // 未禁用
-    props.type === "text" // 类型为text
-)
-const showLimit = computed(
-  () => props.showCount && !props.disabled && props.maxlength
-)
-// 是否有前置、后置内容
-const isAside = computed(() => {
-  return isPrepend.value || isAppend.value
-})
-const isPrepend = computed(() => slots.prepend || props.prepend) // 前置内容
-const isAppend = computed(() => slots.append || props.append) // 后置内容
-const valueLength = computed(() => modelValue.value.length)
-const isColorError = computed(
-  () =>
-    props.maxlength && props.showCount && valueLength.value > props.maxlength
-)
-const styleWidth = computed(() => uStyle.width(props.width))
-
-const handleInput = event => {
-  //   console.log(123, event.target.value)
-  if (isComposition.value) {
-    return false
-  }
-  const value = event.target.value
-  modelValue.value = value
-  emits("input", value, event) // 发布input事件
-}
-const handleClear = () => {
-  modelValue.value = ""
-  emits("input", "")
-  emits("clear")
-  // focusExpose() // 自动聚焦
-}
-// 输入法事件
-const handleCompositionEnd = e => {
-  compositionEndEvent(e).then(() => {
-    handleInput(e)
-  })
-}
-// NOTE: defineExpose: 将子组件中的任何内部状态或方法暴露给父组件，从而使父组件能够访问子组件内部的状态和方法。有助于降低组件间的耦合度。
-defineExpose({
-  ref: _ref,
-  select: selectExpose,
-  focus: focusExpose,
-  blur: blurExpose,
-  clear: handleClear,
-})
-</script>
-
 <template>
   <div
     :class="[
       ns.b(),
       ns.is('disabled', disabled),
-      ns.m('size', size),
+      ns.m('size', controlSize),
       ns.is('round', round),
       ns.is('focus', isFocus),
     ]"
@@ -273,3 +96,199 @@ defineExpose({
     </div>
   </div>
 </template>
+<script setup>
+import { computed, useSlots, ref, shallowRef, watch } from "vue"
+import {
+  useNamespace,
+  useStyle,
+  useEvent,
+  useExpose,
+} from "@ui-element-vue3/hooks"
+import { Eye, EyeOff, ClearFill } from "@ui-element-vue3/icons"
+import { useFormItem } from "@ui-element-vue3/components"
+
+defineOptions({
+  name: "ue-input",
+})
+const ns = useNamespace("input")
+const slots = useSlots()
+const passwordVisible = ref(false)
+const modelValue = defineModel()
+const uStyle = useStyle()
+const _ref = shallowRef(null)
+const { formItemContent, formContent } = useFormItem()
+
+const {
+  isFocus,
+  focusEvent,
+  blurEvent,
+  mouseEnterEvent,
+  mouseLeaveEvent,
+  isComposition,
+  compositionStartEvent,
+  compositionUpdateEvent,
+  compositionEndEvent,
+  changeEvent,
+  keydownEvent,
+  keyupEvent,
+} = useEvent({
+  afterBlur() {
+    // 失去焦点后校验
+    props.validateEvent && formItemContent?.validate("blur")
+  },
+})
+const { focusExpose, blurExpose, selectExpose } = useExpose(_ref)
+const emits = defineEmits([
+  "input",
+  "clear",
+  "focus",
+  "blur",
+  "mouseenter",
+  "mouseleave",
+  "compositionstart",
+  "compositionupdate",
+  "compositionend",
+  "change",
+  "keydown",
+  "keyup",
+])
+const props = defineProps({
+  disabled: Boolean,
+  placeholder: {
+    type: String,
+    default: "请输入内容",
+  },
+  maxlength: {
+    type: [Number, String],
+    default: "",
+  },
+  size: {
+    type: String,
+    default: "sm",
+  },
+  round: Boolean,
+  prefixIcon: {
+    type: [String, Object],
+    default: "",
+  },
+  suffixIcon: {
+    type: [String, Object],
+    default: "",
+  },
+  prefixIconfont: {
+    type: String,
+    default: "",
+  },
+  suffixIconfont: {
+    type: String,
+    default: "",
+  },
+  prepend: {
+    type: String,
+    default: "",
+  },
+  append: {
+    type: String,
+    default: "",
+  },
+  prefix: {
+    type: String,
+    default: "",
+  },
+  suffix: {
+    type: String,
+    default: "",
+  },
+  type: {
+    type: String,
+    default: "text",
+  },
+  // 是否展示密码可见否的图标
+  showPassword: Boolean,
+  clearable: Boolean,
+  showCount: Boolean,
+  width: {
+    type: String,
+    default: "100%",
+  },
+  validateEvent: {
+    type: Boolean,
+    default: true,
+  },
+})
+
+const isPrefix = computed(
+  () => props.prefixIcon || props.prefixIconfont || props.prefix
+)
+const isSuffix = computed(
+  () =>
+    props.suffixIcon ||
+    props.suffixIconfont ||
+    props.suffix ||
+    props.showPassword ||
+    showClear.value ||
+    showLimit.value
+)
+const passwordIcon = computed(() => (passwordVisible.value ? Eye : EyeOff))
+const showClear = computed(
+  () =>
+    props.clearable && // 配置清除动作
+    modelValue.value && // 有值
+    !props.disabled && // 未禁用
+    props.type === "text" // 类型为text
+)
+const showLimit = computed(
+  () => props.showCount && !props.disabled && props.maxlength
+)
+// 是否有前置、后置内容
+const isAside = computed(() => {
+  return isPrepend.value || isAppend.value
+})
+const isPrepend = computed(() => slots.prepend || props.prepend) // 前置内容
+const isAppend = computed(() => slots.append || props.append) // 后置内容
+const valueLength = computed(() => modelValue.value.length)
+const isColorError = computed(
+  () =>
+    props.maxlength && props.showCount && valueLength.value > props.maxlength
+)
+const styleWidth = computed(() => uStyle.width(props.width))
+const controlSize = computed(() => formContent?.size?.value || props?.size)
+
+const handleInput = event => {
+  //   console.log(123, event.target.value)
+  if (isComposition.value) {
+    return false
+  }
+  const value = event.target.value
+  modelValue.value = value
+  emits("input", value, event) // 发布input事件
+}
+const handleClear = () => {
+  modelValue.value = ""
+  emits("input", "")
+  emits("clear")
+  // focusExpose() // 自动聚焦
+}
+// 输入法事件
+const handleCompositionEnd = e => {
+  compositionEndEvent(e).then(() => {
+    handleInput(e)
+  })
+}
+// NOTE: defineExpose: 将子组件中的任何内部状态或方法暴露给父组件，从而使父组件能够访问子组件内部的状态和方法。有助于降低组件间的耦合度。
+defineExpose({
+  ref: _ref,
+  select: selectExpose,
+  focus: focusExpose,
+  blur: blurExpose,
+  clear: handleClear,
+})
+
+watch(
+  () => modelValue.value,
+  () => {
+    // 输入过程中校验
+    props.validateEvent && formItemContent?.validate("change")
+  }
+)
+</script>

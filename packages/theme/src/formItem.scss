@@ -1,0 +1,53 @@
+@use "sass:map";
+@use "./common/mixins.scss" as *;
+@use "./common/componentVar.scss" as *;
+
+@include b(form-item) {
+  @include set-component-var("form", formVars());
+  display: flex; // 设置父元素为 display: flex 后，子元素不再按普通块级格式化，而是作为“弹性项目”参与计算。在块级布局里，width: auto 的块级元素会占满整行（看起来是 100%）；在弹性布局里，flex-basis: auto 通常取内容尺寸/本身固有宽度，而 flex-grow: 0 又不会去填满剩余空间，所以会变“窄”。
+  margin-bottom: 24px;
+  color: var(#{getVarName("text-color", "primary")});
+  @include e(label) {
+    width: 100px;
+  }
+  @include e(label-inner) {
+    display: inline-block;
+    // margin-right: 8px;
+    line-height: var(#{getVarName("form", "size")});
+    height: var(#{getVarName("form", "size")});
+    font-size: var(#{getVarName("form", "font-size")});
+    width: 100%;
+    white-space: nowrap;
+    text-align: right;
+    @include s((colon)) {
+      margin-right: 0;
+      &:after {
+        content: ":";
+        margin: 0 8px 0 2px;
+      }
+    }
+    @include s((required)) {
+      &:before {
+        content: "*";
+        color: var(#{getVarName("color", "error")});
+        margin-right: 4px;
+      }
+    }
+  }
+  @include e(control) {
+  }
+  @include e(control-inner) {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: var(#{getVarName("form", "size")});
+  }
+  @include e(message) {
+  }
+}
+@each $size in $sizes {
+  @include m(size, $size) {
+    #{getVarName("form", "size")}: var(#{getVarName("component-size", $size)});
+    #{getVarName("form", "font-size")}: var(#{getVarName("font-size", $size)});
+  }
+}

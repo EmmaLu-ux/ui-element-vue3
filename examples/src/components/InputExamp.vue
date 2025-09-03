@@ -1,4 +1,9 @@
 <template>
+  <ue-input size="sm"></ue-input>
+  <ue-input size="md"></ue-input>
+  <ue-input size="lg"></ue-input>
+  <ue-input size="xl"></ue-input>
+  <hr />
   <ue-input placeholder="请输入邮箱" :maxlength="3">
     <!-- 前置内容 -->
     <template #prepend>

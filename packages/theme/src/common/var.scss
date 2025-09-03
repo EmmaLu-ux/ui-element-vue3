@@ -77,9 +77,9 @@ $font-size: () !default;
 $font-size: map.deep-merge(
   (
     "sm": 0.875rem,
-    "md": 1rem,
-    "lg": 1.125rem,
-    "xl": 1.25rem,
+    "md": 1.1rem,
+    "lg": 1.225rem,
+    "xl": 1.35rem,
   ),
   $font-size
 );
@@ -87,19 +87,19 @@ $font-size: map.deep-merge(
 $component-size: () !default;
 $component-size: map.deep-merge(
   (
-    "sm": 36px,
-    "md": 42px,
-    "lg": 50px,
-    "xl": 60px,
+    "sm": 2.25rem,
+    "md": 2.625rem,
+    "lg": 3.125rem,
+    "xl": 3.75rem,
   ),
   $component-size
 );
 $component-round: () !default;
 $component-round: map.deep-merge(
   (
-    "sm": 0.25rem,
-    "md": 0.5rem,
-    "lg": 1rem,
+    "sm": 0.35rem,
+    "md": 0.65rem,
+    "lg": 0.85rem,
     "xl": 2rem,
     "round": 100px,
   ),

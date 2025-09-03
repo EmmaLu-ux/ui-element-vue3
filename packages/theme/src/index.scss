@@ -17,6 +17,8 @@
 @use "./footer.scss";
 @use "./checkbox.scss";
 @use "./switch.scss";
+@use "./form.scss";
+@use "./formItem.scss";
 
 // @include set-component-css-var("common", $common);:
 :root {

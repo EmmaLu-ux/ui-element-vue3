@@ -129,7 +129,8 @@
   }
   @include m(size, sm) {
     #{getVarName('input', 'font-size')}: var(#{getVarName("font-size", "sm")});
-    #{getVarName('input', 'size')}: var(#{getVarName("component-size", "sm")});
+    // Reduce default input height slightly for size "sm"
+    #{getVarName('input', 'size')}: 2rem;
     #{getVarName('input', 'round')}: var(
       #{getVarName("component-round", "sm")}
     );

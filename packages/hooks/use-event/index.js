@@ -1,6 +1,6 @@
 import { ref, getCurrentInstance } from "vue"
 
-export const useEvent = () => {
+export const useEvent = (options = {}) => {
     let isFocus = ref(false)
     let isHover = ref(false)
     const isComposition = ref(false)
@@ -15,6 +15,7 @@ export const useEvent = () => {
     const blurEvent = (e) => {
         isFocus.value = false
         emit('blur', e)
+        options?.afterBlur?.()
     }
     // 鼠标移入
     const mouseEnterEvent = (e) => {

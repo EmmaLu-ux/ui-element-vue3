@@ -351,3 +351,15 @@
   );
   @return $switch;
 }
+
+@function formVars() {
+  $form: (
+    "size": (
+      "default": getVarName("component-size", "sm"),
+    ),
+    "font-size": (
+      "default": getVarName("font-size", "sm"),
+    ),
+  );
+  @return $form;
+}
