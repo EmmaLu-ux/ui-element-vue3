@@ -8,7 +8,8 @@
 // import LayoutExamp from "./components/LayoutExamp.vue"
 // import CheckBoxExamp from "./components/CheckBoxExamp.vue"
 // import SwitchExamp from "./components/SwitchExamp.vue"
-import FormExamp from "./components/FormExamp.vue"
+// import FormExamp from "./components/FormExamp.vue"
+import MessageExamp from "./components/MessageExamp.vue"
 // import { UeButton } from "flori-ui-vue3"
 </script>
 
@@ -23,7 +24,8 @@ import FormExamp from "./components/FormExamp.vue"
   <!-- <LayoutExamp></LayoutExamp> -->
   <!-- <CheckBoxExamp></CheckBoxExamp> -->
   <!-- <SwitchExamp></SwitchExamp> -->
-  <FormExamp></FormExamp>
+  <!-- <FormExamp></FormExamp> -->
+  <MessageExamp></MessageExamp>
 </template>
 
 <style scoped></style>
