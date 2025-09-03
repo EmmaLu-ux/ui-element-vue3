@@ -779,6 +779,50 @@ $state-prefix: "is" !default; // 状态前缀
 
 
 
+
+
+---
+
+#### Form 与 FormItem 组件
+
+**校验功能的实现**是使用`async-validator`校验库，同`Ant Design`和`Element`一样。`async-validator`校验库采用`key/value`的形式定义校验规则，那么在`Form`表单中，可以这样传输数据：交互控件通过插槽的形式渲染，控件的`v-model`所绑定的数据也都不一样，因此可以将`v-model`绑定的数据传入到`FormItem`中，这样就可以进行校验了，因为我们是打算在`FormItem`中去执行校验操作的。
+
+具体实现逻辑：在`FormItem`组件中定义`validate`方法用于校验数据，然后将该校验方法通过`provide`方法暴露出去，在`input`组件中通过引入`useFormItem`钩子获取到`FormItem`暴露出来的`validate`方法。关于`input`组件数据的校验场景有两个：1. 输入过程中校验数据；2. 鼠标失去焦点后校验数据。因此在`useEvent`函数中添加一个`afterBlur`函数参数，以及通过`watch`函数去监听`input`的值`modelValue`是否有变化，如果有，就执行数据校验。
+
+> [!NOTE]
+>
+> async-validator：一个用于表单异步校验的库。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ---
 
 #### UI组件库的打包与发布
