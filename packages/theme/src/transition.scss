@@ -1,0 +1,7 @@
+@use "./common/config.scss" as *;
+
+div.#{$namespace}-message-enter-from,
+div.#{$namespace}-message-leave-to {
+  opacity: 0;
+  transform: translate(-50%, -100%); // -50%就是水平居中，-100%向上移动自身高度
+}

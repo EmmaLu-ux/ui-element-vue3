@@ -9,8 +9,34 @@
 // import CheckBoxExamp from "./components/CheckBoxExamp.vue"
 // import SwitchExamp from "./components/SwitchExamp.vue"
 // import FormExamp from "./components/FormExamp.vue"
-import MessageExamp from "./components/MessageExamp.vue"
+// import MessageExamp from "./components/MessageExamp.vue"
 // import { UeButton } from "flori-ui-vue3"
+/** 全局方法 */
+// import { getCurrentInstance } from "vue"
+// const { appContext } = getCurrentInstance()
+// const test = () => {
+//   appContext.config.globalProperties.$message()
+//   console.log(appContext.config.globalProperties.$message._context) // // 访问Vue3实例
+// }
+/** 按需加载 */
+import { UeMessage } from "@ui-element-vue3/components"
+const test = () => {
+  // UeMessage({
+  //   type: "error",
+  //   background: true,
+  //   onClose: () => {
+  //     console.log("关闭了")
+  //   },
+  //   // showClose: true,
+  //   content: "这是一条消息提示",
+  //   // duration: 1000,
+  // })
+  UeMessage.success("这是一条成功消息提示")
+  UeMessage.info("这是一条信息消息提示")
+  UeMessage.warning("这是一条警告消息提示")
+  UeMessage.error("这是一条错误消息提示")
+  console.log("UeMessage", UeMessage._context) // 访问Vue3实例
+}
 </script>
 
 <template>
@@ -25,7 +51,8 @@ import MessageExamp from "./components/MessageExamp.vue"
   <!-- <CheckBoxExamp></CheckBoxExamp> -->
   <!-- <SwitchExamp></SwitchExamp> -->
   <!-- <FormExamp></FormExamp> -->
-  <MessageExamp></MessageExamp>
+  <!-- <MessageExamp></MessageExamp> -->
+  <ue-button @click="test">消息提示</ue-button>
 </template>
 
 <style scoped></style>

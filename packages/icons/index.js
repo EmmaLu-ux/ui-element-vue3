@@ -4,6 +4,11 @@ import Search from "./svg/Search.vue"
 import ClearFill from "./svg/ClearFill.vue"
 import Check from "./svg/Check.vue"
 import Loading from "./svg/Loading.vue"
+import Info from "./svg/Info.vue"
+import Close from "./svg/Close.vue"
+import Success from "./svg/Success.vue"
+import Warning from "./svg/Warning.vue"
+import Error from "./svg/Error.vue"
 
 export {
     Eye,
@@ -11,5 +16,10 @@ export {
     Search,
     ClearFill,
     Check,
-    Loading
+    Loading,
+    Info,
+    Close,
+    Success,
+    Warning,
+    Error
 }

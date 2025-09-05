@@ -20,9 +20,10 @@
 @use "./form.scss";
 @use "./formItem.scss";
 @use "./message.scss";
+@use "./transition.scss";
 
-// @include set-component-css-var("common", $common);:
-:root {
+// @include set-component-css-var("common", $common);::
+root {
   @include set-main-color(); // 生成主题色
   @include set-main-mode-color("light"); // 生成浅层次色
   @include set-main-mode-color("dark"); // 生成深层次色

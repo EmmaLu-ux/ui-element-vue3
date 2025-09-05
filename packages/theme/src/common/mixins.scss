@@ -140,3 +140,11 @@ $b: null !default;
     @content;
   }
 }
+
+// 兄弟元素节点
+@mixin sn-e($elem) {
+  $name: "+ " + $b + $element-connect + $elem;
+  #{$name} {
+    @content;
+  }
+}

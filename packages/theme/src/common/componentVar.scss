@@ -363,3 +363,20 @@
   );
   @return $form;
 }
+
+@function messageVars($type: "") {
+  $message: (
+    "text-color": (
+      "default": getVarName("text-color", "default"),
+    ),
+    "icon-color": (
+      "default": getVarName("color", "primary"),
+      "type": getVarName("color", $type),
+    ),
+    "bg-color": (
+      "default": getVarName("bg-color", "default"),
+      "type": getVarName("color", $type, "light-9"),
+    ),
+  );
+  @return $message;
+}

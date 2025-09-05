@@ -1,0 +1,15 @@
+<template>
+  <svg
+    t="1756968545789"
+    class="icon"
+    viewBox="0 0 1024 1024"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    p-id="4948"
+    width="200"
+    height="200">
+    <path
+      d="M512 85.44A426.56 426.56 0 1 0 938.56 512 426.88 426.88 0 0 0 512 85.44z m42.56 640h-85.12v-256h85.44v256z m0-341.44h-85.12V298.56h85.44V384z"
+      p-id="4949"></path>
+  </svg>
+</template>

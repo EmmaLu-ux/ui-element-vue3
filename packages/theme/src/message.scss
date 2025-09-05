@@ -1,0 +1,70 @@
+@use "sass:map";
+@use "./common/mixins.scss" as *;
+@use "./common/componentVar.scss" as *;
+
+@include b(message) {
+  @include set-component-var("message", messageVars());
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  left: 50%;
+  top: 0;
+  z-index: 10001;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  transition: 0.3s;
+  padding: 0 20px;
+  font-size: var(#{getVarName("font-size", "sm")});
+  height: 40px;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.05),
+    0 3px 16px 0 rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  color: var(#{getVarName("message", "text-color")});
+  @include e(wrap) {
+  }
+  @include e(close) {
+    display: flex;
+    align-items: center;
+    opacity: 0.3;
+    margin-left: 8px;
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+  @include e(icon) {
+    display: flex;
+    align-items: center;
+    color: var(#{getVarName("message", "icon-color")});
+    @include sn-e(content) {
+      margin-left: 5px;
+    }
+  }
+  @include e(content) {
+    line-height: 1;
+  }
+  @include s((background)) {
+    box-shadow: none;
+    border: none;
+    background-color: var(#{getVarName("message", "bg-color")});
+    color: #000;
+    // #{getVarName('message', 'icon-color')}: var(
+    //   #{getVarName("color", "white")}
+    // );
+  }
+}
+
+@each $type in $types {
+  $className: ".ue-message--" + $type;
+  #{$className} {
+    @include set-component-var("message", messageVars($type), "type");
+  }
+}
+
+// 兼容 info 类型（等同于 primary）
+.ue-message--info {
+  @include set-component-var("message", messageVars("primary"), "type");
+}

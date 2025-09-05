@@ -17,3 +17,11 @@ export const componentInstall = (com) => {
     }
     return com;
 }
+
+export const functionInstall = (fn, name) => {
+    fn.install = (app) => {
+        fn._context = app._context
+        app.config.globalProperties[name] = fn // 挂载到全局
+    }
+    return fn
+}

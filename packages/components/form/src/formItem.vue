@@ -107,13 +107,13 @@ const filterRules = trigger => {
 
 const validate = trigger => {
   const rules = filterRules(trigger)
-  console.log("validate rules: ", rules)
+  // console.log("validate rules: ", rules)
   const propName = props.name
   const formModel = formContent?.model?.value
   const validator = new AsyncValidator({
     [propName]: rules,
   })
-  console.log("validator: ", validator)
+  // console.log("validator: ", validator)
   return validator
     .validate(
       { [propName]: formModel[propName] },
