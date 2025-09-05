@@ -805,13 +805,11 @@ $state-prefix: "is" !default; // 状态前缀
 
 #### Message组件
 
+通过采用`createVNode`函数去生成虚拟节点的方式去渲染`Message`组件，其中涉及到`render`函数等内容。同时使用`transition`组件去渲染`Message`组件从出现到离开的过渡动画。
 
+> `createVNode`和`transition`都是`Vue.js 3`中的API
 
-`createVNode`函数
-
-
-
-`useResizeObserver`函数解读：
+**`useResizeObserver`函数解读：**
 
 `useResizeObserver(target, callback, options?)`：
 
