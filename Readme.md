@@ -785,6 +785,8 @@ $state-prefix: "is" !default; // 状态前缀
 
 #### Form 与 FormItem 组件
 
+在`FormItem`中：
+
 **校验功能的实现**是使用`async-validator`校验库，同`Ant Design`和`Element`一样。`async-validator`校验库采用`key/value`的形式定义校验规则，那么在`Form`表单中，可以这样传输数据：交互控件通过插槽的形式渲染，控件的`v-model`所绑定的数据也都不一样，因此可以将`v-model`绑定的数据传入到`FormItem`中，这样就可以进行校验了，因为我们是打算在`FormItem`中去执行校验操作的。
 
 具体实现逻辑：在`FormItem`组件中定义`validate`方法用于校验数据，然后将该校验方法通过`provide`方法暴露出去，在`input`组件中通过引入`useFormItem`钩子获取到`FormItem`暴露出来的`validate`方法。关于`input`组件数据的校验场景有两个：1. 输入过程中校验数据；2. 鼠标失去焦点后校验数据。因此在`useEvent`函数中添加一个`afterBlur`函数参数，以及通过`watch`函数去监听`input`的值`modelValue`是否有变化，如果有，就执行数据校验。
@@ -793,11 +795,36 @@ $state-prefix: "is" !default; // 状态前缀
 >
 > async-validator：一个用于表单异步校验的库。
 
+在`Form`中：
+
+校验规则`rules`可以放在`FormItem`标签上（校验逻辑如前所述），也可以放在`Form`标签上。要做到在`Form`组件上去校验表单数据，需要将`FormItem`的所有字段传给`Form`，这里采用的方法是：在`Form`中通过`provide`去提供一个`pushField`方法（为了获取`FormItem`所有字段），`FormItem`一挂载，只要有`name`属性，就将`FormItem`所有属性，即`props`，通过`pushField`添加进`modelFields`中，当然还有`validate`、`reset`这两个校验和重置的方法，它们也需要在`Form`组件中去被使用的。此时，在`Form`中就可以进行校验的工作了。
+
+**校验功能的实现**是直接使用`FormItem`提供的`validate`校验方法。具体逻辑：在执行校验前，需要先明确哪些字段是需要做校验的。因此要先进行字段过滤，将需要检验的字段过滤出来，然后通过`for`循环去一个一个的执行`validate`校验，因为`FormItem`提供过来的字段数据内都会有`FormItem`标签上的属性、`validate`方法和`resetField`方法。`Form`组件之需要对校验结果进行返回即可，成功则返回`true`，失败则返回`false`。
+
+---
+
+#### Message组件
 
 
 
+`createVNode`函数
 
 
+
+`useResizeObserver`函数解读：
+
+`useResizeObserver(target, callback, options?)`：
+
+- `target`：单个或多个 DOM 元素，或其 `ref/computed` 引用
+- `callback(entries, observer)`：尺寸变更的回调，入参为 `ResizeObserverEntry[]`
+- `options.box`：观察盒模型类型，`'content-box' | 'border-box' | 'device-pixel-content-box'`，默认 `content-box`
+
+```javascript
+useResizeObserver(messageRef, entries => {
+  const entry = entries[0]
+  height.value = entry.contentRect.height // message元素内容矩形的高度
+})
+```
 
 
 
