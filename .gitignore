@@ -2,6 +2,7 @@
 node_modules
 .pnpm-store
 package-lock.json
+pnpm-lock.yaml
 .history
 flori-ui
 flori-ui-vue3
