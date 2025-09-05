@@ -3,5 +3,6 @@ packages:
   - examples
   - packages/*
   - build
-overrides:
-  flori-ui-vue3: link:../../../../../../Library/pnpm/global/5/node_modules/flori-ui-vue3
+  - flori-ui-vue3
+# overrides:
+# flori-ui-vue3: link:../../../../../../Library/pnpm/global/5/node_modules/flori-ui-vue3
