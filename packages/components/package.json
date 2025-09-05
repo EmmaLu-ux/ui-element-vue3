@@ -8,9 +8,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@vueuse/core": "^13.9.0",
-    "async-validator": "^4.2.5"
-  }
+  "license": "ISC"
 }

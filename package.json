@@ -16,6 +16,8 @@
   "dependencies": {
     "flori-ui-vue3": "workspace:*",
     "vue": "^3.5.13",
+    "@vueuse/core": "^13.9.0",
+    "async-validator": "^4.2.5",
     "@ui-element-vue3/components": "workspace:*",
     "@ui-element-vue3/hooks": "workspace:*",
     "@ui-element-vue3/icons": "workspace:*",

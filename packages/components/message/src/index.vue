@@ -1,5 +1,5 @@
 <template>
-  <transition :name="ns.b()" @leave="onClose">
+  <transition :name="ns.b()" @leave="onClose" @after-leave="onUnmount">
     <div
       ref="messageRef"
       :class="[ns.b(), ns.m(theme), ns.is('background', background)]"
@@ -51,12 +51,15 @@ const props = defineProps({
   },
   offset: {
     type: Number,
-    default: 16,
+    default: 0,
   },
-  onClose: Function,
+  onClose: {
+    type: Function,
+    default: () => {},
+  },
   duration: {
     type: Number,
-    default: 3000,
+    default: 0,
   },
   showClose: {
     type: Boolean,
@@ -70,6 +73,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  onUnmount: Function,
 })
 // 上一个message的底部位置
 const prevButtonPosition = computed(() => getPrevBottomOffset(props.id))
@@ -107,4 +111,7 @@ onMounted(() => {
   })
   startTime()
 })
+
+// 为程序化调用暴露关闭方法（避免外部直接改 setupState）
+defineExpose({ close, visible })
 </script>

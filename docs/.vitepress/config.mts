@@ -49,6 +49,7 @@ export default defineConfig({
             { text: "Button 按钮", link: "/components/button" },
             { text: "Input 输入框", link: "/components/input" },
             { text: "Checkbox 多选框", link: "/components/checkbox" },
+            { text: "Message 全局提示", link: "/components/message" },
           ],
         },
       ],

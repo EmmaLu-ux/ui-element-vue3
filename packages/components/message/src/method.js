@@ -4,8 +4,19 @@ import { types } from "@ui-element-vue3/utils";
 import { messageInstances } from "./instance.js"
 
 let onlyId = 0
-const messageDefaults = { type: 'info', content: '默认消息提示内容' }
+const messageDefaults = {
+    type: 'info', content: '', offset: 16, duration: 3000, showClose: false, onClose: null,
+    onUnmount: null,
+}
 const messageTheme = ['info', 'success', 'warning', 'error']
+
+const initOptions = (params) => {
+    // TODO: 未来可支持传入duration和onClose字段
+    // 支持直接传入字符串：UeMessage.info('text')
+    const options = !params || types().isString(params) ? { content: params } : params
+    const config = { ...messageDefaults, ...options }
+    return config
+}
 
 const createMessage = (options = {}) => {
     const id = `message_${onlyId++}`
@@ -18,6 +29,9 @@ const createMessage = (options = {}) => {
         ...options, id, onClose() {
             userOnClose?.()
             closeMessage(instance)
+        },
+        onUnmount() {
+            render(null, container);
         }
     });
 
@@ -38,12 +52,31 @@ const createMessage = (options = {}) => {
         vm,
         handler: {
             close: () => {
-                vm.setupState.visible = false
+                // 优先调用组件暴露的 close，避免直接修改 setupState
+                if (vm?.exposed && typeof vm.exposed.close === 'function') {
+                    vm.exposed.close()
+                } else if (vm?.setupState && 'visible' in vm.setupState) {
+                    // 兜底：兼容开发态，仍保持旧逻辑
+                    vm.setupState.visible = false
+                }
             }
         },
         props: vm.props
     }
     return instance
+}
+const closeMessage = (instance) => {
+    // console.log('closeMessage', instance)
+    const idx = messageInstances.indexOf(instance)
+    if (idx === -1) return
+    messageInstances.splice(idx, 1)
+    instance?.handler?.close()
+}
+// TODO: 有待使用
+export function closeAll() {
+    for (const instance of messageInstances) {
+        instance.handler.close()
+    }
 }
 
 const message = (params = {}) => {
@@ -58,25 +91,6 @@ messageTheme.forEach(theme => {
         return message({ ...config, type: theme })
     }
 })
-
-const initOptions = (params) => {
-    const options = !params || types().isString(params) ? { message: params } : params
-    const config = { ...messageDefaults, ...options }
-    return config
-}
-
-const closeMessage = (instance) => {
-    const idx = messageInstances.indexOf(instance)
-    if (idx === -1) return
-    messageInstances.splice(idx, 1)
-    instance?.handler?.close()
-}
-// TODO: 有待使用
-export function closeAll() {
-    for (const instance of messageInstances) {
-        instance.handler.close()
-    }
-}
 message.closeAll = closeAll
 
 export default message

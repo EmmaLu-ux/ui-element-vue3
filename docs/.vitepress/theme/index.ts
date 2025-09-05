@@ -3,6 +3,7 @@ import DefaultTheme from "vitepress/theme"
 import "./style.css"
 import Demo from "../components/demo/index.vue"
 
+// 全局引入UI组件库
 import UIElementV from "flori-ui-vue3"
 import "flori-ui-vue3/dist/index.min.css"
 import "./iconfont/iconfont.css"
