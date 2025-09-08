@@ -74,29 +74,36 @@ message/closeAll
 
 ## 方法
 
-| 方法名                        | 参数         | 说明                     |
-| ----------------------------- | ------------ | ------------------------ |
-| `$message`                    | `(options)`  | 打开一条消息             |
-| `$message.info`               | `(options)`  | 打开信息消息（快捷方法） |
-| `$message.success`            | `(options)`  | 打开成功消息（快捷方法） |
-| `$message.warning`            | `(options)`  | 打开警告消息（快捷方法） |
-| `$message.error`              | `(options)`  | 打开错误消息（快捷方法） |
-| `$message.closeAll`           | `()`         | 关闭当前所有消息         |
+<div class="md-cols" style="--col-1:60px; --col-2:60px; --col-3:120px; --col-4:auto;">
+
+| 方法名              | 参数        | 说明                     |
+| ------------------- | ----------- | ------------------------ |
+| `$message`          | `(options)` | 打开一条消息             |
+| `$message.info`     | `(options)` | 打开信息消息（快捷方法） |
+| `$message.success`  | `(options)` | 打开成功消息（快捷方法） |
+| `$message.warning`  | `(options)` | 打开警告消息（快捷方法） |
+| `$message.error`    | `(options)` | 打开错误消息（快捷方法） |
+| `$message.closeAll` | `()`        | 关闭当前所有消息         |
+
+</div>
 
 提示：示例中均使用对象参数形式调用，以便明确各配置项。
 
 ## 选项
 
-| 选项名       | 类型        | 默认值   | 说明                                    |
-| ------------ | ----------- | -------- | --------------------------------------- |
-| `content`    | `string`    | `''`     | 消息正文内容                            |
-| `type`       | `string`    | `info`   | 类型：`info`/`success`/`warning`/`error` |
-| `duration`   | `number`    | `3000`   | 自动关闭的延时，单位 ms，设为 `0` 不关闭 |
-| `showClose`  | `boolean`   | `false`  | 是否显示右侧关闭按钮                    |
-| `background` | `boolean`   | `false`  | 是否使用浅色背景样式                    |
-| `offset`     | `number`    | `16`     | 与顶部的初始偏移，支持多个消息堆叠      |
-| `onClose`    | `() => void`| `-`      | 关闭后的回调                            |
+<div class="md-cols" style="--col-1:120px; --col-2:140px; --col-3:90px;">
 
+| 选项名       | 类型         | 默认值  | 说明                                     |
+| ------------ | ------------ | ------- | ---------------------------------------- |
+| `content`    | `string`     | `''`    | 消息正文内容                             |
+| `type`       | `string`     | `info`  | 类型：`info`/`success`/`warning`/`error` |
+| `duration`   | `number`     | `3000`  | 自动关闭的延时，单位 ms，设为 `0` 不关闭 |
+| `showClose`  | `boolean`    | `false` | 是否显示右侧关闭按钮                     |
+| `background` | `boolean`    | `false` | 是否使用浅色背景样式                     |
+| `offset`     | `number`     | `16`    | 与顶部的初始偏移，支持多个消息堆叠       |
+| `onClose`    | `() => void` | `-`     | 关闭后的回调                             |
+
+</div>
 ## 安装与调用
 
 全量引入组件库时会自动注册全局方法 `$message`，可直接在组件内调用。
@@ -104,8 +111,8 @@ message/closeAll
 按需引入时也可单独安装：
 
 ```ts
-import { createApp } from 'vue'
-import { UeMessage } from 'flori-ui-vue3'
+import { createApp } from "vue"
+import { UeMessage } from "flori-ui-vue3"
 
 const app = createApp(App)
 app.use(UeMessage)

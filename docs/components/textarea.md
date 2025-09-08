@@ -64,28 +64,34 @@ textarea/events
 
 ## 属性
 
-| 属性名 | 类型 | 默认值 | 说明 |
-| ------ | ---- | ------ | ---- |
-| `v-model` | `string` | `''` | 文本内容 |
-| `placeholder` | `string` | `请输入内容` | 占位文本 |
-| `disabled` | `boolean` | `false` | 是否禁用 |
-| `maxlength` | `number/string` | `''` | 最大输入长度 |
-| `showCount` | `boolean` | `false` | 是否展示“已输入/上限”计数 |
-| `width` | `string` | `100%` | 组件宽度，传数字字符串如 `420` 表示 `420px` |
-| `rows` | `string/number` | `''` | 可视区域初始行数（如 `3`） |
+<div class="md-cols" style="--col-1:130px; --col-2:140px; --col-3:120px; --col-4:auto;">
+
+| 属性名        | 类型            | 默认值       | 说明                                        |
+| ------------- | --------------- | ------------ | ------------------------------------------- |
+| `v-model`     | `string`        | `''`         | 文本内容                                    |
+| `placeholder` | `string`        | `请输入内容` | 占位文本                                    |
+| `disabled`    | `boolean`       | `false`      | 是否禁用                                    |
+| `maxlength`   | `number/string` | `''`         | 最大输入长度                                |
+| `showCount`   | `boolean`       | `false`      | 是否展示“已输入/上限”计数                   |
+| `width`       | `string`        | `100%`       | 组件宽度，传数字字符串如 `420` 表示 `420px` |
+| `rows`        | `string/number` | `''`         | 可视区域初始行数（如 `3`）                  |
+
+</div>
 
 ## 事件
 
-| 事件名 | 回调参数 | 说明 |
-| ------ | -------- | ---- |
-| `input` | `(value, evt)` | 输入变化时触发（支持中文输入法结束后触发） |
-| `focus`/`blur` | `(evt)` | 聚焦/失焦时触发 |
-| `mouseenter`/`mouseleave` | `(evt)` | 鼠标进入/离开时触发 |
-| `compositionstart/update/end` | `(evt)` | 输入法合成相关事件 |
-| `change` | `(evt)` | 原生 change 事件 |
-| `keydown`/`keyup` | `(evt)` | 键盘按下/抬起时触发 |
+<div class="md-cols" style="--col-1:250px; --col-2:200px; --col-3:auto;">
 
+| 事件名                        | 回调参数       | 说明                                       |
+| ----------------------------- | -------------- | ------------------------------------------ |
+| `input`                       | `(value, evt)` | 输入变化时触发（支持中文输入法结束后触发） |
+| `focus`/`blur`                | `(evt)`        | 聚焦/失焦时触发                            |
+| `mouseenter`/`mouseleave`     | `(evt)`        | 鼠标进入/离开时触发                        |
+| `compositionstart/update/end` | `(evt)`        | 输入法合成相关事件                         |
+| `change`                      | `(evt)`        | 原生 change 事件                           |
+| `keydown`/`keyup`             | `(evt)`        | 键盘按下/抬起时触发                        |
+
+</div>
 ## 插槽
 
 无。
-

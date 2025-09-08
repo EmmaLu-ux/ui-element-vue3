@@ -1,6 +1,9 @@
 <template>
   <button
-    :disabled="disabled"
+    :type="nativeType"
+    :disabled="disabled || isLoading"
+    :aria-disabled="(disabled || isLoading) ? 'true' : 'false'"
+    :aria-busy="isLoading ? 'true' : 'false'"
     :style="buttonStyle"
     :class="[
       ns.b(),
@@ -19,7 +22,7 @@
     <i
       v-if="isLoading"
       class="iconfont icon-loading is-loading-transition"
-      :class="[ns.is('loading', loading)]"></i>
+      :class="[ns.is('loading', isLoading)]"></i>
     <i
       v-if="!isLoading && prefix"
       class="iconfont"
@@ -60,6 +63,14 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  /**
+   * Native button type attribute to avoid unintended form submit.
+   * Does not affect visual style (use `type` above for variants).
+   */
+  nativeType: {
+    type: String,
+    default: "button", // 'button' | 'submit' | 'reset'
+  },
   round: Boolean,
   disabled: Boolean,
   subtle: Boolean,
@@ -81,6 +92,10 @@ const props = defineProps({
     default: "",
   },
   loading: Boolean,
+  /**
+   * Hook before click emit. Return false to cancel; return Promise to handle async.
+   * Signature: (evt) => boolean | void | Promise<boolean | void>
+   */
   beforeChange: Function,
 })
 defineOptions({
@@ -95,25 +110,33 @@ const controlSize = computed(
   () => formContent?.size?.value || buttonGroup?.size?.value || props.size
 )
 
-const handleEvent = e => {
-  const isFunction =
-    Object.prototype.toString.call(props.beforeChange) === "[object Function]"
-  // console.log("isFunction", isFunction)
-  if (!isFunction) {
+const isCallable = (fn) => Object.prototype.toString.call(fn) === "[object Function]"
+
+const handleEvent = async (e) => {
+  // Guard against interaction when disabled/loading
+  if (disabledGuard.value) return
+
+  const hasBefore = isCallable(props.beforeChange)
+  if (!hasBefore) {
     emits("click", e)
     return
   }
-  _loading.value = true
-  props
-    .beforeChange()
-    .then(() => {
-      _loading.value = false
-      console.log("success")
-    })
-    .catch(() => {
-      _loading.value = false
-      console.log("error")
-    })
+
+  try {
+    _loading.value = true
+    const result = props.beforeChange(e)
+    const awaited = result && typeof result.then === "function" ? await result : result
+    // If explicitly returned false, cancel emit
+    if (awaited === false) return
+    emits("click", e)
+  } catch (err) {
+    // Swallow errors but stop emit
+    // console.error('beforeChange error', err)
+  } finally {
+    _loading.value = false
+  }
 }
+
+const disabledGuard = computed(() => props.disabled || isLoading.value)
 </script>
 <style lang="scss" scoped></style>

@@ -1,0 +1,58 @@
+/* Layout tweaks: narrow sidebar/aside, wider content via variables only */
+@media (min-width: 960px) {
+  :root {
+    --vp-sidebar-width: 220px; /* default ~272px */
+    --vp-aside-width: 220px; /* default ~272px */
+    --vp-layout-max-width: 1620px; /* expand overall layout a bit */
+    /* Widen the central doc content */
+    --vp-doc-content-width: 1080px;
+    --vp-content-width: 1080px; /* alias for other versions */
+  }
+
+  /* Ensure the content container actually uses the wider width */
+  .VPDoc .content .content-container {
+    max-width: 1080px !important;
+  }
+}
+
+/* Make Markdown tables fill the content width */
+.vp-doc table,
+.VPDoc .vp-doc table,
+.VPDoc table {
+  display: table !important; /* override theme's block/max-content */
+  width: 100% !important;
+  table-layout: fixed; /* distribute columns to avoid right-side gap */
+}
+
+/* Prevent overflow when using fixed layout */
+.vp-doc th,
+.vp-doc td,
+.VPDoc th,
+.VPDoc td {
+  word-break: break-word;
+}
+
+/* Utility: control column widths via CSS variables
+   Usage in Markdown:
+   <div class="md-cols" style="--col-1:120px; --col-2:140px; --col-3:auto;">
+   | A | B | C |
+   | - | - | - |
+   | ... |
+   </div>
+*/
+.md-cols table {
+  width: 100% !important;
+  table-layout: fixed; /* ensure cell widths affect columns */
+  @for $i from 1 through 8 {
+    :is(th, td):nth-child(#{$i}) {
+      width: var(--col-#{$i}, auto);
+    }
+  }
+}
+
+/* If VitePress wraps tables, ensure wrapper doesn't shrink */
+.vp-doc .vp-table,
+.vp-doc .table-container {
+  width: 100% !important;
+  overflow-x: visible; /* we manage breaking instead */
+}

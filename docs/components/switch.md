@@ -94,20 +94,23 @@ switch/transition
 
 ## 属性
 
-| 属性名 | 类型 | 默认值 | 说明 |
-| ------ | ---- | ------ | ---- |
-| `v-model` | `any` | `false` | 当前值，与 `checkedValue`/`uncheckedValue` 对比决定状态 |
-| `type` | `string` | `primary` | 风格类型：`primary`/`success`/`warning`/`error` 等 |
-| `size` | `string` | `sm` | 尺寸：`sm`/`md`/`lg`/`xl` |
-| `onLabel`/`offLabel` | `string` | `''` | 两端文案，中文取首字符，英文最多 3 个字符 |
-| `onIcon`/`offIcon` | `Component|string` | `''` | 两端或中心显示的图标组件（常配合 `centerIcon`） |
-| `centerIcon` | `boolean` | `false` | 是否在圆钮中心显示图标（优先于两端文案） |
-| `disabled` | `boolean` | `false` | 是否禁用 |
-| `checkedValue` | `any` | `true` | 选中状态对应的值 |
-| `uncheckedValue` | `any` | `false` | 未选中状态对应的值 |
-| `beforeChange` | `() => boolean | Promise<boolean|void>` | `-` | 切换前置校验，返回 `false` 阻止；Promise 期间进入加载，resolve 为 `false` 同样阻止 |
-| `transition` | `string` | `scale` | 标签切换动效：`scale`/`slide` |
+<div class="md-cols" style="--col-1:180px; --col-2:180px; --col-3:120px; --col-4:auto;">
 
+| 属性名               | 类型                                 | 默认值    | 说明                                                                           |
+| -------------------- | ------------------------------------ | --------- | ------------------------------------------------------------------------------ |
+| `v-model`            | `any`                                | `false`   | 当前值，与 `checkedValue`/`uncheckedValue` 对比决定状态                        |
+| `type`               | `string`                             | `primary` | 风格类型：`primary`/`success`/`warning`/`error` 等                             |
+| `size`               | `string`                             | `sm`      | 尺寸：`sm`/`md`/`lg`/`xl`                                                      |
+| `onLabel`/`offLabel` | `string`                             | `''`      | 两端文案，中文取首字符，英文最多 3 个字符                                      |
+| `onIcon`/`offIcon`   | `Component/string`                   | `''`      | 两端或中心显示的图标组件（常配合 `centerIcon`）                                |
+| `centerIcon`         | `boolean`                            | `false`   | 是否在圆钮中心显示图标（优先于两端文案）                                       |
+| `disabled`           | `boolean`                            | `false`   | 是否禁用                                                                       |
+| `checkedValue`       | `any`                                | `true`    | 选中状态对应的值                                                               |
+| `uncheckedValue`     | `any`                                | `false`   | 未选中状态对应的值                                                             |
+| `beforeChange`       | `() => boolean/Promise<booleanvoid>` | `-`       | 切换前置校验，返回 `false` 阻止；Promise 期间进入加载，resolve 为 `false` 同样 |
+| `transition`         | `string`                             | `scale`   | 标签切换动效：`scale`/`slide`                                                  |
+
+</div>
 ## 事件
 
 当前通过 `v-model` 更新值。可自行监听 `v-model` 绑定数据的变化处理业务逻辑。
@@ -115,4 +118,3 @@ switch/transition
 ## 插槽
 
 无。
-

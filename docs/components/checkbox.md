@@ -78,31 +78,38 @@ checkbox/async
 
 ## 属性
 
-| 组件 | 属性名 | 类型 | 默认值 | 说明 |
-| ---- | ------ | ---- | ------ | ---- |
-| `ue-checkbox` | `v-model` | `boolean` | `false` | 单个复选框的选中状态 |
-| `ue-checkbox` | `value` | `string/number/boolean` | `-` | 作为分组时的选项值，用于比对是否选中 |
-| `ue-checkbox` | `disabled` | `boolean` | `false` | 是否禁用 |
-| `ue-checkbox` | `size` | `string` | `sm` | 尺寸：`sm`/`md`/`lg`/`xl` |
-| `ue-checkbox` | `type` | `string` | `''` | 风格类型：`primary`/`success`/`warning`/`error` 等 |
-| `ue-checkbox` | `beforeChange` | `() => Promise` | `-` | 切换前置校验，resolve 后才会切换并结束加载 |
-| `ue-checkbox` | `indeterminate` | `boolean` | `false` | 半选视觉状态（仅样式，不改变值） |
-| `ue-checkbox-group` | `v-model` | `Array` | `[]` | 选中项数组 |
-| `ue-checkbox-group` | `size` | `string` | `sm` | 组内项的统一尺寸 |
-| `ue-checkbox-group` | `beforeChange` | `() => Promise` | `-` | 组级前置校验，优先级高于子项的 `beforeChange` |
-| `ue-checkbox-all` | `v-model` | `Array` | `[]` | 与内部组的选中项同步 |
-| `ue-checkbox-all` | `size` | `string` | `sm` | 全选及子项尺寸 |
+<div class="md-cols" style="--col-1:180px; --col-2:140px; --col-3:120px; --col-4:90px;">
+
+| 组件                | 属性名          | 类型                    | 默认值  | 说明                                               |
+| ------------------- | --------------- | ----------------------- | ------- | -------------------------------------------------- |
+| `ue-checkbox`       | `v-model`       | `boolean`               | `false` | 单个复选框的选中状态                               |
+| `ue-checkbox`       | `value`         | `string/number/boolean` | `-`     | 作为分组时的选项值，用于比对是否选中               |
+| `ue-checkbox`       | `disabled`      | `boolean`               | `false` | 是否禁用                                           |
+| `ue-checkbox`       | `size`          | `string`                | `sm`    | 尺寸：`sm`/`md`/`lg`/`xl`                          |
+| `ue-checkbox`       | `type`          | `string`                | `''`    | 风格类型：`primary`/`success`/`warning`/`error` 等 |
+| `ue-checkbox`       | `beforeChange`  | `() => Promise`         | `-`     | 切换前置校验，resolve 后才会切换并结束加载         |
+| `ue-checkbox`       | `indeterminate` | `boolean`               | `false` | 半选视觉状态（仅样式，不改变值）                   |
+| `ue-checkbox-group` | `v-model`       | `Array`                 | `[]`    | 选中项数组                                         |
+| `ue-checkbox-group` | `size`          | `string`                | `sm`    | 组内项的统一尺寸                                   |
+| `ue-checkbox-group` | `beforeChange`  | `() => Promise`         | `-`     | 组级前置校验，优先级高于子项的 `beforeChange`      |
+| `ue-checkbox-all`   | `v-model`       | `Array`                 | `[]`    | 与内部组的选中项同步                               |
+| `ue-checkbox-all`   | `size`          | `string`                | `sm`    | 全选及子项尺寸                                     |
+
+</div>
 
 ## 事件
 
-| 组件 | 事件名 | 回调参数 | 触发说明 |
-| ---- | ------ | -------- | -------- |
-| `ue-checkbox` | `change` | `(checked: boolean, evt)` | 原生 change 触发，返回是否选中及原事件 |
-| `ue-checkbox-group` | `change` | `(value: any[])` | 组选中值变化时触发 |
-| `ue-checkbox-all` | `change` | `(value: any[])` | 全选包装器内部组选中值变化时触发 |
+<div class="md-cols" style="--col-1:175px; --col-2:200px; --col-3:auto;">
 
+| 组件                | 事件名   | 回调参数                  | 触发说明                               |
+| ------------------- | -------- | ------------------------- | -------------------------------------- |
+| `ue-checkbox`       | `change` | `(checked: boolean, evt)` | 原生 change 触发，返回是否选中及原事件 |
+| `ue-checkbox-group` | `change` | `(value: any[])`          | 组选中值变化时触发                     |
+| `ue-checkbox-all`   | `change` | `(value: any[])`          | 全选包装器内部组选中值变化时触发       |
+
+</div>
 ## 插槽
 
-| 插槽名 | 说明 |
-| ------ | ---- |
+| 插槽名    | 说明                             |
+| --------- | -------------------------------- |
 | `default` | 文本或自定义内容，位于复选框右侧 |

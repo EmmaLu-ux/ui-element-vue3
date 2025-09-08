@@ -1,6 +1,6 @@
 import type { Theme } from "vitepress"
 import DefaultTheme from "vitepress/theme"
-import "./style.css"
+import "./style.scss"
 import Demo from "../components/demo/index.vue"
 
 // 全局引入UI组件库

@@ -84,6 +84,8 @@ button/block
 
 ## 属性
 
+<div class="md-cols" style="--col-1:120px; --col-2:140px; --col-3:120px; --col-4:auto;">
+
 | 属性名     | 类型      | 默认值    | 说明                                                                 |
 | ---------- | --------- | --------- | -------------------------------------------------------------------- |
 | `type`     | `string`  | `default` | 按钮类型，可选：`default`、`primary`、`success`、`warning`、`danger` |
@@ -95,16 +97,27 @@ button/block
 | `block`    | `boolean` | `false`   | 是否为块级元素，宽度为 100%                                          |
 | `outline`  | `boolean` | `false`   | 是否为 outline 按钮，即没有背景颜色，只有边框                        |
 | `link`     | `boolean` | `false`   | 是否为链接按钮，即没有背景颜色，没有边框，点击时会有下划线           |
+| `nativeType` | `string` | `button`  | 原生按钮类型：`button`/`submit`/`reset`，避免不期望的表单提交        |
+
+</div>
 
 ## 事件
+
+<div class="md-cols" style="--col-1:120px; --col-2:200px; --col-3:auto;">
 
 | 事件名  | 回调参数 | 说明           |
 | ------- | -------- | -------------- |
 | `click` | `(evt)`  | 点击按钮时触发 |
 
+</div>
+
 ## 插槽
+
+<div class="md-cols" style="--col-1:120px; --col-2:auto;">
 
 | 插槽名    | 说明         |
 | --------- | ------------ |
 | `default` | 按钮内容文本 |
 | `icon`    | 按钮左侧图标 |
+
+</div>
