@@ -28,6 +28,10 @@
   column-gap: 4px; // 子元素之间的空隙为4px
   transition: 0.3s;
   vertical-align: middle;
+  // 仅作用于“紧邻的”同级兄弟元素；一串按钮里除第一个外，其余都会生效（每个按钮的前一个是按钮，即满足紧邻）
+  & + & {
+    margin-left: 12px;
+  }
   span {
     line-height: 1;
     display: inline-flex;

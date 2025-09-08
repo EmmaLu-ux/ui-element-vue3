@@ -8,19 +8,32 @@ export default defineComponent({
         mask: {
             type: Boolean,
             default: true
+        },
+        maskClose: {
+            type: Boolean,
+            default: false // 默认点击遮罩层会关闭遮罩层和modal组件
         }
     },
-    setup(props, { slots }) {
+    setup(props, { emit, slots }) {
         const ns = useNamespace('mask')
         const { nextZindex, currentZindex } = useZindex()
         nextZindex()
 
+        const onClose = () => {
+            if (props.maskClose) return
+            emit('close')
+        }
+
         return () => createVNode(
             'div',
-            { class: [ns.b()], style: [{ zIndex: currentZindex.value }] },
+            {
+                class: [ns.b()],
+                style: [{ zIndex: currentZindex.value }]
+            },
             [
                 h('span', {
-                    class: props.mask ? ns.e('wrap') : ""
+                    class: props.mask ? ns.e('wrap') : "",
+                    onClick: () => onClose()
                 }),
                 renderSlot(slots, 'default')
             ])

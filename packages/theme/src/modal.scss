@@ -1,0 +1,95 @@
+@use "sass:map";
+@use "./common/mixins.scss" as *;
+@use "./common/componentVar.scss" as *;
+
+@include b(modal) {
+  padding: 15vh 0;
+  margin: 0 auto;
+  width: 450px;
+  box-sizing: border-box;
+  @include s((fixed-screen)) {
+    height: 100%;
+    padding: 10vh 0;
+    // 弹性盒模型
+    @include e(wrap, false) {
+      display: flex;
+      flex-direction: column;
+      max-height: 100%;
+    }
+    @include e(content, false) {
+      flex: 1;
+      height: 0;
+      display: flex;
+    }
+    @include e(render-content, false) {
+      overflow-y: auto;
+      width: 100%;
+    }
+  }
+  @include e("wrap") {
+    background-color: #fff;
+    border-radius: 12px;
+  }
+  @include e("content") {
+    padding: 0 24px 12px;
+    word-break: break-word; // 强制换行
+    font-size: var(#{getVarName("font-size", "sm")});
+    line-height: 1.6;
+  }
+  @include e("header") {
+    padding: 20px 24px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  @include e("close") {
+    cursor: pointer;
+    opacity: 0.3;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+  @include e("footer") {
+    padding: 0 24px 20px;
+    text-align: right;
+  }
+  @include e("title") {
+    font-size: var(#{getVarName("font-size", "md")});
+    margin: 0;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+}
+
+.ue-modal-enter-from,
+.ue-modal-leave-to {
+  opacity: 0;
+}
+.ue-modal-enter-active,
+.ue-modal {
+  animation: dialogFadeIn 0.2s;
+}
+.ue-modal-leave-active,
+.ue-modal {
+  animation: dialogFadeOut 0.2s;
+}
+@keyframes dialogFadeIn {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes dialogFadeOut {
+  0% {
+    transform: translateY(-0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+}
