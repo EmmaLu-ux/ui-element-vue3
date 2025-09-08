@@ -50,6 +50,7 @@ export default defineConfig({
             { text: "Input 输入框", link: "/components/input" },
             { text: "Checkbox 多选框", link: "/components/checkbox" },
             { text: "Message 全局提示", link: "/components/message" },
+            { text: "Modal 对话框", link: "/components/modal" },
           ],
         },
       ],
