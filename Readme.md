@@ -824,17 +824,35 @@ useResizeObserver(messageRef, entries => {
 })
 ```
 
+---
 
+#### Modal组件
 
+`Modal`组件位于遮罩层`Mask`组件上面，因此要实现`Modal`组件，可以将`Modal`组件作为**插槽内容**插入到`Mask`组件内。然后要注意`z-index`的使用，让`Modal`组件显示在`Mask`组件上层。
 
+`teleport`组件：允许开发人员将`teleport`组件包裹的子级组件“传送”给指定的 DOM 元素，用于确保被传送的元素不受父元素的样式或层叠上下文的错误影响。
 
+```html
+<teleport to="body">
+	<transition>
+  	<ue-mask>
+    	<div>
+        ...
+      </div>
+    </ue-mask>
+  </transition>
+</teleport>
+```
 
+> 说明：
+>
+> 虽然 <teleport> 标签写在 Modal 组件的模板里，但其子内容（过渡 + 遮罩 + 弹窗）最终会被渲染并附加到 `document.body` 下，而不受父组件的定位、溢出裁剪、`z-index` 堆叠上下文影响。
 
+beforeChange异步函数
 
+---
 
-
-
-
+#### Modal-Box 组件
 
 
 
