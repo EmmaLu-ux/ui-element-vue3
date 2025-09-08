@@ -5,14 +5,16 @@ import path from "path"
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Ue-Element组件库",
+  title: "UE组件库",
   description: "基于Vue3.js的UI组件库",
   vite: {
     // 保持默认解析行为，避免影响 VitePress 内部对 .temp 的处理
     // resolve: { preserveSymlinks: true },
     // ssr: { noExternal: [/^flori-ui-vue3/] },
     optimizeDeps: {
-      include: ["vue", "flori-ui-vue3"],
+      // 避免对工作区包 flori-ui-vue3 进行依赖预打包，便于热更新与类型变更生效
+      include: ["vue"],
+      exclude: ["flori-ui-vue3"],
     },
   },
   themeConfig: {
@@ -47,10 +49,16 @@ export default defineConfig({
           text: "基础",
           items: [
             { text: "Button 按钮", link: "/components/button" },
+            { text: "ButtonGroup 按钮组", link: "/components/buttonGroup" },
             { text: "Input 输入框", link: "/components/input" },
-            { text: "Checkbox 多选框", link: "/components/checkbox" },
+            { text: "Textarea 文本域", link: "/components/textarea" },
+            { text: "Form 表单", link: "/components/form" },
+            { text: "Grid 栅格", link: "/components/grid" },
+            { text: "Container 容器", link: "/components/container" },
+            { text: "Checkbox 复选框", link: "/components/checkbox" },
             { text: "Message 全局提示", link: "/components/message" },
             { text: "Modal 对话框", link: "/components/modal" },
+            { text: "Switch", link: "/components/switch" },
           ],
         },
       ],

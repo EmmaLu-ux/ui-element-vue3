@@ -133,11 +133,11 @@ const props = defineProps({
     default: "",
   },
   onIcon: {
-    type: String,
+    type: [String, Object],
     default: "",
   },
   offIcon: {
-    type: String,
+    type: [String, Object],
     default: "",
   },
   centerIcon: Boolean,

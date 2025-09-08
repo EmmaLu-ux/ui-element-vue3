@@ -134,9 +134,12 @@ onMounted(() => {
   .examples-body {
     border: 0.5px solid #dcdfe6;
     border-radius: 5px;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
   .examples-inner {
-    padding: 30px 24px;
+    /* 增加左右内边距，抵消 Row 的左右负外边距以及列的水平内边距，避免右侧内容被裁剪 */
+    padding: 30px 40px;
   }
   .examples-control {
     display: flex;

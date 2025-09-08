@@ -52,7 +52,7 @@ const props = defineProps({
   },
   required: Boolean,
   lableWidth: {
-    type: String,
+    type: [String, Number],
     default: "",
   },
   align: {
@@ -71,7 +71,7 @@ const props = defineProps({
 
 const widthStyle = computed(() => uStyle.width(props.lableWidth))
 const textAlign = computed(() => uStyle.align(props.align))
-const isRequired = computed(() => initRules.value.some(rule => rule.required))
+const isRequired = computed(() => props.required || initRules.value.some(rule => rule.required))
 const controlSize = computed(() => formContent?.size?.value)
 const convertArray = rules =>
   rules ? (Array.isArray(rules) ? rules : [rules]) : []
