@@ -380,3 +380,13 @@
   );
   @return $message;
 }
+
+@function modalBoxVars($type: "") {
+  $modalBox: (
+    "icon-color": (
+      "default": getVarName("color", "warning"),
+      "type": getVarName("color", $type),
+    ),
+  );
+  @return $modalBox;
+}

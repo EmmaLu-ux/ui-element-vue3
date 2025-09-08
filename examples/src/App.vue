@@ -38,7 +38,8 @@
 //   // console.log("UeMessage", UeMessage._context) // 访问Vue3实例
 // }
 
-import MaskExamp from "./components/MaskExamp.vue"
+// import MaskExamp from "./components/MaskExamp.vue"
+import ModalBoxExamp from "./components/ModalBoxExamp.vue"
 </script>
 
 <template>
@@ -56,7 +57,8 @@ import MaskExamp from "./components/MaskExamp.vue"
 
   <!-- <ue-button @click="test">消息提示</ue-button> -->
 
-  <MaskExamp></MaskExamp>
+  <!-- <MaskExamp></MaskExamp> -->
+  <ModalBoxExamp></ModalBoxExamp>
 </template>
 
 <style scoped></style>

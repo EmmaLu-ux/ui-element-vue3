@@ -1,0 +1,45 @@
+@use "./common/mixins.scss" as *;
+@use "./common/componentVar.scss" as *;
+
+@include b(modal-box) {
+  padding: 15vh 0;
+  margin: 0 auto;
+  width: 410px;
+  box-sizing: border-box;
+  @include e(header) {
+    display: flex;
+    align-items: center;
+    padding: 20px 24px 8px;
+    .ue-icon {
+      font-size: 22px;
+      line-height: 1;
+      margin-right: 12px;
+      color: var(#{getVarName("modal-box", "icon-color")});
+    }
+    @include e(title) {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+  }
+  @include e(wrap) {
+    background-color: #fff;
+    border-radius: 12px;
+  }
+  @include e(content) {
+    padding: 0 24px 12px;
+    line-height: 24px;
+    font-size: var(#{getVarName("font-size", "sm")});
+  }
+  @include e(footer) {
+    padding: 0 24px 20px;
+    text-align: right;
+  }
+}
+
+@each $type in $types {
+  $classname: ".ue-modal-box--" + $type;
+  #{$classname} {
+    @include set-component-var("modal-box", modalBoxVars($type), "type");
+  }
+}

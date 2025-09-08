@@ -11,6 +11,7 @@ import { UeSwitch } from "./components/switch/index.js"
 import { UeForm, UeFormItem } from "./components/form/index.js"
 import { UeMessage } from "./components/message/index.js"
 import { UeModal } from "./components/modal/index.js"
+import { UeModalBox } from "./components/modalBox/index.js"
 
 export default [
     UeButton,
@@ -32,5 +33,6 @@ export default [
     UeForm,
     UeFormItem,
     UeMessage,
-    UeModal
+    UeModal,
+    UeModalBox
 ]
