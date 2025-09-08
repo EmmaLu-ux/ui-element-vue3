@@ -21,6 +21,8 @@
 @use "./formItem.scss";
 @use "./message.scss";
 @use "./transition.scss";
+@use "./mask.scss";
+@use "./modal.scss";
 
 // @include set-component-css-var("common", $common);::
 root {

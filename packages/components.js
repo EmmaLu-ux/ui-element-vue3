@@ -10,6 +10,7 @@ import { UeCheckbox, UeCheckboxGroup, UeCheckboxAll } from "./components/checkbo
 import { UeSwitch } from "./components/switch/index.js"
 import { UeForm, UeFormItem } from "./components/form/index.js"
 import { UeMessage } from "./components/message/index.js"
+import { UeModal } from "./components/modal/index.js"
 
 export default [
     UeButton,
@@ -30,5 +31,6 @@ export default [
     UeSwitch,
     UeForm,
     UeFormItem,
-    UeMessage
+    UeMessage,
+    UeModal
 ]
