@@ -19,6 +19,11 @@ export default defineConfig({
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    siteTitle: "UE组件库",
+    logo: {
+      light: "/logo-light.png",
+      dark: "/logo.png",
+    },
     nav: [
       { text: "Home", link: "/" },
       // { text: "Examples", link: "/markdown-examples" },

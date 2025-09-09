@@ -56,3 +56,193 @@
   width: 100% !important;
   overflow-x: visible; /* we manage breaking instead */
 }
+
+/* ---------------------------------------------
+   Home hero: tone down sizes
+   ------------------------------------------- */
+:root {
+  --vp-home-hero-name-background: linear-gradient(
+    90deg,
+    #18a058 0%,
+    #36ad6a 50%,
+    #8fd19e 100%
+  );
+  --vp-home-hero-name-color: transparent; /* enable gradient text */
+
+  /* Glass tokens (light) */
+  --ue-glass-blur: 18px;
+  --ue-glass-bg: rgba(255, 255, 255, 0.25);
+  --ue-glass-border: rgba(255, 255, 255, 0.55);
+  --ue-glass-shadow: 0 10px 30px rgba(24, 160, 88, 0.12), 0 4px 14px rgba(0, 0, 0, 0.06);
+  --ue-glass-highlight: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.06));
+}
+
+/* Reduce hero typography scale */
+.VPHome .VPHero .name {
+  font-size: 36px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.VPHome .VPHero .text {
+  font-size: 16px;
+  color: var(--vp-c-text-2);
+}
+
+.VPHome .VPHero .tagline {
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+@media (min-width: 640px) {
+  .VPHome .VPHero .name {
+    font-size: 44px;
+  }
+  .VPHome .VPHero .text {
+    font-size: 16px;
+  }
+  .VPHome .VPHero .tagline {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPHome .VPHero .name {
+    font-size: 52px;
+  }
+  .VPHome .VPHero .text {
+    font-size: 17px;
+  }
+  .VPHome .VPHero .tagline {
+    font-size: 15px;
+  }
+}
+
+/* Action buttons (if enabled in front‑matter) */
+.VPHome .VPHero .actions .VPButton {
+  border-radius: 10px;
+  height: 38px;
+  padding: 0 14px;
+}
+.VPHome .VPHero .actions .VPButton.brand {
+  background: #18a058;
+  box-shadow: 0 2px 10px rgba(24, 160, 88, 0.25);
+}
+.VPHome .VPHero .actions .VPButton.alt {
+  border-color: rgba(60, 60, 60, 0.18);
+}
+
+/* ---------------------------------------------
+   Home background: gradient + optional image
+   ------------------------------------------- */
+:root {
+  /* Light theme background palette */
+  --ue-home-bg-start: #f8fef9;
+  --ue-home-bg-mid: #ffffff;
+  --ue-home-bg-end: #ffffff;
+  --ue-home-accent-1: rgba(24, 160, 88, 0.1);
+  --ue-home-accent-2: rgba(54, 173, 106, 0.08);
+  /* Use theme asset path to respect VitePress base */
+  --ue-home-bg-image: url("./assets/ue-hero-bg.svg");
+  /* Semi-transparent overlay so the bg image is visible */
+  --ue-home-overlay-top: rgba(255, 255, 255, 0.72);
+  --ue-home-overlay-mid: rgba(255, 255, 255, 0.70);
+  --ue-home-overlay-bottom: rgba(255, 255, 255, 0.78);
+}
+
+.dark {
+  /* Dark theme background palette */
+  --ue-home-bg-start: #0d0f0e;
+  --ue-home-bg-mid: #0e1411;
+  --ue-home-bg-end: #0d0f0e;
+  --ue-home-accent-1: rgba(24, 160, 88, 0.16);
+  --ue-home-accent-2: rgba(54, 173, 106, 0.12);
+  --ue-home-bg-image: url("./assets/ue-hero-bg.svg");
+  /* Dark overlay — let image show through while keeping contrast */
+  --ue-home-overlay-top: rgba(10, 12, 11, 0.48);
+  --ue-home-overlay-mid: rgba(12, 14, 13, 0.46);
+  --ue-home-overlay-bottom: rgba(10, 12, 11, 0.54);
+
+  /* Glass tokens (dark) */
+  --ue-glass-bg: rgba(17, 17, 19, 0.35);
+  --ue-glass-border: rgba(255, 255, 255, 0.16);
+  --ue-glass-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 4px 14px rgba(0,0,0,0.25);
+  --ue-glass-highlight: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+}
+
+.VPHome {
+  /* Layered: accents + semi-transparent overlay + actual image at the bottom */
+  background-image:
+    radial-gradient(1200px 520px at 0% -10%, var(--ue-home-accent-1), transparent 60%),
+    radial-gradient(1000px 420px at 100% -10%, var(--ue-home-accent-2), transparent 60%),
+    linear-gradient(180deg, var(--ue-home-overlay-top) 0%, var(--ue-home-overlay-mid) 30%, var(--ue-home-overlay-bottom) 100%),
+    var(--ue-home-bg-image);
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size: auto, auto, auto, cover;
+  background-position: 0 0, 100% 0, 0 0, center;
+  /* Blend accents softly with image */
+  background-blend-mode: soft-light, soft-light, normal, normal;
+  /* Ensure the visual shows even on small content */
+  min-height: 100vh;
+}
+
+/* ---------------------------------------------
+   Liquid Glass blocks (Hero + Features)
+   ------------------------------------------- */
+.VPHome .VPHero { position: relative; }
+
+/* Inner hero container (selector兼容不同版本VitePress结构) */
+.VPHome .VPHero .container,
+.VPHome .VPHero .main,
+.VPHome .VPHero > div {
+  position: relative;
+  border-radius: 20px;
+  padding: 24px 28px;
+  margin-inline: auto;
+  max-width: 980px;
+  background: var(--ue-glass-bg);
+  border: 1px solid var(--ue-glass-border);
+  box-shadow: var(--ue-glass-shadow);
+  backdrop-filter: blur(var(--ue-glass-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--ue-glass-blur)) saturate(140%);
+  overflow: hidden;
+}
+
+/* Subtle highlight sheen */
+.VPHome .VPHero .container::before,
+.VPHome .VPHero .main::before,
+.VPHome .VPHero > div::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--ue-glass-highlight);
+  pointer-events: none;
+}
+
+/* Features 卡片玻璃风（当你启用 features 时生效） */
+.VPHome .VPFeatures .item { border-radius: 16px; overflow: hidden; }
+.VPHome .VPFeatures .item .box,
+.VPHome .VPFeatures .item .VPFeature {
+  background: var(--ue-glass-bg);
+  border: 1px solid var(--ue-glass-border);
+  box-shadow: var(--ue-glass-shadow);
+  backdrop-filter: blur(calc(var(--ue-glass-blur) - 4px)) saturate(140%);
+  -webkit-backdrop-filter: blur(calc(var(--ue-glass-blur) - 4px)) saturate(140%);
+}
+
+/* Buttons 玻璃风以匹配 logo 的液态玻璃质感 */
+.VPHome .VPHero .actions .VPButton {
+  background: rgba(255, 255, 255, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+}
+.VPHome .VPHero .actions .VPButton.brand {
+  background: linear-gradient(180deg, rgba(24,160,88,0.35), rgba(24,160,88,0.18));
+  border-color: rgba(24,160,88,0.45);
+  box-shadow: 0 6px 18px rgba(24,160,88,0.25);
+}
