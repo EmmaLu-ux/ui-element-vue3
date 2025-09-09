@@ -60,6 +60,7 @@ export default defineConfig({
             { text: "Modal 对话框", link: "/components/modal" },
             { text: "ModalBox 确认弹窗", link: "/components/modalBox" },
             { text: "Switch 开关", link: "/components/switch" },
+            { text: "Drawer 抽屉", link: "/components/drawer" },
           ],
         },
       ],
