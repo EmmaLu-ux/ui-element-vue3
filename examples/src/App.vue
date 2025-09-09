@@ -39,7 +39,8 @@
 // }
 
 // import MaskExamp from "./components/MaskExamp.vue"
-import ModalBoxExamp from "./components/ModalBoxExamp.vue"
+// import ModalBoxExamp from "./components/ModalBoxExamp.vue"
+import DrawerExamp from "./components/DrawerExamp.vue"
 </script>
 
 <template>
@@ -58,7 +59,8 @@ import ModalBoxExamp from "./components/ModalBoxExamp.vue"
   <!-- <ue-button @click="test">消息提示</ue-button> -->
 
   <!-- <MaskExamp></MaskExamp> -->
-  <ModalBoxExamp></ModalBoxExamp>
+  <!-- <ModalBoxExamp></ModalBoxExamp> -->
+  <DrawerExamp></DrawerExamp>
 </template>
 
 <style scoped></style>

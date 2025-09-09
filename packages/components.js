@@ -12,6 +12,7 @@ import { UeForm, UeFormItem } from "./components/form/index.js"
 import { UeMessage } from "./components/message/index.js"
 import { UeModal } from "./components/modal/index.js"
 import { UeModalBox } from "./components/modalBox/index.js"
+import { UeDrawer } from "./components/drawer/index.js"
 
 export default [
     UeButton,
@@ -34,5 +35,6 @@ export default [
     UeFormItem,
     UeMessage,
     UeModal,
-    UeModalBox
+    UeModalBox,
+    UeDrawer
 ]
