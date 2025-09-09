@@ -43,3 +43,35 @@
     @include set-component-var("modal-box", modalBoxVars($type), "type");
   }
 }
+
+.a-message-box-enter-from,
+.a-message-box-leave-to {
+  opacity: 0;
+}
+.a-message-box-enter-active .a-message-box {
+  animation: dialogFadeIn 0.2s;
+}
+.a-message-box-leave-active .a-message-box {
+  animation: dialogFadeOut 0.2s;
+}
+@keyframes dialogFadeIn {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes dialogFadeOut {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+}
