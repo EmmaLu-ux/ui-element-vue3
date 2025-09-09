@@ -58,6 +58,7 @@ export default defineConfig({
             { text: "Checkbox 复选框", link: "/components/checkbox" },
             { text: "Message 全局提示", link: "/components/message" },
             { text: "Modal 对话框", link: "/components/modal" },
+            { text: "ModalBox 确认弹窗", link: "/components/modalBox" },
             { text: "Switch 开关", link: "/components/switch" },
           ],
         },
