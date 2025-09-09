@@ -22,28 +22,28 @@ export default defineConfig({
     nav: [
       { text: "Home", link: "/" },
       // { text: "Examples", link: "/markdown-examples" },
-      { text: "指南", link: "/guide/" },
+      // { text: "指南", link: "/guide/" },
       { text: "组件", link: "/components/" },
     ],
 
     sidebar: {
-      "/guide/": [
-        {
-          text: "基础",
-          items: [
-            { text: "安装", link: "/guide/install" },
-            { text: "快速上手", link: "/guide/quickstart" },
-          ],
-        },
-        {
-          text: "进阶",
-          items: [
-            { text: "国际化", link: "/guide/lang" },
-            { text: "主题", link: "/guide/theme" },
-            { text: "暗黑模式", link: "/guide/diablo" },
-          ],
-        },
-      ],
+      // "/guide/": [
+      //   {
+      //     text: "基础",
+      //     items: [
+      //       { text: "安装", link: "/guide/install" },
+      //       { text: "快速上手", link: "/guide/quickstart" },
+      //     ],
+      //   },
+      //   {
+      //     text: "进阶",
+      //     items: [
+      //       { text: "国际化", link: "/guide/lang" },
+      //       { text: "主题", link: "/guide/theme" },
+      //       { text: "暗黑模式", link: "/guide/diablo" },
+      //     ],
+      //   },
+      // ],
       "/components/": [
         {
           text: "基础",
