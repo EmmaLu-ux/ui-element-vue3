@@ -40,7 +40,8 @@
 
 // import MaskExamp from "./components/MaskExamp.vue"
 // import ModalBoxExamp from "./components/ModalBoxExamp.vue"
-import DrawerExamp from "./components/DrawerExamp.vue"
+// import DrawerExamp from "./components/DrawerExamp.vue"
+import TooltipExamp from "./components/TooltipExamp.vue"
 </script>
 
 <template>
@@ -60,7 +61,8 @@ import DrawerExamp from "./components/DrawerExamp.vue"
 
   <!-- <MaskExamp></MaskExamp> -->
   <!-- <ModalBoxExamp></ModalBoxExamp> -->
-  <DrawerExamp></DrawerExamp>
+  <!-- <DrawerExamp></DrawerExamp> -->
+  <TooltipExamp></TooltipExamp>
 </template>
 
 <style scoped></style>

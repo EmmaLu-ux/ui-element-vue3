@@ -1,0 +1,1 @@
+export const POPPER_INJECTION_KEY = Symbol('popper_injection_key')

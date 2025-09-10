@@ -11,6 +11,8 @@
     @change="on('change')"
     @keydown="on('keydown')"
     @keyup="on('keyup')"
+    @mouseenter="on('mouseenter')"
+    @mouseleave="on('mouseleave')"
   />
 </template>
 
@@ -25,4 +27,3 @@ const on = (name) => {
   timer = setTimeout(() => UeMessage.info(`event: ${name}`), 0)
 }
 </script>
-

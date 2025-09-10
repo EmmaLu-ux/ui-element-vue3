@@ -826,33 +826,52 @@ useResizeObserver(messageRef, entries => {
 
 ---
 
-#### Modal组件
+#### Popper、Tooltip、Popover 三个组件之间的关系
 
-`Modal`组件位于遮罩层`Mask`组件上面，因此要实现`Modal`组件，可以将`Modal`组件作为**插槽内容**插入到`Mask`组件内。然后要注意`z-index`的使用，让`Modal`组件显示在`Mask`组件上层。
+Popover 包含 Tooltip，Tooltip 包含 Popper、TooltipTrigger 和 TooltipContent，Popper 包含的是一个 slot。
 
-`teleport`组件：允许开发人员将`teleport`组件包裹的子级组件“传送”给指定的 DOM 元素，用于确保被传送的元素不受父元素的样式或层叠上下文的错误影响。
+```javascript
+Popover：
+	Tooltip：
+		Popper：TooltipTrigger、TooltipContent
 
-```html
-<teleport to="body">
-	<transition>
-  	<ue-mask>
-    	<div>
-        ...
-      </div>
-    </ue-mask>
-  </transition>
-</teleport>
 ```
 
-> 说明：
+#### Popper 组件
+
+`Popper` 是 Tooltip、Popover 等悬浮类组件的“底座”。它不负责具体 UI，而是统一建立 Popper 上下文，供子组件协同使用。纯粹做上下文容器。创建并提供以下引用与状态：触发器元素 `triggerRef`、参考元素 `referenceRef`、内容元素 `contentRef`、Popper 实例 `popperInstanceRef`，以及计算属性的 `role`。
+
+> `inheritAttrs: false` ：防止无关属性落到根元素上。
+
+使用：<ue-popper> 包住触发区和内容区，子组件通过**注入（ provide 和 inject ）**拿到这些引用，完成定位、显示隐藏与箭头渲染等。
+
+
+
+
+
+#### Tooltip 组件
+
+
+
+
+
+#### Popover 组件
+
+
+
+> [!IMPORTANT]
 >
-> 虽然 <teleport> 标签写在 Modal 组件的模板里，但其子内容（过渡 + 遮罩 + 弹窗）最终会被渲染并附加到 `document.body` 下，而不受父组件的定位、溢出裁剪、`z-index` 堆叠上下文影响。
+> @poppers/core 是实现 Select、Tooltip、Popper、Cascader、TimePicker 等组件的核心库。
 
-beforeChange异步函数
 
----
 
-#### Modal-Box 组件
+
+
+
+
+
+
+
 
 
 

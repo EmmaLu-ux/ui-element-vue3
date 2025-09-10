@@ -13,6 +13,8 @@ import { UeMessage } from "./components/message/index.js"
 import { UeModal } from "./components/modal/index.js"
 import { UeModalBox } from "./components/modalBox/index.js"
 import { UeDrawer } from "./components/drawer/index.js"
+import { UeTooltip } from "./components/tooltip/index.js"
+import { UePopper } from "./components/popper/index.js"
 
 export default [
     UeButton,
@@ -36,5 +38,7 @@ export default [
     UeMessage,
     UeModal,
     UeModalBox,
-    UeDrawer
+    UeDrawer,
+    UeTooltip,
+    UePopper
 ]
