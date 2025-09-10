@@ -1,1 +1,86 @@
 @use "./common/mixins.scss" as *;
+
+@include b(tooltip) {
+  box-sizing: border-box;
+  display: inline-block;
+  $arrow-selector: #{& + "__arrow"};
+
+  @include e(trigger) {
+    position: relative;
+  }
+  @include e(content) {
+    position: absolute;
+    border-radius: 6px;
+    z-index: 2000;
+    padding: 5px 11px;
+    font-size: 12px;
+    line-height: 20px;
+    min-width: 10px;
+    //   visibility: hidden;
+    color: #fff;
+    $placements: (
+      "top": "bottom",
+      "bottom": "top",
+      "left": "right",
+      "right": "left",
+    );
+    @each $placement, $opposite in $placements {
+      //   @debug $arrow-selector;
+      //   @debug $placement;
+      //   @debug $opposite;
+      &[data-popper-placement^="#{$placement}"] > #{$arrow-selector} {
+        #{$opposite}: -5px;
+
+        &::before {
+          @if $placement == top {
+            border-bottom-right-radius: 2px;
+          }
+          @if $placement == bottom {
+            // #{$opposite}: -30px;
+            border-top-left-radius: 2px;
+          }
+          @if $placement == left {
+            // #{$opposite}: -102px;
+            border-top-right-radius: 2px;
+          }
+          @if $placement == right {
+            // #{$opposite}: -16px;
+            border-bottom-left-radius: 2px;
+          }
+        }
+      }
+    }
+    @each $placement,
+      $adjacency
+        in ("top": "left", "bottom": "right", "left": "bottom", "right": "top")
+    {
+      //   @debug $adjacency;
+      &[data-popper-placement^="#{$placement}"] > {
+        #{$arrow-selector}::before {
+          border-#{$placement}-color: transparent !important;
+          border-#{$adjacency}-color: transparent !important;
+        }
+      }
+    }
+  }
+  @include m(theme, "light") {
+    background-color: #fff;
+  }
+  @include m(theme, "dark") {
+    background-color: rgba(0, 0, 0, 0.85);
+  }
+  @include e(arrow) {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    &::before {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      background: rgba(0, 0, 0, 0.85);
+      box-sizing: border-box;
+      content: "";
+      transform: rotate(45deg);
+    }
+  }
+}

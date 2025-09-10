@@ -839,19 +839,21 @@ Popover：
 
 #### Popper 组件
 
-`Popper` 是 Tooltip、Popover 等悬浮类组件的“底座”。它不负责具体 UI，而是统一建立 Popper 上下文，供子组件协同使用。纯粹做上下文容器。创建并提供以下引用与状态：触发器元素 `triggerRef`、参考元素 `referenceRef`、内容元素 `contentRef`、Popper 实例 `popperInstanceRef`，以及计算属性的 `role`。
+`Popper` 是 Tooltip、Popover 等悬浮类组件的“底座”。它不负责具体 UI，而是**统一建立 Popper 上下文，供子组件协同使用**。纯粹做上下文容器。创建并提供以下引用与状态：触发器元素 `triggerRef`、参考元素 `referenceRef`、内容元素 `contentRef`、Popper 实例 `popperInstanceRef`，以及计算属性的 `role`。
 
 > `inheritAttrs: false` ：防止无关属性落到根元素上。
 
 使用：<ue-popper> 包住触发区和内容区，子组件通过**注入（ provide 和 inject ）**拿到这些引用，完成定位、显示隐藏与箭头渲染等。
 
-
+> `v-bind="$attrs"`：把“传给当前组件但未被 props/emits 声明”的所有属性与事件统一透传到该元素上。相当于在该元素上“展开”这些属性。
 
 
 
 #### Tooltip 组件
 
 
+
+触发方式：`trigger="hover|click|focus|contextmenu"`
 
 
 
