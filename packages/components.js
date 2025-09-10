@@ -15,6 +15,7 @@ import { UeModalBox } from "./components/modalBox/index.js"
 import { UeDrawer } from "./components/drawer/index.js"
 import { UeTooltip } from "./components/tooltip/index.js"
 import { UePopper } from "./components/popper/index.js"
+import { UeSlotEle } from "./components/slot/index.js"
 
 export default [
     UeButton,
@@ -40,5 +41,6 @@ export default [
     UeModalBox,
     UeDrawer,
     UeTooltip,
-    UePopper
+    UePopper,
+    UeSlotEle
 ]
