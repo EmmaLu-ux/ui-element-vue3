@@ -826,7 +826,69 @@ useResizeObserver(messageRef, entries => {
 
 ---
 
-#### Popper、Tooltip、Popover 三个组件之间的关系
+#### Tooltip 组件
+
+Tooltip 组件实现逻辑：根元素包含触发区域和内容区域，触发区域一般是文本、按钮等元素，内容区域就是弹出的 Tooltip 小气泡。内容区域内包含两个元素：插槽和箭头。插槽是用户自定义的弹出内容，箭头是体现该触发区的解读小气泡。箭头的定位采用`@popperjs/core`库，SCSS 仅负责外观（圆角、大小）。
+
+```html
+<div :class="[ns.b()]" ref="tooltipRef" v-on="outerEvents">
+    <!-- 触发区域 -->
+    <div :class="[ns.e('trigger')]" ref="triggerRef" v-on="events">
+      <slot />
+    </div>
+    <!-- 展示区域 -->
+    <div
+      v-show="isOpen"
+      :class="[ns.e('content'), ns.m('theme', theme)]"
+      :style="contentStyle"
+      ref="contentRef">
+      <slot name="content">{{ content }}</slot>
+      <!-- NOTE: Popper 将自动拾取 data-popper-arrow 标记的元素并将其定位，伪类相对于.arrow元素的定位 -->
+      <div :class="[ns.e('arrow')]" data-popper-arrow></div>
+    </div>
+  </div>
+```
+
+触发方式：`trigger="hover|click|focus"`
+
+**问题1：为什么`top-start`情况下，`arrow`靠右显示呢？**
+
+解答：这是`@popperjs/core`默认的正常现象。Popper 的 arrow 会沿“副轴”对齐到触发元素的中心，而不是对齐到气泡自身的中心或边缘。`top-start` 表示上方且左侧对齐，若触发元素比 tooltip 宽，箭头为了“指向触发元素中心”就会在 tooltip 内显得更靠右。
+
+> 副轴概念的理解：
+>
+> - placement 为 top/bottom: 主轴=y（上下），副轴=x（左右）。
+> - placement 为 left/right: 主轴=x（左右），副轴=y（上下）
+
+> [!IMPORTANT]
+>
+> `@poppers/core` 是实现 Select、Tooltip、Popover、Popconfirm、Cascader、TimePicker 等组件的核心库。
+
+---
+
+#### Popover 组件
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+#### Popper、Tooltip、Popover、Popconfirm 三个组件之间的关系
 
 Popover 包含 Tooltip，Tooltip 包含 Popper、TooltipTrigger 和 TooltipContent，Popper 包含的是一个 slot。
 
@@ -834,10 +896,11 @@ Popover 包含 Tooltip，Tooltip 包含 Popper、TooltipTrigger 和 TooltipConte
 Popover：
 	Tooltip：
 		Popper：TooltipTrigger、TooltipContent
-
 ```
 
-#### Popper 组件
+---
+
+#### *Popper 组件
 
 `Popper` 是 Tooltip、Popover 等悬浮类组件的“底座”。它不负责具体 UI，而是**统一建立 Popper 上下文，供子组件协同使用**。纯粹做上下文容器。创建并提供以下引用与状态：触发器元素 `triggerRef`、参考元素 `referenceRef`、内容元素 `contentRef`、Popper 实例 `popperInstanceRef`，以及计算属性的 `role`。
 
@@ -846,26 +909,6 @@ Popover：
 使用：<ue-popper> 包住触发区和内容区，子组件通过**注入（ provide 和 inject ）**拿到这些引用，完成定位、显示隐藏与箭头渲染等。
 
 > `v-bind="$attrs"`：把“传给当前组件但未被 props/emits 声明”的所有属性与事件统一透传到该元素上。相当于在该元素上“展开”这些属性。
-
-
-
-#### Tooltip 组件
-
-
-
-触发方式：`trigger="hover|click|focus|contextmenu"`
-
-
-
-#### Popover 组件
-
-
-
-> [!IMPORTANT]
->
-> @poppers/core 是实现 Select、Tooltip、Popper、Cascader、TimePicker 等组件的核心库。
-
-
 
 
 
