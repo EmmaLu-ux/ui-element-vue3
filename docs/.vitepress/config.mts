@@ -62,6 +62,7 @@ export default defineConfig({
             { text: "Container 容器", link: "/components/container" },
             { text: "Checkbox 复选框", link: "/components/checkbox" },
             { text: "Message 全局提示", link: "/components/message" },
+            { text: "Tooltip 文字提示", link: "/components/tooltip" },
             { text: "Modal 对话框", link: "/components/modal" },
             { text: "ModalBox 确认弹窗", link: "/components/modalBox" },
             { text: "Switch 开关", link: "/components/switch" },
