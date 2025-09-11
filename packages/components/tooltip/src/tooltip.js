@@ -12,7 +12,16 @@ export const tooltipProps = {
     },
     theme: {
         type: String,
-        default: 'dark', // light/dark
+        default: 'dark', // light/dark/...
+    },
+    // 自定义主题颜色（可选）：优先级高于内置 light/dark
+    bgColor: {
+        type: String,
+        default: '', // 自定义背景色（如 '#333'、'rgba(0,0,0,.85)'、'var(--my-color)）
+    },
+    textColor: {
+        type: String,
+        default: '', // 自定义文字颜色
     },
     // 手动控制
     manual: {

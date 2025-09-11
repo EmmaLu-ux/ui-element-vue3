@@ -1,24 +1,79 @@
 <template>
-  <ue-tooltip content="这是我的提示内容" placement="top">
+  <ue-tooltip content="909090" placement="top">
     <ue-button>button</ue-button>
   </ue-tooltip>
 
-  <ue-tooltip content="这是我的提示内容" placement="bottom">
+  <ue-tooltip content="88888" placement="bottom">
     <ue-button>button</ue-button>
   </ue-tooltip>
 
-  <ue-tooltip content="这是我的提示内容" placement="left">
+  <ue-tooltip content="dddddd" placement="left">
     <ue-button>button</ue-button>
   </ue-tooltip>
 
-  <ue-tooltip content="这是我的提示内容" placement="right">
+  <ue-tooltip content="这是我" placement="right">
     <ue-button>button</ue-button>
   </ue-tooltip>
 
-  <!-- 调试信息：展示实际的 placement -->
-  <!-- 打开浏览器控制台，可在 hover 后运行：
-       document.querySelector('.ue-tooltip__content')?.getAttribute('data-popper-placement')
-  -->
+  <ue-tooltip content="这是我" placement="right" trigger="click">
+    <ue-button>button</ue-button>
+  </ue-tooltip>
+
+  <hr />
+
+  <ue-tooltip content="这是我" placement="top-start" trigger="hover">
+    <ue-button>button</ue-button>
+  </ue-tooltip>
+
+  <ue-tooltip content="这是我" placement="top-end" trigger="hover">
+    <ue-button>button</ue-button>
+  </ue-tooltip>
+
+  <ue-tooltip content="这是我" placement="bottom-start" trigger="hover">
+    <ue-button>button</ue-button>
+  </ue-tooltip>
+
+  <ue-tooltip content="这是我" placement="bottom-end" trigger="hover">
+    <ue-button>button</ue-button>
+  </ue-tooltip>
+
+  <hr />
+
+  <ue-tooltip content="这是我" placement="right-start" trigger="hover">
+    <ue-button>button</ue-button>
+  </ue-tooltip>
+
+  <ue-tooltip content="这是我" placement="right-end" trigger="hover">
+    <ue-button>button</ue-button>
+  </ue-tooltip>
+
+  <ue-tooltip content="这是我" placement="left-start" trigger="hover">
+    <ue-button>button</ue-button>
+  </ue-tooltip>
+
+  <ue-tooltip content="这是我" placement="left-end" trigger="hover">
+    <ue-button>button</ue-button>
+  </ue-tooltip>
+
+  <hr />
+
+  <ue-tooltip
+    content="这是我"
+    placement="right-start"
+    trigger="hover"
+    bgColor="red"
+    textColor="white">
+    <ue-button>button</ue-button>
+  </ue-tooltip>
+
+  <ue-tooltip
+    content="这是我"
+    placement="right-start"
+    trigger="hover"
+    bgColor="#2db7f5"
+    textColor="#fff">
+    <ue-button>button</ue-button>
+  </ue-tooltip>
 </template>
 
 <script setup></script>
