@@ -32,9 +32,10 @@ export const tooltipProps = {
         type: String,
         default: "",
     },
-    // popper配置项
-    popperOptions: {
-        type: Object,
-        default: () => ({}),
+    // 偏移量：对应 Popper `modifiers: [{ name: 'offset', options: { offset } }]`
+    // 支持传入数字（主轴距离，等同于 [0, value]）或元组 [skidding, distance]
+    offset: {
+        type: Number,
+        default: 15,
     },
 }

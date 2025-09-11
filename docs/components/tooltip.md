@@ -70,9 +70,9 @@ tooltip/manual
 
 :::
 
-## Popper 选项
+## 偏移量
 
-::: demo 通过 `popperOptions` 透传 Popper.js 配置，例如自定义偏移量。
+::: demo 通过 `offset` 设置 Popper 偏移量（数字等同于 `[0, value]`。
 
 ```html
 tooltip/popper
@@ -94,16 +94,16 @@ tooltip/events
 
 <div class="md-cols" style="--col-1:160px; --col-2:160px; --col-3:120px; --col-4:auto;">
 
-| 属性名         | 类型                    | 默认值    | 说明                                                                 |
-| -------------- | ----------------------- | --------- | -------------------------------------------------------------------- |
-| `trigger`      | `string`                | `hover`   | 触发方式：`hover` / `click`                                          |
-| `placement`    | `string`                | `bottom`  | 气泡位置：`top`/`bottom`/`left`/`right` 及 `*-start`/`*-end`         |
-| `theme`        | `string`                | `dark`    | 主题：`light` / `dark`                                               |
-| `bgColor`      | `string`                | `''`      | 自定义背景色（优先级高于 `theme`）                                   |
-| `textColor`    | `string`                | `''`      | 自定义文字颜色                                                       |
-| `manual`       | `boolean`               | `false`   | 手动模式（不响应触发方式，由方法控制）                               |
-| `content`      | `string`                | `''`      | 简单内容字符串（也可使用 `#content` 插槽）                            |
-| `popperOptions`| `object`                | `{}`      | 透传 Popper.js 配置，如 `offset`/`flip`/`preventOverflow` 等         |
+| 属性名      | 类型                         | 默认值   | 说明                                                           |
+| ----------- | ---------------------------- | -------- | -------------------------------------------------------------- |
+| `trigger`   | `string`                     | `hover`  | 触发方式：`hover` / `click`                                    |
+| `placement` | `string`                     | `bottom` | 气泡位置：`top`/`bottom`/`left`/`right` 及 `*-start`/`*-end`   |
+| `theme`     | `string`                     | `dark`   | 主题：`light` / `dark`                                         |
+| `bgColor`   | `string`                     | `''`     | 自定义背景色（优先级高于 `theme`）                             |
+| `textColor` | `string`                     | `''`     | 自定义文字颜色                                                 |
+| `manual`    | `boolean`                    | `false`  | 手动模式（不响应触发方式，由方法控制）                         |
+| `content`   | `string`                     | `''`     | 简单内容字符串（也可使用 `#content` 插槽）                     |
+| `offset`    | `number \| [number, number]` | `15`     | 偏移量。数字等同于 `[0, value]`，也可传 `[skidding, distance]` |
 
 </div>
 
@@ -111,16 +111,22 @@ tooltip/events
 
 <div class="md-cols" style="--col-1:180px; --col-2:220px; --col-3:auto;">
 
-| 事件名            | 回调参数         | 说明               |
-| ----------------- | ---------------- | ------------------ |
-| `visible-change`  | `(visible: boolean)` | 显示状态变化时触发 |
+| 事件名           | 回调参数             | 说明               |
+| ---------------- | -------------------- | ------------------ |
+| `visible-change` | `(visible: boolean)` | 显示状态变化时触发 |
 
 </div>
 
+## 方法
+
+| 方法名 | 说明         |
+| ------ | ------------ |
+| `show` | 显示 tooltip |
+| `hide` | 隐藏 tooltip |
+
 ## 插槽
 
-| 插槽名     | 说明                 |
-| ---------- | -------------------- |
-| `default`  | 触发区域的内容       |
-| `content`  | 气泡内容（富文本/组件） |
-
+| 插槽名    | 说明                    |
+| --------- | ----------------------- |
+| `default` | 触发区域的内容          |
+| `content` | 气泡内容（富文本/组件） |

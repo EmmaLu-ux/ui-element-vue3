@@ -1,19 +1,22 @@
 <template>
-  <div :class="[ns.b()]" ref="tooltipRef" v-on="outerEvents">
+  <div :class="[ns.b()]" ref="tooltipRef">
     <!-- 触发区域 -->
     <div :class="[ns.e('trigger')]" ref="triggerRef" v-on="events">
       <slot />
     </div>
     <!-- 展示区域 -->
-    <div
-      v-show="isOpen"
-      :class="[ns.e('content'), ns.m('theme', theme)]"
-      :style="contentStyle"
-      ref="contentRef">
-      <slot name="content">{{ content }}</slot>
-      <!-- NOTE: Popper 将自动拾取 data-popper-arrow 标记的元素并将其定位，伪类相对于.arrow元素的定位 -->
-      <div :class="[ns.e('arrow')]" data-popper-arrow></div>
-    </div>
+    <teleport to="body">
+      <div
+        v-if="isOpen"
+        :class="[ns.e('content'), ns.m('theme', theme)]"
+        :style="contentStyle"
+        ref="contentRef"
+        v-on="contentEvents">
+        <slot name="content">{{ content }}</slot>
+        <!-- NOTE: Popper 将自动拾取 data-popper-arrow 标记的元素并将其定位，伪类相对于.arrow元素的定位 -->
+        <div :class="[ns.e('arrow')]" data-popper-arrow></div>
+      </div>
+    </teleport>
   </div>
 </template>
 
@@ -34,12 +37,9 @@ const contentRef = ref(null)
 const props = defineProps(tooltipProps)
 const emits = defineEmits(["visible-change"])
 
-let events = ref({}) // 多种鼠标事件
-let outerEvents = ref({}) // tooltip出现后，鼠标移动到tooltip上，tooltip也不会消失。鼠标离开整个Tooltip区域才关闭提示
+let events = ref({}) // 触发器上的事件集合
+let contentEvents = ref({}) // 内容层上的事件集合（Teleport 到 body 后需要单独监听）
 let popperInstance = null
-// const props = defineProps(tooltipProps)
-
-// const popperRef = ref(null)
 const popperOptions = computed(() => {
   const base = {
     strategy: "fixed", // 定位策略，默认是 absolute
@@ -47,7 +47,9 @@ const popperOptions = computed(() => {
       {
         name: "offset",
         options: {
-          offset: [0, 15],
+          // 将 props.offset 映射到 Popper 的 offset 选项
+          // 数字等同于 [0, 数值]；数组则按 [skidding, distance] 透传
+          offset: [0, props.offset],
         },
       },
       {
@@ -102,7 +104,6 @@ const popperOptions = computed(() => {
   }
   return {
     ...base,
-    ...(props.popperOptions || {}),
     placement: props.placement,
   }
 })
@@ -117,16 +118,17 @@ const contentStyle = computed(() => {
 
 const tooltipOpen = () => {
   isOpen.value = true
-  //   popperInstance.update()
   emits("visible-change", true)
 }
 const tooltipClose = () => {
   isOpen.value = false
   emits("visible-change", false)
+  // 关闭时确保移除 outside 监听（若为 click 模式已开启）
+  unbindOutside()
 }
 // 通用外部点击关闭（捕获阶段）
 const { start: bindOutside, stop: unbindOutside } = useOutsideClick(
-  () => tooltipRef.value,
+  () => [triggerRef.value, contentRef.value],
   () => tooltipClose(),
   { capture: true }
 )
@@ -141,13 +143,30 @@ const handlePopper = e => {
     bindOutside()
   }
 }
+// hover 从触发器或内容移出时的处理：仅当真正离开两者之外才关闭
+const handleHoverLeave = e => {
+  const toEl = e.relatedTarget
+  const t = triggerRef.value
+  const c = contentRef.value
+  if (toEl && (t?.contains(toEl) || c?.contains(toEl))) return
+  tooltipClose()
+}
+
 const attachEvents = () => {
+  events.value = {}
+  contentEvents.value = {}
   if (props.trigger === "hover") {
+    // 触发器事件
     events.value["mouseenter"] = tooltipOpen
     events.value["focusin"] = tooltipOpen
     events.value["focusout"] = tooltipClose
-    outerEvents.value["mouseleave"] = tooltipClose
+    events.value["mouseleave"] = handleHoverLeave
+
+    // 内容层事件（Teleport 到 body 后需要）
+    contentEvents.value["mouseenter"] = tooltipOpen
+    contentEvents.value["mouseleave"] = handleHoverLeave
   } else {
+    // 点击触发
     events.value["click"] = handlePopper
   }
 }
@@ -160,7 +179,7 @@ watch(
   isManual => {
     if (isManual) {
       events.value = {}
-      outerEvents.value = {}
+      contentEvents.value = {}
     } else {
       attachEvents()
     }
@@ -171,7 +190,7 @@ watch(
   (newVal, oldVal) => {
     if (newVal !== oldVal) {
       events.value = {}
-      outerEvents.value = {}
+      contentEvents.value = {}
       attachEvents()
     }
   }
@@ -213,13 +232,13 @@ onUnmounted(() => {
 //   }
 // )
 
-// // React to popper options changes while open
+// // React to offset changes while open
 // watch(
-//   () => props.popperOptions,
+//   () => props.offset,
 //   () => {
 //     if (popperInstance) {
-//       popperInstance.setOptions({ ...popperOptions.value }) // 更新popper实例的options配置
-//       popperInstance.update() // 异步更新popper实例，返回一个promise，用于频繁更新
+//       popperInstance.setOptions({ ...popperOptions.value })
+//       popperInstance.update()
 //     }
 //   },
 //   { deep: true }

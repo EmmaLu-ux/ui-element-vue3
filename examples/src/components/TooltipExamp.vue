@@ -74,6 +74,12 @@
     textColor="#fff">
     <ue-button>button</ue-button>
   </ue-tooltip>
+
+  <hr />
+
+  <ue-tooltip content="prompt text" trigger="click">
+    Tooltip will show when mouse enter.
+  </ue-tooltip>
 </template>
 
 <script setup></script>

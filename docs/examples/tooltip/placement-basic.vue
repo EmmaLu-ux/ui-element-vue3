@@ -1,5 +1,5 @@
 <template>
-  <div style="display:flex; gap: 12px; flex-wrap: wrap;">
+  <div style="display: flex; gap: 12px; flex-wrap: wrap">
     <ue-tooltip placement="top" content="Top">
       <ue-button>Top</ue-button>
     </ue-tooltip>
@@ -17,7 +17,3 @@
     </ue-tooltip>
   </div>
 </template>
-
-<script setup>
-</script>
-
